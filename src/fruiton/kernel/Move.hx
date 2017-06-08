@@ -1,5 +1,6 @@
-package fruiton.kernel;
+package src.fruiton.kernel;
 
+import src.fruiton.kernel.Position;
 
 class Move
 {

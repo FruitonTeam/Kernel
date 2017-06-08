@@ -1,5 +1,4 @@
-package fruiton.kernel;
-
+package src.fruiton.kernel;
 
 class Position 
 {
