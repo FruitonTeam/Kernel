@@ -1,4 +1,4 @@
-package;
+package fruiton.kernel;
 
 class GameState 
 {

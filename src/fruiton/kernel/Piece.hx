@@ -1,4 +1,5 @@
-package;
+package fruiton.kernel;
+
 
 class Piece
 {

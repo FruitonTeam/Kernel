@@ -1,9 +1,6 @@
-package;
+package fruiton.kernel;
 
-/**
- * ...
- * @author Jozef Lelic
- */
+
 class Position 
 {
 	var x:Int;
