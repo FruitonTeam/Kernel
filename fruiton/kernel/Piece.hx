@@ -1,7 +1,7 @@
-package;
+package fruiton.kernel;
 
-class Piece
-{
+class Piece {
+
 	var id:Int;
 	var pieceId:String;
 
@@ -14,8 +14,7 @@ class Piece
 
 	public var position:Position;
 
-	public function new(id:Int, pieceId:String, position:Position)
-	{
+	public function new(id:Int, pieceId:String, position:Position) {
 		this.id = id;
 		this.pieceId = pieceId;
 		this.position = position;
@@ -23,8 +22,7 @@ class Piece
 		this.baseAttack = this.currentAttack = 3;
 	}
 
-	public function toString():String
-	{
+	public function toString():String {
 		return id + ":" + pieceId + "@" + position;
 	}
 }
