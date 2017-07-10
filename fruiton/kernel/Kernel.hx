@@ -1,19 +1,58 @@
 package fruiton.kernel;
 
-class Kernel {
+import fruiton.kernel.exceptions.InvalidActionException;
+import haxe.ds.GenericStack;
 
-	public static function nextState(currentState:GameState, move:Move):GameState {
-		currentState.pieces[move.id].position.moveBy(move.positionChange);
-		return currentState;
+class Kernel implements IKernel {
+
+	var currentState:GameState;
+	var eventBuffer:Array<Event>;
+	var actions:GenericStack<Action>;
+
+	public function new() {
+		this.currentState = new GameState();
+		this.actions = new GenericStack<Action>();
 	}
 
-	public static function generateState():GameState {
-		return new GameState([
-			new Piece(0, "Jablko", new Position(0, 0)),
-			new Piece(1, "Hruska", new Position(1, 0)),
-			new Piece(2, "Slivka", new Position(0, 1)),
-			new Piece(3, "Jablko", new Position(8, 8)),
-			new Piece(4, "Ananas", new Position(5, 5))
-		]);
+	public function getAllValidActions():Array<Action> {
+		return [];
+	}
+
+    public function performAction(userAction:Action):Array<Event> {
+		if (userAction == null) {
+			throw new InvalidActionException("Null action");
+		}
+		eventBuffer = [];
+		actions.add(userAction);
+
+		while (!actions.isEmpty()) {
+			// Clone game state for transaction like execution
+			var newState:GameState = currentState.clone();
+			
+			var currentAction:Action = actions.pop();
+			var success:Bool = currentAction.execute(newState);
+			if (success) {
+				currentState = newState;
+				addActions(currentAction.result.actions);
+				eventBuffer = eventBuffer.concat(currentAction.result.events);
+			} 
+			else { // !success
+				// Only user action cannot fail, other (generated) actions may fail silently
+				if (currentAction == userAction) {
+					throw new InvalidActionException(currentAction.toString());
+				}
+			}
+		}
+
+		return eventBuffer;
+	}
+
+	// ==============
+	// Helper methods
+	// ==============
+	function addActions(newActions:GenericStack<Action>) {
+		for (a in newActions) {
+			actions.add(a);
+		}
 	}
 }

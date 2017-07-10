@@ -18,5 +18,4 @@ class Position  {
 	public function toString():String {
 		return "(" + x + ", " + y + ")";
 	}
-
 }
