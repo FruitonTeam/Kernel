@@ -1,28 +1,32 @@
 package fruiton.kernel;
 
 import fruiton.kernel.exceptions.InvalidActionException;
+import fruiton.kernel.actions.Action;
 import haxe.ds.GenericStack;
+
+typedef ActionStack = GenericStack<Action>;
 
 class Kernel implements IKernel {
 
-	var currentState:GameState;
-	var eventBuffer:Array<Event>;
-	var actions:GenericStack<Action>;
+	public var currentState(default, null):GameState;
+	var eventBuffer:IKernel.Events;
+	var actions:ActionStack;
 
-	public function new() {
-		this.currentState = new GameState();
-		this.actions = new GenericStack<Action>();
+	public function new(p1:Player, p2:Player, fruitons:GameState.Fruitons) {
+		this.currentState = new GameState([p1, p2], 0, fruitons);
+		this.actions = new ActionStack();
 	}
 
-	public function getAllValidActions():Array<Action> {
+	public function getAllValidActions():IKernel.Actions {
 		return [];
 	}
 
-    public function performAction(userAction:Action):Array<Event> {
+    public function performAction(userAction:Action):IKernel.Events {
 		if (userAction == null) {
 			throw new InvalidActionException("Null action");
 		}
-		eventBuffer = [];
+		
+		eventBuffer = new IKernel.Events();
 		actions.add(userAction);
 
 		while (!actions.isEmpty()) {
@@ -39,7 +43,7 @@ class Kernel implements IKernel {
 			else { // !success
 				// Only user action cannot fail, other (generated) actions may fail silently
 				if (currentAction == userAction) {
-					throw new InvalidActionException(currentAction.toString());
+					throw new InvalidActionException(Std.string(currentAction));
 				}
 			}
 			if (currentState.winner != GameState.NONE) {
@@ -53,14 +57,14 @@ class Kernel implements IKernel {
 		return eventBuffer;
 	}
 
-	function finishGame():Array<Event> {
+	function finishGame():IKernel.Events {
 		return [];
 	}
 
 	// ==============
 	// Helper methods
 	// ==============
-	function addActions(newActions:GenericStack<Action>) {
+	function addActions(newActions:ActionStack) {
 		for (a in newActions) {
 			actions.add(a);
 		}

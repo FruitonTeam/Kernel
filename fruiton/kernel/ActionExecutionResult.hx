@@ -1,14 +1,12 @@
 package fruiton.kernel;
 
-import haxe.ds.GenericStack;
-
 class ActionExecutionResult {
 
-    public var events(default, null):Array<Event>;
-    public var actions(default, null):GenericStack<Action>;
+    public var events(default, null):IKernel.Events;
+    public var actions(default, null):Kernel.ActionStack;
 
     public function new() {
         this.events = [];
-        this.actions = new GenericStack<Action>();
+        this.actions = new Kernel.ActionStack();
     }
 }

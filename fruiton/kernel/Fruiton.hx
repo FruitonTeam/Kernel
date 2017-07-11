@@ -1,29 +1,39 @@
 package fruiton.kernel;
 
+import fruiton.kernel.actions.MoveAction;
+
 class Fruiton {
 
     public var id(default, null):Int;
+    public var position(default, null):Position;
+    public var owner(default, null):Player;
 
-    var position:Position;
-
-    public function new(id:Int) {
+    public function new(id:Int, position:Position, owner:Player) {
         this.id = id;
+        this.position = position;
+        this.owner = owner;
     }
 
     public function clone():Fruiton {
-        var newFruiton:Fruiton = new Fruiton(this.id);
-        newFruiton.position = this.position;
-
-        return newFruiton;
+        // Player is no cloned to remain the same as in GameState
+        return new Fruiton(this.id, this.position.clone(), this.owner);
     }
 
     public function onBeforeMove(action:MoveAction, state:GameState) {
         // Modify action and game state
-        trace("onBeforeMove: " + id + " Action: " + action);
+        trace("onBeforeMove Fruiton: " + id + " Action: " + action);
     }
 
     public function onAfterMove(action:MoveAction, state:GameState) {
         // Modify action and game state
-        trace("onAfterMove: " + id + " Action: " + action);
+        trace("onAfterMove Fruiton: " + id + " Action: " + action);
+    }
+
+    public function moveTo(newPosition:Position) {
+        position = newPosition;
+    }
+
+    public function toString():String {
+        return "Fruiton Id: " + id + " Position: " + Std.string(position);
     }
 }

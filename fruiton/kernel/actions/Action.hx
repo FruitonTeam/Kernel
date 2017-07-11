@@ -1,4 +1,4 @@
-package fruiton.kernel;
+package fruiton.kernel.actions;
 
 class Action {
 
