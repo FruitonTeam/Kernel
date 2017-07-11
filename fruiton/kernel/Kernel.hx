@@ -42,9 +42,19 @@ class Kernel implements IKernel {
 					throw new InvalidActionException(currentAction.toString());
 				}
 			}
+			if (currentState.winner != GameState.NONE) {
+				eventBuffer = eventBuffer.concat(finishGame());
+				break;
+			}
 		}
 
+		currentState.nextTurn();
+
 		return eventBuffer;
+	}
+
+	function finishGame():Array<Event> {
+		return [];
 	}
 
 	// ==============

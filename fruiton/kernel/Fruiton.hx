@@ -10,6 +10,13 @@ class Fruiton {
         this.id = id;
     }
 
+    public function clone():Fruiton {
+        var newFruiton:Fruiton = new Fruiton(this.id);
+        newFruiton.position = this.position;
+
+        return newFruiton;
+    }
+
     public function onBeforeMove(action:MoveAction, state:GameState) {
         // Modify action and game state
         trace("onBeforeMove: " + id + " Action: " + action);

@@ -9,4 +9,10 @@ class Tile {
         this.fruiton = null;
         this.position = position;
     }
+
+    public function clone():Tile {
+        var newTile:Tile = new Tile(this.position);
+        newTile.fruiton = this.fruiton;
+        return newTile;
+    }
 }
