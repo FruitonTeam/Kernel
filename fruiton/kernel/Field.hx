@@ -23,4 +23,17 @@ class Field {
         field[key.x][key.y] = value;
         return value;
     }
+
+    /**
+     *  Bound check for given position.
+     *  @param key Position to check
+     *  @return If given position in in bounds of this field
+     */
+    public function exists(key:Position):Bool {
+        return 
+            key.x >= 0 && 
+            key.x < field.length && 
+            key.y >= 0 && 
+            key.y < field[key.x].length;
+    }
 }

@@ -18,7 +18,17 @@ class Kernel implements IKernel {
 	}
 
 	public function getAllValidActions():IKernel.Actions {
-		return [];
+		var allActions:IKernel.Actions = currentState.getAllActions();
+		var validActions:IKernel.Actions = new IKernel.Actions();
+		
+		for (a in allActions) {
+			var newState:GameState = currentState.clone();
+			if (a.execute(newState)) {
+				validActions.push(a);
+			}
+		}
+		
+		return validActions;
 	}
 
     public function performAction(userAction:Action):IKernel.Events {

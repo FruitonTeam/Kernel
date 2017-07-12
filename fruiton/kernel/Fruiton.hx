@@ -19,6 +19,21 @@ class Fruiton {
         return new Fruiton(this.id, this.position.clone(), this.owner);
     }
 
+    public function getAllActions(state:GameState):IKernel.Actions {
+        var allActions:IKernel.Actions = new IKernel.Actions();
+        // Get all move actions
+        // For now consider moving only by one in all directions
+        allActions.push(new MoveAction(position, position.moveBy(new Position(1, 0))));
+        allActions.push(new MoveAction(position, position.moveBy(new Position(0, 1))));
+        allActions.push(new MoveAction(position, position.moveBy(new Position(-1, 0))));
+        allActions.push(new MoveAction(position, position.moveBy(new Position(0, -1))));
+        
+        return allActions;
+    }
+
+    // ==============
+    // Event handlers
+    // ==============
     public function onBeforeMove(action:MoveAction, state:GameState) {
         // Modify action and game state
         trace("onBeforeMove Fruiton: " + id + " Action: " + action);

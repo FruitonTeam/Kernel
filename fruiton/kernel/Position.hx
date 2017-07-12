@@ -16,7 +16,7 @@ class Position  {
 	public function moveBy(positionChange:Position):Position {
 		return new Position(x + positionChange.x, y + positionChange.y);
 	}
-	
+
 	public function toString():String {
 		return "(" + x + ", " + y + ")";
 	}

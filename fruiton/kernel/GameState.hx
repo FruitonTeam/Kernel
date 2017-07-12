@@ -55,4 +55,14 @@ class GameState  {
 		turnState = new TurnState();
 		activePlayerIdx = (activePlayerIdx + 1) % players.length;
 	}
+
+	public function getAllActions():IKernel.Actions {
+		var actions:IKernel.Actions = new IKernel.Actions();
+
+		for (f in fruitons) {
+			actions = actions.concat(f.getAllActions(this));
+		}
+
+		return actions;
+	}
 }

@@ -59,17 +59,30 @@ class BasicMoveTest
 	@Test
 	public function testValidAction():Void
 	{
+		for(i in 0...3) {
+			testAction(i);
+		}
+	}
+
+	private function testAction(idx:Int):Void {
 		// Setup
 		var p1:Player = new Player(1);
 		var p2:Player = new Player(2);
 		var fruiton:Fruiton = new Fruiton(1, new Position(0, 1), p1);
 		var kernel:IKernel = new Kernel(p1, p2, [fruiton]);
 		var k:Kernel = cast(kernel, Kernel);
-		var a:Action = new MoveAction(fruiton.position, new Position(1, 1));
+		var actions:IKernel.Actions = kernel.getAllValidActions();
+		
+		trace("All valid actions:");
+		for (act in actions) {
+			trace(Std.string(act));
+		}
 
 		printField(k.currentState.field);
 		
 		// Run
+		var a:Action = actions[idx];
+		trace("Performing action: " + Std.string(a));
         var events:Array<Event> = kernel.performAction(a);
 		
 		printField(k.currentState.field);
@@ -77,8 +90,9 @@ class BasicMoveTest
 		// Assert
 		Assert.areEqual(events.length, 1);
 		var me:MoveEvent = cast (events[0], MoveEvent);
+		var ma:MoveAction = cast (a, MoveAction);
 		Assert.isTrue(me.from.equals(new Position(0, 1)));
-		Assert.isTrue(me.to.equals(new Position(1, 1)));
+		Assert.isTrue(me.to.equals(ma.target));
 		trace(Std.string(events[0]));
 		trace("Source fruiton: " + Std.string(k.currentState.field.get(new Position(0, 1)).fruiton));
 		trace("Terget fruiton: " + Std.string(k.currentState.field.get(new Position(1, 1)).fruiton));

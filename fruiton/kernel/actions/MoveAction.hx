@@ -15,9 +15,11 @@ class MoveAction extends Action {
 
     function validate(state:GameState) {
         isValid = 
-            source != null && 
-            state.field.get(source).fruiton != null && 
+            source != null &&
+            state.field.exists(source) &&
+            state.field.get(source).fruiton != null &&
             target != null &&
+            state.field.exists(target) &&
             state.turnState.moveCount > 0;
     }
 
