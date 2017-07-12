@@ -52,8 +52,6 @@ class Kernel implements IKernel {
 			}
 		}
 
-		currentState.nextTurn();
-
 		return eventBuffer;
 	}
 

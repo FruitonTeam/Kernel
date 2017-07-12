@@ -24,4 +24,8 @@ class Position  {
 	public function clone():Position {
 		return new Position(this.x, this.y);
 	}
+
+	public function equals(other:Position):Bool {
+		return x == other.x && y == other.y;
+	}
 }

@@ -17,7 +17,8 @@ class MoveAction extends Action {
         isValid = 
             source != null && 
             state.field.get(source).fruiton != null && 
-            target != null;
+            target != null &&
+            state.turnState.moveCount > 0;
     }
 
     override public function execute(state:GameState):Bool {
@@ -45,10 +46,6 @@ class MoveAction extends Action {
     }
 
     function moveFruiton(fruiton:Fruiton, state:GameState) {
-        if (fruiton == null) {
-            isValid = false;
-            return;
-        }
         state.turnState.moveCount--;
         state.field.get(target).fruiton = state.field.get(source).fruiton;
         state.field.get(source).fruiton = null;
