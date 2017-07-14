@@ -19,7 +19,7 @@ class Field {
         return field[key.x][key.y];
     }
 
-    public inline function set(key:Position, value:Tile):Tile {
+    public function set(key:Position, value:Tile):Tile {
         field[key.x][key.y] = value;
         return value;
     }

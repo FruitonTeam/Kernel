@@ -7,8 +7,4 @@ class Player {
     public function new(id:Int) {
         this.id = id;
     }
-
-    public function clone():Player {
-        return new Player(id);
-    }
 }
