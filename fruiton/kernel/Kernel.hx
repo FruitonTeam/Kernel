@@ -9,12 +9,9 @@ typedef ActionStack = GenericStack<Action>;
 class Kernel implements IKernel {
 
 	public var currentState(default, null):GameState;
-	var eventBuffer:IKernel.Events;
-	var actions:ActionStack;
-
+	
 	public function new(p1:Player, p2:Player, fruitons:GameState.Fruitons) {
 		this.currentState = new GameState([p1, p2], 0, fruitons);
-		this.actions = new ActionStack();
 	}
 
 	public function getAllValidActions():IKernel.Actions {
@@ -23,7 +20,7 @@ class Kernel implements IKernel {
 		
 		for (a in allActions) {
 			var newState:GameState = currentState.clone();
-			if (a.execute(newState)) {
+			if (a.execute(newState).isValid) {
 				validActions.push(a);
 			}
 		}
@@ -36,7 +33,8 @@ class Kernel implements IKernel {
 			throw new InvalidActionException("Null action");
 		}
 		
-		eventBuffer = new IKernel.Events();
+		var actions:ActionStack = new ActionStack();
+		var eventBuffer:IKernel.Events = new IKernel.Events();
 		actions.add(userAction);
 
 		while (!actions.isEmpty()) {
@@ -44,11 +42,11 @@ class Kernel implements IKernel {
 			var newState:GameState = currentState.clone();
 			
 			var currentAction:Action = actions.pop();
-			var success:Bool = currentAction.execute(newState);
-			if (success) {
+			var result:ActionExecutionResult = currentAction.execute(newState);
+			if (result.isValid) {
 				currentState = newState;
-				addActions(currentAction.result.actions);
-				eventBuffer = eventBuffer.concat(currentAction.result.events);
+				addActions(actions, result.actions);
+				eventBuffer = eventBuffer.concat(result.events);
 			} 
 			else { // !success
 				// Only user action cannot fail, other (generated) actions may fail silently
@@ -72,7 +70,7 @@ class Kernel implements IKernel {
 	// ==============
 	// Helper methods
 	// ==============
-	function addActions(newActions:ActionStack) {
+	function addActions(actions:ActionStack, newActions:ActionStack) {
 		for (a in newActions) {
 			actions.add(a);
 		}

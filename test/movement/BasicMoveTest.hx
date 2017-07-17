@@ -34,7 +34,7 @@ class BasicMoveTest {
     public function testInvalidAction() {
         try {
 			var kernel:IKernel = new Kernel(new Player(1), new Player(2), []);
-			var a:Action = new MoveAction(null, null);
+			var a:Action = new MoveAction(new MoveActionContext(null, null));
 			kernel.performAction(a);
 		} 
 		catch (e : InvalidActionException) {
@@ -88,7 +88,7 @@ class BasicMoveTest {
 		var me:MoveEvent = cast (events[0], MoveEvent);
 		var ma:MoveAction = cast (a, MoveAction);
 		Assert.isTrue(me.from.equals(new Position(0, 1)));
-		Assert.isTrue(me.to.equals(ma.target));
+		Assert.isTrue(me.to.equals(ma.actionContext.target));
 		trace(Std.string(events[0]));
 		trace("Source fruiton: " + Std.string(k.currentState.field.get(new Position(0, 1)).fruiton));
 		trace("Terget fruiton: " + Std.string(k.currentState.field.get(new Position(1, 1)).fruiton));

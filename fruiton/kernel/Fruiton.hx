@@ -1,6 +1,7 @@
 package fruiton.kernel;
 
 import fruiton.kernel.actions.MoveAction;
+import fruiton.kernel.actions.MoveActionContext;
 
 class Fruiton {
 
@@ -23,10 +24,10 @@ class Fruiton {
         var allActions:IKernel.Actions = new IKernel.Actions();
         // Get all move actions
         // For now consider moving only by one in all directions
-        allActions.push(new MoveAction(position, position.moveBy(new Position(1, 0))));
-        allActions.push(new MoveAction(position, position.moveBy(new Position(0, 1))));
-        allActions.push(new MoveAction(position, position.moveBy(new Position(-1, 0))));
-        allActions.push(new MoveAction(position, position.moveBy(new Position(0, -1))));
+        allActions.push(new MoveAction(new MoveActionContext(position, position.moveBy(new Position(1, 0)))));
+        allActions.push(new MoveAction(new MoveActionContext(position, position.moveBy(new Position(0, 1)))));
+        allActions.push(new MoveAction(new MoveActionContext(position, position.moveBy(new Position(-1, 0)))));
+        allActions.push(new MoveAction(new MoveActionContext(position, position.moveBy(new Position(0, -1)))));
         
         return allActions;
     }
@@ -34,14 +35,14 @@ class Fruiton {
     // ==============
     // Event handlers
     // ==============
-    public function onBeforeMove(action:MoveAction, state:GameState) {
+    public function onBeforeMove(context:MoveActionContext, state:GameState, result:ActionExecutionResult) {
         // Modify action and game state
-        trace("onBeforeMove Fruiton: " + id + " Action: " + action);
+        trace("onBeforeMove Fruiton: " + id + " Context: " + context);
     }
 
-    public function onAfterMove(action:MoveAction, state:GameState) {
+    public function onAfterMove(context:MoveActionContext, state:GameState, result:ActionExecutionResult) {
         // Modify action and game state
-        trace("onAfterMove Fruiton: " + id + " Action: " + action);
+        trace("onAfterMove Fruiton: " + id + " Context: " + context);
     }
 
     public function moveTo(newPosition:Position) {

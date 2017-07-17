@@ -3,60 +3,57 @@ package fruiton.kernel.actions;
 import fruiton.kernel.events.MoveEvent;
 
 class MoveAction extends Action {
-    
-    public var source(default, null):Position;
-    public var target(default, null):Position;
 
-    public function new(source:Position, target:Position) {
-        super();
-        this.source = source;
-        this.target = target;
+    public var actionContext(default, null):MoveActionContext;
+
+    public function new(context:MoveActionContext) {
+        this.actionContext = context;
     }
 
-    function validate(state:GameState) {
-        isValid = 
-            source != null &&
-            state.field.exists(source) &&
-            state.field.get(source).fruiton != null &&
-            target != null &&
-            state.field.exists(target) &&
+    function validate(state:GameState, context:MoveActionContext):Bool {
+        return
+            context.source != null &&
+            state.field.exists(context.source) &&
+            state.field.get(context.source).fruiton != null &&
+            context.target != null &&
+            state.field.exists(context.target) &&
             state.turnState.moveCount > 0;
     }
 
-    override public function execute(state:GameState):Bool {
-        validate(state);
-        if (!isValid) {
-            return isValid;
+    override public function execute(state:GameState):ActionExecutionResult {
+        var result:ActionExecutionResult = new ActionExecutionResult();
+        result.isValid = validate(state, actionContext);
+        if (!result.isValid) {
+            return result;
         }
 
-        result = new ActionExecutionResult();
-
-        var fruiton:Fruiton = state.field.get(source).fruiton;
+        var newContext:MoveActionContext = actionContext.clone();
+        var fruiton:Fruiton = state.field.get(newContext.source).fruiton;
 
         // Following may be while cycle through delegates
-        if (isValid) {
-            fruiton.onBeforeMove(this, state);
+        if (result.isValid) {
+            fruiton.onBeforeMove(newContext, state, result);
         }
-        if (isValid) {
-            moveFruiton(fruiton, state);
+        if (result.isValid) {
+            moveFruiton(fruiton, newContext, state, result);
         }
-        if (isValid) {
-            fruiton.onAfterMove(this, state);
+        if (result.isValid) {
+            fruiton.onAfterMove(newContext, state, result);
         }
 
-        return isValid;
+        return result;
     }
 
-    function moveFruiton(fruiton:Fruiton, state:GameState) {
+    function moveFruiton(fruiton:Fruiton, context:MoveActionContext, state:GameState, result:ActionExecutionResult) {
         state.turnState.moveCount--;
-        state.field.get(target).fruiton = state.field.get(source).fruiton;
-        state.field.get(source).fruiton = null;
-        fruiton.moveTo(target);
+        state.field.get(context.target).fruiton = state.field.get(context.source).fruiton;
+        state.field.get(context.source).fruiton = null;
+        fruiton.moveTo(context.target);
 
-        result.events.push(new MoveEvent(1, source, target));
+        result.events.push(new MoveEvent(1, context.source, context.target));
     }
 
     override public function toString():String {
-        return super.toString() + " MoveAction source: " + Std.string(source) + " target: " + Std.string(target);
+        return super.toString() + " MoveAction: " + Std.string(actionContext);
     }
 }
