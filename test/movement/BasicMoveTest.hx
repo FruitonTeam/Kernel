@@ -1,70 +1,66 @@
-package;
+package test.movement;
 
 import massive.munit.util.Timer;
 import massive.munit.Assert;
-import massive.munit.async.AsyncFactory;
 import fruiton.kernel.Kernel;
 import fruiton.kernel.*;
 import fruiton.kernel.actions.*;
 import fruiton.kernel.events.*;
 import fruiton.kernel.exceptions.InvalidActionException;
 
-class BasicMoveTest 
-{
-	private var timer:Timer;
+class BasicMoveTest {
+
+	var timer:Timer;
 	
-	public function new() {
-	}
+	public function new() {}
 	
 	@BeforeClass
-	public function beforeClass():Void {
+	public function beforeClass() {
 		// Avoid later print statements being intercepted by "Tests PASSED under ..." message
 		// To see try to comment following
 		Sys.println(""); Sys.println(""); Sys.println("");
 	}
 	
 	@AfterClass
-	public function afterClass():Void {
-	}
+	public function afterClass() {}
 	
 	@Before
-	public function setup():Void {
-	}
+	public function setup() {}
 	
 	@After
-	public function tearDown():Void {
-	}
+	public function tearDown() {}
 	
     @Test
-    public function testInvalidAction():Void {
+    public function testInvalidAction() {
         try {
 			var kernel:IKernel = new Kernel(new Player(1), new Player(2), []);
 			var a:Action = new MoveAction(null, null);
 			kernel.performAction(a);
-		} catch (e : InvalidActionException) {
+		} 
+		catch (e : InvalidActionException) {
 			// Expected behavior
 		}
     }
 
 	@Test
-	public function testNullAction():Void {
+	public function testNullAction() {
 		try {
 			var kernel:IKernel = new Kernel(new Player(1), new Player(2), []);
 			kernel.performAction(null);
-		} catch (e : InvalidActionException) {
+		} 
+		catch (e : InvalidActionException) {
 			// Expected behavior
 		}
 	}
 
 	@Test
-	public function testValidAction():Void
-	{
-		for(i in 0...3) {
+	public function testValidAction() {
+		for (i in 0...3) {
 			testAction(i);
 		}
 	}
 
-	private function testAction(idx:Int):Void {
+	function testAction(idx:Int) {
 		// Setup
 		var p1:Player = new Player(1);
 		var p2:Player = new Player(2);
@@ -99,7 +95,7 @@ class BasicMoveTest
 	}
 
 	function printField(field:Field) {
-		for(x in 0...GameState.WIDTH) {
+		for (x in 0...GameState.WIDTH) {
 			var line:String = "";
 			for (y in 0...GameState.HEIGHT) {
 				var fruiton:Fruiton = field.get(new Position(x, y)).fruiton;

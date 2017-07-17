@@ -1,5 +1,5 @@
 ## Neko
--main TestMain
+-main test.TestMain
 -lib munit
 -lib hamcrest
 -cp src

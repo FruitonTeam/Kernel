@@ -1,6 +1,4 @@
-import massive.munit.TestSuite;
-
-import BasicMoveTest;
+package test.movement;
 
 class MoveTestSuite extends massive.munit.TestSuite {
 
