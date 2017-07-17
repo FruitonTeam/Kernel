@@ -4,10 +4,6 @@ import massive.munit.client.HTTPClient;
 import massive.munit.client.JUnitReportClient;
 import massive.munit.TestRunner;
 
-#if js
-import js.Lib;
-#end
-
 /**
  * Auto generated Test Application.
  * Refer to munit command line tool for more information (haxelib run munit)
