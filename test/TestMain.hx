@@ -1,13 +1,8 @@
-import massive.munit.client.PrintClient;
-import massive.munit.client.RichPrintClient;
+package test;
+
 import massive.munit.client.HTTPClient;
 import massive.munit.client.JUnitReportClient;
-import massive.munit.client.SummaryReportClient;
 import massive.munit.TestRunner;
-
-#if js
-import js.Lib;
-#end
 
 /**
  * Auto generated Test Application.
@@ -20,9 +15,9 @@ class TestMain {
 	}
 
 	public function new() {
-		var suites = new Array<Class<massive.munit.TestSuite>>();
+		var suites:Array<Class<massive.munit.TestSuite>> = [];
 		
-		suites.push(TestSuite);
+		suites.push(test.movement.MoveTestSuite);
 
 		var client = new HTTPClient(new JUnitReportClient());
 
