@@ -1,5 +1,5 @@
 @echo off
-haxelib run checkstyle -s fruiton
-echo.
-echo.
 haxelib run munit test
+echo.
+echo.
+haxelib run checkstyle -s fruiton
