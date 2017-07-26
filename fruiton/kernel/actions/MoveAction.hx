@@ -17,6 +17,7 @@ class MoveAction extends Action {
             state.field.get(context.source).fruiton != null &&
             context.target != null &&
             state.field.exists(context.target) &&
+            state.field.get(context.target).fruiton == null &&
             state.turnState.moveCount > 0;
     }
 
