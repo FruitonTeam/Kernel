@@ -18,6 +18,7 @@ class TestMain {
 		var suites:Array<Class<massive.munit.TestSuite>> = [];
 		
 		suites.push(test.movement.MoveTestSuite);
+		suites.push(test.endTurn.EndTurnTestSuite);
 
 		var client = new HTTPClient(new JUnitReportClient());
 
