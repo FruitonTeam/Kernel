@@ -11,14 +11,23 @@ class MoveAction extends Action {
     }
 
     function validate(state:GameState, context:MoveActionContext):Bool {
-        return
+        var result:Bool = 
             context.source != null &&
             state.field.exists(context.source) &&
-            state.field.get(context.source).fruiton != null &&
+            state.field.get(context.source).fruiton != null;
+        
+        if (!result) return result;
+
+        var sourceFruiton:Fruiton = state.field.get(context.source).fruiton;
+
+        result = result &&
+            sourceFruiton.owner.equals(state.activePlayer) &&
             context.target != null &&
             state.field.exists(context.target) &&
             state.field.get(context.target).fruiton == null &&
             state.turnState.moveCount > 0;
+
+        return result;
     }
 
     override public function execute(state:GameState):ActionExecutionResult {
@@ -55,6 +64,6 @@ class MoveAction extends Action {
     }
 
     override public function toString():String {
-        return super.toString() + " MoveAction: " + Std.string(actionContext);
+        return super.toString() + " MoveAction:" + Std.string(actionContext);
     }
 }

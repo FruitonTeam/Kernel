@@ -2,6 +2,7 @@ package fruiton.kernel;
 
 import fruiton.kernel.actions.MoveAction;
 import fruiton.kernel.actions.MoveActionContext;
+import fruiton.kernel.actions.EndTurnActionContext;
 
 class Fruiton {
 
@@ -35,14 +36,24 @@ class Fruiton {
     // ==============
     // Event handlers
     // ==============
+    public function onBeforeTurnEnd(context:EndTurnActionContext, state:GameState, result:ActionExecutionResult) {
+        // Modify action and game state
+        trace("onBeforeTurnEnd Fruiton: " + id + " " + context);
+    }
+
+    public function onAfterTurnEnd(context:EndTurnActionContext, state:GameState, result:ActionExecutionResult) {
+        // Modify action and game state
+        trace("onAfterTurnEnd Fruiton: " + id + " " + context);
+    }
+
     public function onBeforeMove(context:MoveActionContext, state:GameState, result:ActionExecutionResult) {
         // Modify action and game state
-        trace("onBeforeMove Fruiton: " + id + " Context: " + context);
+        trace("onBeforeMove Fruiton: " + id + " " + context);
     }
 
     public function onAfterMove(context:MoveActionContext, state:GameState, result:ActionExecutionResult) {
         // Modify action and game state
-        trace("onAfterMove Fruiton: " + id + " Context: " + context);
+        trace("onAfterMove Fruiton: " + id + " " + context);
     }
 
     public function moveTo(newPosition:Position) {

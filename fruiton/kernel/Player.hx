@@ -7,4 +7,8 @@ class Player {
     public function new(id:Int) {
         this.id = id;
     }
+
+    public function equals(other:Player):Bool {
+        return this.id == other.id;
+    }
 }

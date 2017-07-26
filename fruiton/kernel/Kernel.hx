@@ -48,7 +48,7 @@ class Kernel implements IKernel {
 				addActions(actions, result.actions);
 				eventBuffer = eventBuffer.concat(result.events);
 			} 
-			else { // !success
+			else { // action is invalid
 				// Only user action cannot fail, other (generated) actions may fail silently
 				if (currentAction == userAction) {
 					throw new InvalidActionException(Std.string(currentAction));
