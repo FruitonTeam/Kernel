@@ -115,6 +115,7 @@ class BasicMoveTest {
 	}
 
 	function testAction(idx:Int, k:Kernel, fruitonPos:Position):Bool {
+		Sys.println("--- Testing action [" + idx + "]");
 
 		var actions:IKernel.Actions = k.getAllValidActions();
 
