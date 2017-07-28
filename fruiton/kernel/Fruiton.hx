@@ -1,10 +1,8 @@
 package fruiton.kernel;
 
 import fruiton.kernel.actions.MoveActionContext;
-import fruiton.dataStructures.collections.ReadOnlyArray;
 
 typedef MoveGenerators = Array<MoveGenerator>;
-typedef ROMoveGenerators = ReadOnlyArray<MoveGenerator>;
 
 class Fruiton {
 
@@ -12,22 +10,18 @@ class Fruiton {
     public var position(default, null):Position;
     public var owner(default, null):Player;
 
-    /**
-     *  Base set of move patterns for this fruiton.
-     *  More patterns may be added (or removed) by effects but this set should remain unmodified.
-     */
-    var moveGenerators:ROMoveGenerators;
+    var moveGenerators:MoveGenerators;
 
     public function new(id:Int, position:Position, owner:Player, generators:MoveGenerators) {
         this.id = id;
         this.position = position;
         this.owner = owner;
-        this.moveGenerators = new ROMoveGenerators(generators);
+        this.moveGenerators = generators.copy();
     }
 
     public function clone():Fruiton {
         // Player is no cloned to remain the same as in GameState
-        return new Fruiton(this.id, this.position.clone(), this.owner, this.moveGenerators.shallowCopyToArray());
+        return new Fruiton(this.id, this.position.clone(), this.owner, this.moveGenerators.copy());
     }
 
     public function getAllActions(state:GameState):IKernel.Actions {
