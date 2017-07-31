@@ -25,9 +25,9 @@ class Field {
     }
 
     /**
-     *  Bound check for given position.
-     *  @param key Position to check
-     *  @return If given position in in bounds of this field
+     * Bound check for given position.
+     * @param key Position to check
+     * @return If given position in in bounds of this field
      */
     public function exists(key:Position):Bool {
         return 

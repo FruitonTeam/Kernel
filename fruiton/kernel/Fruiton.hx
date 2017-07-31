@@ -1,7 +1,8 @@
 package fruiton.kernel;
 
-import fruiton.kernel.actions.MoveAction;
 import fruiton.kernel.actions.MoveActionContext;
+
+typedef MoveGenerators = Array<MoveGenerator>;
 
 class Fruiton {
 
@@ -9,26 +10,32 @@ class Fruiton {
     public var position(default, null):Position;
     public var owner(default, null):Player;
 
-    public function new(id:Int, position:Position, owner:Player) {
+    var moveGenerators:MoveGenerators;
+
+    public function new(id:Int, position:Position, owner:Player, generators:MoveGenerators) {
         this.id = id;
         this.position = position;
         this.owner = owner;
+        this.moveGenerators = generators.copy();
     }
 
     public function clone():Fruiton {
         // Player is no cloned to remain the same as in GameState
-        return new Fruiton(this.id, this.position.clone(), this.owner);
+        return new Fruiton(this.id, this.position.clone(), this.owner, this.moveGenerators.copy());
     }
 
     public function getAllActions(state:GameState):IKernel.Actions {
         var allActions:IKernel.Actions = new IKernel.Actions();
-        // Get all move actions
-        // For now consider moving only by one in all directions
-        allActions.push(new MoveAction(new MoveActionContext(position, position.moveBy(new Position(1, 0)))));
-        allActions.push(new MoveAction(new MoveActionContext(position, position.moveBy(new Position(0, 1)))));
-        allActions.push(new MoveAction(new MoveActionContext(position, position.moveBy(new Position(-1, 0)))));
-        allActions.push(new MoveAction(new MoveActionContext(position, position.moveBy(new Position(0, -1)))));
         
+        // Move actions
+        for (pattern in moveGenerators) {
+            var moveActions:MoveGenerator.Moves = pattern.getMoves(position);
+            // In a world without covariant interfaces...
+            for (move in moveActions) {
+                allActions.push(move);
+            }
+        }
+
         return allActions;
     }
 
