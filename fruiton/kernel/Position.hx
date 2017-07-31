@@ -1,7 +1,7 @@
 package fruiton.kernel;
 
 /**
- *  Immutable class representing 2D position on the desk
+ * Immutable class representing 2D position on the desk
  */
 class Position  {
 
@@ -14,18 +14,18 @@ class Position  {
 	}
 
 	/**
-	 *  Memberwise multiplies this position by given scalar value
-	 *  @param scalar - number to multiply this position with
-	 *  @return Result of multiplication as a new Position
+	 * Memberwise multiplies this position by given scalar value
+	 * @param scalar - number to multiply this position with
+	 * @return Result of multiplication as a new Position
 	 */
 	public function mul(scalar:Int):Position {
 		return new Position(x * scalar, y * scalar);
 	}
 
 	/**
-	 *  Memberwise add two positions together
-	 *  @param other - position to add to this
-	 *  @return Result of addition as a new Position
+	 * Memberwise add two positions together
+	 * @param other - position to add to this
+	 * @return Result of addition as a new Position
 	 */
 	public function add(other:Position):Position {
 		return new Position(x + other.x, y + other.y);

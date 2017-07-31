@@ -1,7 +1,7 @@
 package fruiton.kernel.targetPatterns;
 
 /**
- *  Target pattern following a simple line given by vector multiplied by numbers from min to max (inclusive).
+ * Target pattern following a simple line given by vector multiplied by numbers from min to max (inclusive).
  */
 class LineTargetPattern extends TargetPattern {
 

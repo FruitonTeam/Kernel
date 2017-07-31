@@ -7,9 +7,11 @@ class ReadOnlyArray<T> {
     public function new(source) {
         this.source = source.copy();
     }
+
     public function get(index):T {
         return source[index];
     }
+    
     public function iterator():Iterator<T> {
         return source.iterator();
     }
