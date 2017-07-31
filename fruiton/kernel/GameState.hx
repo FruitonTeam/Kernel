@@ -7,7 +7,7 @@ typedef Fruitons = Array<Fruiton>;
 typedef Players = Array<Player>;
 
 /**
- *  State of a single game
+ * State of a single game
  */
 class GameState  {
 

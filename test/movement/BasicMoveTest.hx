@@ -4,8 +4,10 @@ import massive.munit.util.Timer;
 import massive.munit.Assert;
 import fruiton.kernel.Kernel;
 import fruiton.kernel.*;
+import fruiton.kernel.Fruiton.MoveGenerators;
 import fruiton.kernel.actions.*;
 import fruiton.kernel.events.*;
+import fruiton.kernel.targetPatterns.*;
 import fruiton.kernel.exceptions.InvalidActionException;
 
 class BasicMoveTest {
@@ -33,7 +35,10 @@ class BasicMoveTest {
 	function makeKernel():Kernel {
 		var p1:Player = new Player(1);
 		var p2:Player = new Player(2);
-		var fruiton:Fruiton = new Fruiton(1, new Position(0, 1), p1);
+		var moveGenerators:MoveGenerators = new MoveGenerators();
+		moveGenerators.push(new MoveGenerator(new LineTargetPattern(new Position(0, 1), -1, 1)));
+		moveGenerators.push(new MoveGenerator(new LineTargetPattern(new Position(1, 0), -1, 1)));
+		var fruiton:Fruiton = new Fruiton(1, new Position(0, 1), p1, moveGenerators);
 		return new Kernel(p1, p2, [fruiton]);
 	}
 
@@ -62,38 +67,24 @@ class BasicMoveTest {
 
 	@Test
 	public function testValidAction() {
-		for (i in 0...3) {
-			testAction(i);
+		var i:Int = 0;
+		while(true) {
+			var p1:Player = new Player(1);
+			var p2:Player = new Player(2);
+			var moveGenerators:MoveGenerators = new MoveGenerators();
+			moveGenerators.push(new MoveGenerator(new LineTargetPattern(new Position(0, 1), -1, 1)));
+			moveGenerators.push(new MoveGenerator(new LineTargetPattern(new Position(1, 0), -1, 1)));
+			var fruitonPos:Position = new Position(0, 1);
+			var fruiton:Fruiton = new Fruiton(1, fruitonPos, p1, moveGenerators);
+			var kernel:IKernel = new Kernel(p1, p2, [fruiton]);
+			var k:Kernel = cast(kernel, Kernel);
+
+			if (!testAction(i, k, fruitonPos)) {
+				break;
+			}
+
+			++i;
 		}
-	}
-
-	function testAction(idx:Int) {
-		// Setup
-		var kernel:IKernel = makeKernel();
-		var k:Kernel = cast(kernel, Kernel);
-		var actions:IKernel.Actions = kernel.getAllValidActions();
-		
-		trace("All valid actions:");
-		for (act in actions) {
-			trace(Std.string(act));
-		}
-
-		//printField(k.currentState.field);
-		
-		// Run
-		var a:Action = actions[idx];
-		trace("Performing action: " + Std.string(a));
-        var events:Array<Event> = kernel.performAction(a);
-		
-		//printField(k.currentState.field);
-
-		// Assert
-		Assert.areEqual(events.length, 1);
-		var me:MoveEvent = cast (events[0], MoveEvent);
-		var ma:MoveAction = cast (a, MoveAction);
-		Assert.isTrue(me.from.equals(new Position(0, 1)));
-		Assert.isTrue(me.to.equals(ma.actionContext.target));
-		trace(Std.string(events[0]));
 	}
 
 	function printField(field:Field) {
@@ -110,5 +101,64 @@ class BasicMoveTest {
 			}
 			Sys.println(line);
 		}
+	}
+
+	@Test
+	public function testAllRangeActions() {
+		var i:Int = 0;
+		while(true) {
+			var p1:Player = new Player(1);
+			var p2:Player = new Player(2);
+			var moveGenerators:MoveGenerators = new MoveGenerators();
+			moveGenerators.push(new MoveGenerator(new RangeTargetPattern(null, 0, 1)));
+			var fruitonPos:Position = new Position(1, 1);
+			var fruiton:Fruiton = new Fruiton(1, fruitonPos, p1, moveGenerators);
+			var kernel:IKernel = new Kernel(p1, p2, [fruiton]);
+			var k:Kernel = cast(kernel, Kernel);
+
+			if (!testAction(i, k, fruitonPos)) {
+				break;
+			}
+
+			++i;
+		}
+	}
+
+	function testAction(idx:Int, k:Kernel, fruitonPos:Position):Bool {
+		Sys.println("--- Testing action [" + idx + "]");
+
+		var actions:IKernel.Actions = k.getAllValidActions();
+
+		if (idx >= actions.length ||
+			!Std.is(actions[idx], MoveAction)) {
+			return false;
+		}
+
+		trace("All valid actions:");
+		for (act in actions) {
+			trace(Std.string(act));
+		}
+
+		//printField(k.currentState.field);
+		
+		// Run
+		var a:Action = actions[idx];
+		trace("Performing action: " + Std.string(a));
+        var events:Array<Event> = k.performAction(a);
+		
+		//printField(k.currentState.field);
+
+		// Assert
+		Assert.areEqual(events.length, 1);
+		var me:MoveEvent = cast (events[0], MoveEvent);
+		var ma:MoveAction = cast (a, MoveAction);
+		Assert.isTrue(me.from.equals(fruitonPos));
+		Assert.isTrue(me.to.equals(ma.actionContext.target));
+		trace(Std.string(events[0]));
+
+		trace("Source fruiton: " + Std.string(k.currentState.field.get(new Position(0, 1)).fruiton));
+		trace("Terget fruiton: " + Std.string(k.currentState.field.get(new Position(1, 1)).fruiton));
+
+		return true;
 	}
 }

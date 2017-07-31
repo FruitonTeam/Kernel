@@ -5,6 +5,8 @@ import fruiton.kernel.Kernel;
 import fruiton.kernel.*;
 import fruiton.kernel.actions.*;
 import fruiton.kernel.events.*;
+import fruiton.kernel.Fruiton.MoveGenerators;
+import fruiton.kernel.targetPatterns.*;
 
 class EndTurnTest {
 
@@ -26,7 +28,10 @@ class EndTurnTest {
     function makeKernel():Kernel {
 		var p1:Player = new Player(1);
 		var p2:Player = new Player(2);
-		var fruiton:Fruiton = new Fruiton(1, new Position(0, 1), p1);
+        var moveGenerators:MoveGenerators = new MoveGenerators();
+        moveGenerators.push(new MoveGenerator(new LineTargetPattern(new Position(0, 1), -1, 1)));
+        moveGenerators.push(new MoveGenerator(new LineTargetPattern(new Position(1, 0), -1, 1)));
+		var fruiton:Fruiton = new Fruiton(1, new Position(0, 1), p1, moveGenerators);
 		return new Kernel(p1, p2, [fruiton]);
 	}
 
