@@ -22,8 +22,8 @@ class EndTurnTest {
 	}
 
     /**
-     *  Factory method for unified and simple kernel creation
-     *  @return Kernel which is initialized
+     * Factory method for unified and simple kernel creation
+     * @return Kernel which is initialized
      */
     function makeKernel():Kernel {
 		var p1:Player = new Player(1);

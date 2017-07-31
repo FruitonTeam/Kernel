@@ -21,7 +21,7 @@ class GameState  {
 	var players:Players;
 	var activePlayerIdx:Int;
 	/**
-	 *  Player whose turn it is
+	 * Player whose turn it is
 	 */
 	public var activePlayer(get, never):Player;
 	
@@ -59,7 +59,7 @@ class GameState  {
 	}
 
 	/**
-	 *  Ends current turn and initializes game state to next turn.
+	 * Ends current turn and initializes game state to next turn.
 	 */
 	public function nextTurn() {
 		turnState = new TurnState();
@@ -67,9 +67,9 @@ class GameState  {
 	}
 
 	/**
-	 *  Generates all possible actions in this state of game.
-	 *  Do not have to be valid.
-	 *  @return IKernel.Actions available in this game state.
+	 * Generates all possible actions in this state of game.
+	 * Do not have to be valid.
+	 * @return IKernel.Actions available in this game state.
 	 */
 	public function getAllActions():IKernel.Actions {
 		var actions:IKernel.Actions = new IKernel.Actions();
