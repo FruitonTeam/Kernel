@@ -2,21 +2,18 @@ package fruiton.kernel.actions;
 
 import fruiton.kernel.events.EndTurnEvent;
 
-class EndTurnAction extends Action {
-
-    public var actionContext(default, null):EndTurnActionContext;
+class EndTurnAction extends GenAction<EndTurnActionContext> {
 
     public function new(context:EndTurnActionContext) {
-        this.actionContext = context;
+        super(context);
     }
 
-    function validate(state:GameState, context:EndTurnActionContext):Bool {
+    override function validate(state:GameState, context:EndTurnActionContext):Bool {
         return true;
     }
 
     override public function execute(state:GameState):ActionExecutionResult {
-        var result:ActionExecutionResult = new ActionExecutionResult();
-        result.isValid = validate(state, actionContext);
+        var result:ActionExecutionResult = super.execute(state);
         if (!result.isValid) {
             return result;
         }

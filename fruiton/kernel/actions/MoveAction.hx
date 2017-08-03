@@ -2,15 +2,13 @@ package fruiton.kernel.actions;
 
 import fruiton.kernel.events.MoveEvent;
 
-class MoveAction extends Action {
-
-    public var actionContext(default, null):MoveActionContext;
+class MoveAction extends GenAction<MoveActionContext> {
 
     public function new(context:MoveActionContext) {
-        this.actionContext = context;
+        super(context);
     }
 
-    function validate(state:GameState, context:MoveActionContext):Bool {
+    override function validate(state:GameState, context:MoveActionContext):Bool {
         var result:Bool = 
             context.source != null &&
             state.field.exists(context.source) &&
@@ -31,8 +29,7 @@ class MoveAction extends Action {
     }
 
     override public function execute(state:GameState):ActionExecutionResult {
-        var result:ActionExecutionResult = new ActionExecutionResult();
-        result.isValid = validate(state, actionContext);
+        var result:ActionExecutionResult = super.execute(state);
         if (!result.isValid) {
             return result;
         }
