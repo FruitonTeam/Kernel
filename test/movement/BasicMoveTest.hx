@@ -18,9 +18,9 @@ class BasicMoveTest {
 	
 	@BeforeClass
 	public function beforeClass() {
-		// Avoid later print statements being intercepted by "Tests PASSED under ..." message
-		// To see try to comment following
-		Sys.println(""); Sys.println(""); Sys.println("");
+		Sys.println("====================");
+		Sys.println("Basic movement tests"); 
+		Sys.println("====================");
 	}
 	
 	@AfterClass
@@ -31,11 +31,21 @@ class BasicMoveTest {
 	
 	@After
 	public function tearDown() {}
-	
+
+	function makeKernel():Kernel {
+		var p1:Player = new Player(1);
+		var p2:Player = new Player(2);
+		var moveGenerators:MoveGenerators = new MoveGenerators();
+		moveGenerators.push(new MoveGenerator(new LineTargetPattern(new Position(0, 1), -1, 1)));
+		moveGenerators.push(new MoveGenerator(new LineTargetPattern(new Position(1, 0), -1, 1)));
+		var fruiton:Fruiton = new Fruiton(1, new Position(0, 1), p1, moveGenerators);
+		return new Kernel(p1, p2, [fruiton]);
+	}
+
     @Test
     public function testInvalidAction() {
         try {
-			var kernel:IKernel = new Kernel(new Player(1), new Player(2), []);
+			var kernel:IKernel = makeKernel();
 			var a:Action = new MoveAction(new MoveActionContext(null, null));
 			kernel.performAction(a);
 		} 
@@ -47,7 +57,7 @@ class BasicMoveTest {
 	@Test
 	public function testNullAction() {
 		try {
-			var kernel:IKernel = new Kernel(new Player(1), new Player(2), []);
+			var kernel:IKernel = makeKernel();
 			kernel.performAction(null);
 		} 
 		catch (e : InvalidActionException) {
@@ -119,7 +129,8 @@ class BasicMoveTest {
 
 		var actions:IKernel.Actions = k.getAllValidActions();
 
-		if (idx >= actions.length) {
+		if (idx >= actions.length ||
+			!Std.is(actions[idx], MoveAction)) {
 			return false;
 		}
 
@@ -128,14 +139,14 @@ class BasicMoveTest {
 			trace(Std.string(act));
 		}
 
-		printField(k.currentState.field);
+		//printField(k.currentState.field);
 		
 		// Run
 		var a:Action = actions[idx];
 		trace("Performing action: " + Std.string(a));
         var events:Array<Event> = k.performAction(a);
 		
-		printField(k.currentState.field);
+		//printField(k.currentState.field);
 
 		// Assert
 		Assert.areEqual(events.length, 1);
@@ -144,6 +155,7 @@ class BasicMoveTest {
 		Assert.isTrue(me.from.equals(fruitonPos));
 		Assert.isTrue(me.to.equals(ma.actionContext.target));
 		trace(Std.string(events[0]));
+
 		trace("Source fruiton: " + Std.string(k.currentState.field.get(new Position(0, 1)).fruiton));
 		trace("Terget fruiton: " + Std.string(k.currentState.field.get(new Position(1, 1)).fruiton));
 

@@ -1,5 +1,6 @@
 import massive.munit.TestSuite;
 
+import endTurn.EndTurnTest;
 import movement.BasicMoveTest;
 
 /**
@@ -14,6 +15,7 @@ class TestSuite extends massive.munit.TestSuite
 	{
 		super();
 
+		add(endTurn.EndTurnTest);
 		add(movement.BasicMoveTest);
 	}
 }
