@@ -29,6 +29,11 @@ abstract Vector2(Point)  {
 	}
 
 	public function toString():String {
+		// Null check mandatory because abstract will try to access
+		// its fields even if this is null e.g. in Std.string(...)
+		if (this == null) {
+			return "null";
+		}
 		return "(" + this.x + ", " + this.y + ")";
 	}
 
