@@ -1,5 +1,7 @@
 package fruiton.kernel;
 
+import fruiton.dataStructures.Vector2;
+
 typedef FieldArray = Array<Array<Tile>>;
 
 class Field {
@@ -15,11 +17,11 @@ class Field {
     }
 
     // Get and set may be done via @:arrayAccess and abstract, but it seems too cumbersome
-    public function get(key:Position):Tile {
+    public function get(key:Vector2):Tile {
         return field[key.x][key.y];
     }
 
-    public function set(key:Position, value:Tile):Tile {
+    public function set(key:Vector2, value:Tile):Tile {
         field[key.x][key.y] = value;
         return value;
     }
@@ -29,7 +31,7 @@ class Field {
      * @param key Position to check
      * @return If given position in in bounds of this field
      */
-    public function exists(key:Position):Bool {
+    public function exists(key:Vector2):Bool {
         return 
             key.x >= 0 && 
             key.x < field.length && 

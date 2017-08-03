@@ -2,6 +2,7 @@ package fruiton.kernel;
 
 import fruiton.kernel.actions.EndTurnAction;
 import fruiton.kernel.actions.EndTurnActionContext;
+import fruiton.dataStructures.Vector2;
 
 typedef Fruitons = Array<Fruiton>;
 typedef Players = Array<Player>;
@@ -30,7 +31,7 @@ class GameState  {
 
 	public function new(players:Players, activePlayerIdx:Int, fruitons:Fruitons) {
 		this.fruitons = fruitons;
-		this.field = new Field([for (x in 0...WIDTH) [for (y in 0...HEIGHT) new Tile(new Position(x, y))]]);
+		this.field = new Field([for (x in 0...WIDTH) [for (y in 0...HEIGHT) new Tile(new Vector2(x, y))]]);
 		for (f in this.fruitons) {
 			field.get(f.position).fruiton = f;
 		}

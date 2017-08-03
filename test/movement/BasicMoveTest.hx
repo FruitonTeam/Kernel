@@ -9,6 +9,7 @@ import fruiton.kernel.actions.*;
 import fruiton.kernel.events.*;
 import fruiton.kernel.targetPatterns.*;
 import fruiton.kernel.exceptions.InvalidActionException;
+import fruiton.dataStructures.*;
 
 class BasicMoveTest {
 
@@ -36,9 +37,9 @@ class BasicMoveTest {
 		var p1:Player = new Player(1);
 		var p2:Player = new Player(2);
 		var moveGenerators:MoveGenerators = new MoveGenerators();
-		moveGenerators.push(new MoveGenerator(new LineTargetPattern(new Position(0, 1), -1, 1)));
-		moveGenerators.push(new MoveGenerator(new LineTargetPattern(new Position(1, 0), -1, 1)));
-		var fruiton:Fruiton = new Fruiton(1, new Position(0, 1), p1, moveGenerators);
+		moveGenerators.push(new MoveGenerator(new LineTargetPattern(new Vector2(0, 1), -1, 1)));
+		moveGenerators.push(new MoveGenerator(new LineTargetPattern(new Vector2(1, 0), -1, 1)));
+		var fruiton:Fruiton = new Fruiton(1, new Vector2(0, 1), p1, moveGenerators);
 		return new Kernel(p1, p2, [fruiton]);
 	}
 
@@ -72,9 +73,9 @@ class BasicMoveTest {
 			var p1:Player = new Player(1);
 			var p2:Player = new Player(2);
 			var moveGenerators:MoveGenerators = new MoveGenerators();
-			moveGenerators.push(new MoveGenerator(new LineTargetPattern(new Position(0, 1), -1, 1)));
-			moveGenerators.push(new MoveGenerator(new LineTargetPattern(new Position(1, 0), -1, 1)));
-			var fruitonPos:Position = new Position(0, 1);
+			moveGenerators.push(new MoveGenerator(new LineTargetPattern(new Vector2(0, 1), -1, 1)));
+			moveGenerators.push(new MoveGenerator(new LineTargetPattern(new Vector2(1, 0), -1, 1)));
+			var fruitonPos:Vector2 = new Vector2(0, 1);
 			var fruiton:Fruiton = new Fruiton(1, fruitonPos, p1, moveGenerators);
 			var kernel:IKernel = new Kernel(p1, p2, [fruiton]);
 			var k:Kernel = cast(kernel, Kernel);
@@ -91,7 +92,7 @@ class BasicMoveTest {
 		for (x in 0...GameState.WIDTH) {
 			var line:String = "";
 			for (y in 0...GameState.HEIGHT) {
-				var fruiton:Fruiton = field.get(new Position(x, y)).fruiton;
+				var fruiton:Fruiton = field.get(new Vector2(x, y)).fruiton;
 				if (fruiton == null) {
 					line += " . ";
 				}
@@ -111,7 +112,7 @@ class BasicMoveTest {
 			var p2:Player = new Player(2);
 			var moveGenerators:MoveGenerators = new MoveGenerators();
 			moveGenerators.push(new MoveGenerator(new RangeTargetPattern(null, 0, 1)));
-			var fruitonPos:Position = new Position(1, 1);
+			var fruitonPos:Vector2 = new Vector2(1, 1);
 			var fruiton:Fruiton = new Fruiton(1, fruitonPos, p1, moveGenerators);
 			var kernel:IKernel = new Kernel(p1, p2, [fruiton]);
 			var k:Kernel = cast(kernel, Kernel);
@@ -124,7 +125,7 @@ class BasicMoveTest {
 		}
 	}
 
-	function testAction(idx:Int, k:Kernel, fruitonPos:Position):Bool {
+	function testAction(idx:Int, k:Kernel, fruitonPos:Vector2):Bool {
 		Sys.println("--- Testing action [" + idx + "]");
 
 		var actions:IKernel.Actions = k.getAllValidActions();
@@ -156,8 +157,8 @@ class BasicMoveTest {
 		Assert.isTrue(me.to.equals(ma.actionContext.target));
 		trace(Std.string(events[0]));
 
-		trace("Source fruiton: " + Std.string(k.currentState.field.get(new Position(0, 1)).fruiton));
-		trace("Terget fruiton: " + Std.string(k.currentState.field.get(new Position(1, 1)).fruiton));
+		trace("Source fruiton: " + Std.string(k.currentState.field.get(new Vector2(0, 1)).fruiton));
+		trace("Terget fruiton: " + Std.string(k.currentState.field.get(new Vector2(1, 1)).fruiton));
 
 		return true;
 	}

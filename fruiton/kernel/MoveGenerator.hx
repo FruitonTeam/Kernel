@@ -4,6 +4,7 @@ import fruiton.kernel.actions.MoveAction;
 import fruiton.kernel.actions.MoveActionContext;
 import fruiton.kernel.targetPatterns.TargetPattern;
 import fruiton.kernel.targetPatterns.TargetPattern.Targets;
+import fruiton.dataStructures.Vector2;
 
 typedef Moves = Array<MoveAction>;
 
@@ -23,7 +24,7 @@ class MoveGenerator {
      * @param origin - where all moves start (where fruiton stands)
      * @return Moves generated according to TargetPattern
      */
-    public function getMoves(origin:Position):Moves {
+    public function getMoves(origin:Vector2):Moves {
         var moves:Moves = new Moves();
         var positions:Targets = pattern.getTargets(origin);
 
