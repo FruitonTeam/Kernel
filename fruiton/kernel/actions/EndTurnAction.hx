@@ -24,7 +24,9 @@ class EndTurnAction extends Action {
         var newContext:EndTurnActionContext = actionContext.clone();
 
         for (f in state.fruitons) {
-            if (!result.isValid) break;
+            if (!result.isValid) {
+                break;
+            }
             f.onBeforeTurnEnd(newContext, state, result);
         }
 
@@ -33,7 +35,9 @@ class EndTurnAction extends Action {
         }
 
         for (f in state.fruitons) {
-            if (!result.isValid) break;
+            if (!result.isValid) {
+                break;
+            }
             f.onAfterTurnEnd(newContext, state, result);
         }
 
