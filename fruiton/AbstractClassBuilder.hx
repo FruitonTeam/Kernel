@@ -43,6 +43,8 @@ class AbstractClassBuilder {
     }
 
     static function __init__():Void {
+        // Following two lines are here to avoid checkstyle complaining about unused include
+        // @SuppressWarnings for UnusedImport does not seem to work (where to put it?)
         var e:Expr;
         e = null;
 
