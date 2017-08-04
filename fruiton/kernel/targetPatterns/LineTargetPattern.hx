@@ -15,7 +15,7 @@ class LineTargetPattern extends TargetPattern {
         var targets:TargetPattern.Targets = new TargetPattern.Targets();
 
         for (i in min...(max + 1)) {
-            var newPos:Vector2 = origin.add(vector.mul(i));
+            var newPos:Vector2 = origin + (i * vector);
             if (!newPos.equals(origin)) {
                 targets.push(newPos);
             }

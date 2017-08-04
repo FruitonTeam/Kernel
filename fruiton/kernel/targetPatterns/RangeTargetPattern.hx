@@ -13,7 +13,7 @@ class RangeTargetPattern extends TargetPattern {
 
         for (x in (-max)...(max + 1)) {
             for (y in (-max)...(max + 1)) {
-                targets.push(origin.add(new Vector2(x, y)));
+                targets.push(origin + new Vector2(x, y));
             }
         }
 
