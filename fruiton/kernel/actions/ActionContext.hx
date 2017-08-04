@@ -1,3 +1,5 @@
 package fruiton.kernel.actions;
 
-class ActionContext {}
+class ActionContext {
+
+}

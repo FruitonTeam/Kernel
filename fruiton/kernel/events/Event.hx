@@ -3,7 +3,7 @@ package fruiton.kernel.events;
 import fruiton.IAbstractClass;
 
 class Event implements IAbstractClass {
-    
+
     public var id(default, null):Int;
 
     public function new(id:Int) {

@@ -1,7 +1,7 @@
 package fruiton.dataStructures.collections;
 
 class ReadOnlyArray<T> {
-    
+
     var source:Array<T>;
 
     public function new(source) {
@@ -11,7 +11,7 @@ class ReadOnlyArray<T> {
     public function get(index):T {
         return source[index];
     }
-    
+
     public function iterator():Iterator<T> {
         return source.iterator();
     }

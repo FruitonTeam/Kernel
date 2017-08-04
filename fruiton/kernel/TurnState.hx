@@ -3,8 +3,8 @@ package fruiton.kernel;
 class TurnState {
 
     public var actionPerformer(default, default):Fruiton;
-	public var moveCount(default, default):Int;
-	public var attackCount(default, default):Int;
+    public var moveCount(default, default):Int;
+    public var attackCount(default, default):Int;
 
     public function new() {
         this.actionPerformer = null;

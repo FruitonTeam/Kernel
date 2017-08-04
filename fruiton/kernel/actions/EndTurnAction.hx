@@ -17,7 +17,7 @@ class EndTurnAction extends GenAction<EndTurnActionContext> {
         if (!result.isValid) {
             return result;
         }
-        
+
         var newContext:EndTurnActionContext = actionContext.clone();
 
         for (f in state.fruitons) {

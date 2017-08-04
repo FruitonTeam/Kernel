@@ -9,12 +9,12 @@ class MoveAction extends GenAction<MoveActionContext> {
     }
 
     override function validate(state:GameState, context:MoveActionContext):Bool {
-        var result:Bool = 
+        var result:Bool =
             context != null &&
             context.source != null &&
             state.field.exists(context.source) &&
             state.field.get(context.source).fruiton != null;
-        
+
         if (!result) return result;
 
         var sourceFruiton:Fruiton = state.field.get(context.source).fruiton;

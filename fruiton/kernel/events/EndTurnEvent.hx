@@ -1,7 +1,7 @@
 package fruiton.kernel.events;
 
 class EndTurnEvent extends Event {
-    
+
     public function new(id:Int) {
         super(id);
     }

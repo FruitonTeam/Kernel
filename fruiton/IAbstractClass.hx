@@ -5,4 +5,6 @@ package fruiton;
  * Class with abstract method (without body) and public constructor will be shown as compiler error.
  */
 @:autoBuild(fruiton.AbstractClassBuilder.build())
-interface IAbstractClass {}
+interface IAbstractClass {
+
+}
