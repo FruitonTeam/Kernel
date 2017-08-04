@@ -1,7 +1,4 @@
 package fruiton;
-/**
- * Taken from https://gist.github.com/andyli/5011520
- */
 
 import haxe.macro.Context;
 import haxe.macro.Expr;
@@ -10,6 +7,9 @@ using Lambda;
 
 private typedef StringMap<T> = #if haxe3 Map<String, T>; #else Hash<T>; #end
 
+/**
+ * Taken from https://gist.github.com/andyli/5011520
+ */
 class AbstractClassBuilder {
 
     #if macro
