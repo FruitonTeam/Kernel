@@ -2,18 +2,19 @@ package fruiton.kernel;
 
 import fruiton.kernel.actions.MoveActionContext;
 import fruiton.kernel.actions.EndTurnActionContext;
+import fruiton.dataStructures.Vector2;
 
 typedef MoveGenerators = Array<MoveGenerator>;
 
 class Fruiton {
 
     public var id(default, null):Int;
-    public var position(default, null):Position;
+    public var position(default, null):Vector2;
     public var owner(default, null):Player;
 
     var moveGenerators:MoveGenerators;
 
-    public function new(id:Int, position:Position, owner:Player, generators:MoveGenerators) {
+    public function new(id:Int, position:Vector2, owner:Player, generators:MoveGenerators) {
         this.id = id;
         this.position = position;
         this.owner = owner;
@@ -45,25 +46,25 @@ class Fruiton {
     // ==============
     public function onBeforeTurnEnd(context:EndTurnActionContext, state:GameState, result:ActionExecutionResult) {
         // Modify action and game state
-        trace("onBeforeTurnEnd Fruiton: " + id + " " + context);
+        //trace("onBeforeTurnEnd Fruiton: " + id + " " + context);
     }
 
     public function onAfterTurnEnd(context:EndTurnActionContext, state:GameState, result:ActionExecutionResult) {
         // Modify action and game state
-        trace("onAfterTurnEnd Fruiton: " + id + " " + context);
+        //trace("onAfterTurnEnd Fruiton: " + id + " " + context);
     }
 
     public function onBeforeMove(context:MoveActionContext, state:GameState, result:ActionExecutionResult) {
         // Modify action and game state
-        trace("onBeforeMove Fruiton: " + id + " " + context);
+        //trace("onBeforeMove Fruiton: " + id + " " + context);
     }
 
     public function onAfterMove(context:MoveActionContext, state:GameState, result:ActionExecutionResult) {
         // Modify action and game state
-        trace("onAfterMove Fruiton: " + id + " " + context);
+        //trace("onAfterMove Fruiton: " + id + " " + context);
     }
 
-    public function moveTo(newPosition:Position) {
+    public function moveTo(newPosition:Vector2) {
         position = newPosition;
     }
 

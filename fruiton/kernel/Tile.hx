@@ -1,11 +1,13 @@
 package fruiton.kernel;
 
+import fruiton.dataStructures.Vector2;
+
 class Tile {
     
     public var fruiton(default, default):Fruiton;
-    public var position(default, null):Position;
+    public var position(default, null):Vector2;
 
-    public function new(position:Position) {
+    public function new(position:Vector2) {
         this.fruiton = null;
         this.position = position;
     }
