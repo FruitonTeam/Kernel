@@ -46,7 +46,7 @@ abstract Vector2(Point)  {
 	 * @return Vector2 oposite to this
 	 */
 	@:op(-A)
-	public function unaryMinus():Vector2 {
+	public function negate():Vector2 {
 		return new Vector2(-this.x, -this.y);
 	}
 
@@ -63,7 +63,24 @@ abstract Vector2(Point)  {
 		return new Vector2(this.x, this.y);
 	}
 
-	public function equals(other:Vector2):Bool {
-		return this.x == other.x && this.y == other.y;
+	/**
+	 * Tests value equality of two vectors
+	 * @return Whether are given vectors equal
+	 */
+	@:op(A == B)
+	public static function equals(lhs:Vector2, rhs:Vector2):Bool {
+		if (lhs == null || rhs == null) {
+			return false;
+		}
+		return lhs.x == rhs.x && lhs.y == rhs.y;
+	}
+
+	/**
+	 * Tests value inequality of two vectors
+	 * @return Whether are given vectors not equal
+	 */
+	@:op(A != B)
+	public static function nequals(lhs:Vector2, rhs:Vector2):Bool {
+		return !(lhs == rhs);
 	}
 }

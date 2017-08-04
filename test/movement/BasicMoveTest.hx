@@ -153,8 +153,8 @@ class BasicMoveTest {
 		Assert.areEqual(events.length, 1);
 		var me:MoveEvent = cast (events[0], MoveEvent);
 		var ma:MoveAction = cast (a, MoveAction);
-		Assert.isTrue(me.from.equals(fruitonPos));
-		Assert.isTrue(me.to.equals(ma.actionContext.target));
+		Assert.isTrue(me.from == fruitonPos);
+		Assert.isTrue(me.to == ma.actionContext.target);
 		trace(Std.string(events[0]));
 
 		trace("Source fruiton: " + Std.string(k.currentState.field.get(new Vector2(0, 1)).fruiton));
