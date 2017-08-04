@@ -10,16 +10,18 @@ abstract Vector2(Point)  {
         this = new Point(x, y);
     }
 
-    /**
-     * Memberwise multiplies this vector by given scalar value
-     * @param scalar - number to multiply this vector with
-     * @return Result of multiplication as a new Vector2
-     */
-    @:op(A * B)
-    @:commutative // Enforces static
-    public static function multiply(v:Vector2, scalar:Int):Vector2 {
-        return new Vector2(v.x * scalar, v.y * scalar);
-    }
+    public static var ZERO:Vector2 = new Vector2(0, 0);
+
+	/**
+	 * Memberwise multiplies this vector by given scalar value
+	 * @param scalar - number to multiply this vector with
+	 * @return Result of multiplication as a new Vector2
+	 */
+	@:op(A * B)
+	@:commutative // Enforces static
+	public static function multiply(v:Vector2, scalar:Int):Vector2 {
+		return new Vector2(v.x * scalar, v.y * scalar);
+	}
 
     /**
      * Memberwise add two vectors together

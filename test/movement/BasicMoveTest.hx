@@ -14,22 +14,23 @@ import fruiton.dataStructures.*;
 class BasicMoveTest {
 
 	var timer:Timer;
-	
-	public function new() {}
-	
+
+	public function new() {
+    }
+
 	@BeforeClass
 	public function beforeClass() {
 		Sys.println("====================");
-		Sys.println("Basic movement tests"); 
+		Sys.println("Basic movement tests");
 		Sys.println("====================");
 	}
-	
+
 	@AfterClass
 	public function afterClass() {}
-	
+
 	@Before
 	public function setup() {}
-	
+
 	@After
 	public function tearDown() {}
 
@@ -44,23 +45,25 @@ class BasicMoveTest {
 	}
 
     @Test
-    public function testInvalidAction() {
+    public function performAction_invalidAction_throwsInvalidActionException() {
+        Sys.println("=== running performAction_invalidAction_throwsInvalidActionException");
         try {
 			var kernel:IKernel = makeKernel();
 			var a:Action = new MoveAction(new MoveActionContext(null, null));
 			kernel.performAction(a);
-		} 
+		}
 		catch (e : InvalidActionException) {
 			// Expected behavior
 		}
     }
 
 	@Test
-	public function testNullAction() {
+	public function performAction_nullAction_throwsInvalidActionException() {
+        Sys.println("=== running performAction_nullAction_throwsInvalidActionException");
 		try {
 			var kernel:IKernel = makeKernel();
 			kernel.performAction(null);
-		} 
+		}
 		catch (e : InvalidActionException) {
 			// Expected behavior
 		}
@@ -141,12 +144,12 @@ class BasicMoveTest {
 		}
 
 		//printField(k.currentState.field);
-		
+
 		// Run
 		var a:Action = actions[idx];
 		trace("Performing action: " + Std.string(a));
         var events:Array<Event> = k.performAction(a);
-		
+
 		//printField(k.currentState.field);
 
 		// Assert

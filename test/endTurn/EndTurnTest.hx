@@ -15,10 +15,8 @@ class EndTurnTest {
 
     @BeforeClass
 	public function beforeClass() {
-		// Avoid later print statements being intercepted by "Tests PASSED under ..." message
-		// To see try to comment following
-		Sys.println("=============="); 
-        Sys.println("End turn tests"); 
+		Sys.println("==============");
+        Sys.println("End turn tests");
         Sys.println("==============");
 	}
 
@@ -40,9 +38,9 @@ class EndTurnTest {
     public function kerel_performEndTurnAction_returnsOneEndTurnEvent() {
         Sys.println("=== running kerel_performEndTurnAction_returnsOneEndTurnEvent");
         var kernel:Kernel = makeKernel();
-        
+
         var events:IKernel.Events = kernel.performAction(new EndTurnAction(new EndTurnActionContext()));
-        
+
         var endTurnEvent:EndTurnEvent = null;
         // There may be more events associated with turn ending
         // Fruitons may evolve, take periodical damage etc.
@@ -73,7 +71,7 @@ class EndTurnTest {
                 endTurnAction = cast(action, EndTurnAction);
             }
         }
-        
+
         // There is at least one EndTurnAction
         Assert.isNotNull(endTurnAction);
     }

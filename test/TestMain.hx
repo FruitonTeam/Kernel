@@ -16,16 +16,17 @@ class TestMain {
 
 	public function new() {
 		var suites:Array<Class<massive.munit.TestSuite>> = [];
-		
+
 		suites.push(test.movement.MoveTestSuite);
 		suites.push(test.endTurn.EndTurnTestSuite);
+		suites.push(test.targetPatterns.TargetPatternsTestSuite);
 
 		var client = new HTTPClient(new JUnitReportClient());
 
-		var runner:TestRunner = new TestRunner(client); 
-		
+		var runner:TestRunner = new TestRunner(client);
+
 		runner.completionHandler = completionHandler;
-		
+
 		runner.run(suites);
 	}
 

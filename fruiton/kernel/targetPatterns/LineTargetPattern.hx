@@ -12,7 +12,7 @@ class LineTargetPattern extends TargetPattern {
     }
 
     override public function getTargets(origin:Vector2):TargetPattern.Targets {
-        var targets:TargetPattern.Targets = new TargetPattern.Targets();
+        var targets:TargetPattern.Targets = super.getTargets(origin);
 
         for (i in min...(max + 1)) {
             var newPos:Vector2 = origin + (i * vector);

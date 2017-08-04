@@ -9,7 +9,7 @@ class RangeTargetPattern extends TargetPattern {
     }
 
     override public function getTargets(origin:Vector2):TargetPattern.Targets {
-        var targets:TargetPattern.Targets = new TargetPattern.Targets();
+        var targets:TargetPattern.Targets = super.getTargets(origin);
 
         for (x in (-max)...(max + 1)) {
             for (y in (-max)...(max + 1)) {
