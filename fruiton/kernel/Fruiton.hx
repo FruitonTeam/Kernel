@@ -28,7 +28,7 @@ class Fruiton {
 
     public function getAllActions(state:GameState):IKernel.Actions {
         var allActions:IKernel.Actions = new IKernel.Actions();
-        
+
         // Move actions
         for (pattern in moveGenerators) {
             var moveActions:MoveGenerator.Moves = pattern.getMoves(position);

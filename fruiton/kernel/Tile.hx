@@ -3,7 +3,7 @@ package fruiton.kernel;
 import fruiton.dataStructures.Vector2;
 
 class Tile {
-    
+
     public var fruiton(default, default):Fruiton;
     public var position(default, null):Vector2;
 

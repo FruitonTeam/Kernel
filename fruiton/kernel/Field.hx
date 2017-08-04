@@ -32,10 +32,10 @@ class Field {
      * @return If given position in in bounds of this field
      */
     public function exists(key:Vector2):Bool {
-        return 
-            key.x >= 0 && 
-            key.x < field.length && 
-            key.y >= 0 && 
+        return
+            key.x >= 0 &&
+            key.x < field.length &&
+            key.y >= 0 &&
             key.y < field[key.x].length;
     }
 }
