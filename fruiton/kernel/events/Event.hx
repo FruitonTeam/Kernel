@@ -1,6 +1,8 @@
 package fruiton.kernel.events;
 
-class Event {
+import fruiton.IAbstractClass;
+
+class Event implements IAbstractClass {
     
     public var id(default, null):Int;
 

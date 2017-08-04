@@ -1,10 +1,10 @@
 package fruiton.kernel.actions;
 
-class Action {
+import fruiton.IAbstractClass;
 
-    public function execute(state:GameState):ActionExecutionResult {
-        return new ActionExecutionResult();
-    }
+class Action implements IAbstractClass {
+
+    public function execute(state:GameState):ActionExecutionResult;
 
     public function toString():String {
         return "Action";

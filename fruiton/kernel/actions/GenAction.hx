@@ -8,9 +8,7 @@ class GenAction<TContext> extends Action {
         this.actionContext = context;
     }
 
-    function validate(state:GameState, context:TContext):Bool {
-        return true;
-    }
+    function validate(state:GameState, context:TContext):Bool;
 
     override public function execute(state:GameState):ActionExecutionResult {
         var result:ActionExecutionResult = new ActionExecutionResult();
