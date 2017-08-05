@@ -3,6 +3,7 @@ package fruiton.kernel.actions;
 class EndTurnActionContext extends ActionContext {
 
     public function new() {
+        super();
     }
 
     public function clone():EndTurnActionContext {
@@ -12,5 +13,13 @@ class EndTurnActionContext extends ActionContext {
 
     public function toString():String {
         return "EndTurnActionContext";
+    }
+
+    override public function equals(other:ActionContext):Bool {
+        if (other == null) {
+            return false;
+        }
+
+        return Std.is(other, EndTurnActionContext);
     }
 }

@@ -1,5 +1,6 @@
 package fruiton;
 
 interface IEquitable<T> {
-    public function equals(other:T):Bool;
+
+    function equals(other:T):Bool;
 }
