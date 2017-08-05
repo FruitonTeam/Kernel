@@ -2,7 +2,7 @@ package fruiton.kernel.targetPatterns;
 
 import fruiton.dataStructures.Vector2;
 import fruiton.IAbstractClass;
-import fruiton.kernel.exceptions.NullReferenceException;
+import fruiton.kernel.exceptions.InvalidArgumentException;
 
 typedef Targets = Array<Vector2>;
 
@@ -28,7 +28,7 @@ class TargetPattern implements IAbstractClass {
      */
     public function getTargets(origin:Vector2):Targets {
         if (origin == null) {
-            throw new NullReferenceException("Origin cannot be null.");
+            throw new InvalidArgumentException("Origin cannot be null.");
         }
         return new Targets();
     }

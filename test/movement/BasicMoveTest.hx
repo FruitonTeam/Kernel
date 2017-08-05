@@ -34,7 +34,7 @@ class BasicMoveTest {
 	@After
 	public function tearDown() {}
 
-	function kernelFactory():Kernel {
+	function makeKernel():Kernel {
 		var p1:Player = new Player(1);
 		var p2:Player = new Player(2);
 		var moveGenerators:MoveGenerators = new MoveGenerators();
@@ -48,7 +48,7 @@ class BasicMoveTest {
     public function performAction_invalidAction_throwsInvalidActionException() {
         Sys.println("=== running performAction_invalidAction_throwsInvalidActionException");
         try {
-			var kernel:IKernel = kernelFactory();
+			var kernel:IKernel = makeKernel();
 			var a:Action = new MoveAction(new MoveActionContext(null, null));
 			kernel.performAction(a);
 		}
@@ -61,7 +61,7 @@ class BasicMoveTest {
 	public function performAction_nullAction_throwsInvalidActionException() {
         Sys.println("=== running performAction_nullAction_throwsInvalidActionException");
 		try {
-			var kernel:IKernel = kernelFactory();
+			var kernel:IKernel = makeKernel();
 			kernel.performAction(null);
 		}
 		catch (e : InvalidActionException) {
@@ -73,24 +73,24 @@ class BasicMoveTest {
 	public function getAllValidActions_validKernel_returnsAtLeastOneMoveAction() {
 		Sys.println("=== running getAllValidActions_validKernel_returnsAtLeastOneMoveAction");
 
-		var k:Kernel = kernelFactory();
+		var k:Kernel = makeKernel();
 		var actions:IKernel.Actions = k.getAllValidActions();
 
-		var some:Bool = false;
+		var hasMoveAction:Bool = false;
 		for (a in actions) {
 			if (Std.is(a, MoveAction)) {
-				some = true;
+				hasMoveAction = true;
 				break;
 			}
 		}
-		Assert.isTrue(some);
+		Assert.isTrue(hasMoveAction);
 	}
 
 	@Test
 	public function performAction_validMoveAction_returnsMatchingEvent() {
 		Sys.println("=== running performAction_validMoveAction_returnsMatchingEvent");
 
-		var k:Kernel = kernelFactory();
+		var k:Kernel = makeKernel();
 		var actions:IKernel.Actions = k.getAllValidActions();
 
 		var action:MoveAction = null;

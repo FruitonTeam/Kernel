@@ -17,11 +17,11 @@ class LineTargetPatternTest {
         Sys.println("=========================");
 	}
 
-    function zeroPatternFactory():LineTargetPattern {
+    function makeZeroPattern():LineTargetPattern {
         return new LineTargetPattern(Vector2.ZERO, 0, 0);
     }
 
-    function linePatternFactory(dir:Vector2, min:Int, max:Int):LineTargetPattern {
+    function makeLinePattern(dir:Vector2, min:Int, max:Int):LineTargetPattern {
         return new LineTargetPattern(dir, min, max);
     }
 
@@ -29,13 +29,13 @@ class LineTargetPatternTest {
     public function getTargets_nullOrigin_throwsNullReferenceException() {
         Sys.println("=== running getTargets_nullOrigin_throwsNullReferenceException");
 
-        var ltp:LineTargetPattern = zeroPatternFactory();
+        var ltp:LineTargetPattern = makeZeroPattern();
         try {
             ltp.getTargets(null);
 
             // Unreachable
             Assert.isTrue(false);
-        } catch (e:NullReferenceException) {
+        } catch (e:InvalidArgumentException) {
             // Expected behavior
         }
     }
@@ -44,7 +44,7 @@ class LineTargetPatternTest {
     public function getTargets_zeroDirectonVector_returnsOnlyOrigin() {
         Sys.println("=== running getTargets_zeroDirectonVector_returnsOnlyOrigin");
 
-        var ltp:LineTargetPattern = linePatternFactory(Vector2.ZERO, -10, 10);
+        var ltp:LineTargetPattern = makeLinePattern(Vector2.ZERO, -10, 10);
         var origin:Vector2 = Vector2.ZERO;
         var targets:TargetPattern.Targets = ltp.getTargets(origin);
 
@@ -58,7 +58,7 @@ class LineTargetPatternTest {
         Sys.println("=== running getTargets_minGreaterThanMax_returnsNoTargets");
 
         for (min in -100...100) {
-            var ltp:LineTargetPattern = linePatternFactory(new Vector2(0, 1), min, min - 1);
+            var ltp:LineTargetPattern = makeLinePattern(new Vector2(0, 1), min, min - 1);
             var origin:Vector2 = Vector2.ZERO;
             var targets:TargetPattern.Targets = ltp.getTargets(origin);
             Assert.areEqual(0, targets.length);
@@ -70,7 +70,7 @@ class LineTargetPatternTest {
         Sys.println("=== running getTargets_minEqualsToMax_returnsOneTarget");
 
         for (minMax in -100...100) {
-            var ltp:LineTargetPattern = linePatternFactory(new Vector2(0, 1), minMax, minMax);
+            var ltp:LineTargetPattern = makeLinePattern(new Vector2(0, 1), minMax, minMax);
             var origin:Vector2 = Vector2.ZERO;
             var targets:TargetPattern.Targets = ltp.getTargets(origin);
 
@@ -95,7 +95,7 @@ class LineTargetPatternTest {
         for (d in directions) {
             var min:Int = -10;
             var max:Int = 10;
-            var ltp:LineTargetPattern = linePatternFactory(d, min, max);
+            var ltp:LineTargetPattern = makeLinePattern(d, min, max);
             var origin:Vector2 = Vector2.ZERO;
             var targets:TargetPattern.Targets = ltp.getTargets(origin);
             Assert.areEqual(21, targets.length);
@@ -109,7 +109,7 @@ class LineTargetPatternTest {
         var min:Int = -10;
         var max:Int = 10;
         var dir:Vector2 = new Vector2(0, 1);
-        var ltp:LineTargetPattern = linePatternFactory(dir, min, max);
+        var ltp:LineTargetPattern = makeLinePattern(dir, min, max);
         var origin:Vector2 = Vector2.ZERO;
         var targets:TargetPattern.Targets = ltp.getTargets(origin);
 

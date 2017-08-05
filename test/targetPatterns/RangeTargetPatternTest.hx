@@ -35,7 +35,7 @@ class RangeTargetPatternTest {
 
             // Unreachable
             Assert.isTrue(false);
-        } catch (e:NullReferenceException) {
+        } catch (e:InvalidArgumentException) {
             // Expected behavior
         }
     }
