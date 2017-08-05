@@ -3,7 +3,7 @@ package fruiton.dataStructures.collections;
 import fruiton.IEquitable;
 
 @:forward
-abstract EquitableArray<T:IEquitable<T>>(Array<T>)
+abstract ArrayOfEquitables<T:IEquitable<T>>(Array<T>)
 from Array<T>
 to Array<T> {
 
@@ -12,7 +12,7 @@ to Array<T> {
     /**
      * Find item in array based on value equality.
      * @param item to find
-     * @return Index of item if found, EquitableArray.NONE otherwise.
+     * @return Index of item if found, ArrayOfEquitables.NONE otherwise.
      */
     public function findIndex(item:T):Int {
         if (this == null || item == null) {

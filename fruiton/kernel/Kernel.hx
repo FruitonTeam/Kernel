@@ -3,7 +3,7 @@ package fruiton.kernel;
 import fruiton.kernel.exceptions.InvalidActionException;
 import fruiton.kernel.actions.Action;
 import haxe.ds.GenericStack;
-import fruiton.dataStructures.collections.EquitableArray;
+import fruiton.dataStructures.collections.ArrayOfEquitables;
 
 typedef ActionStack = GenericStack<Action>;
 
@@ -17,12 +17,12 @@ class Kernel implements IKernel {
 
     public function getAllValidActions():IKernel.Actions {
         var allActions:IKernel.Actions = currentState.getAllActions();
-        var validActions:EquitableArray<Action> = new IKernel.Actions();
+        var validActions:ArrayOfEquitables<Action> = new IKernel.Actions();
 
         for (a in allActions) {
             // Do not return duplicate actions
             // Until we have a hash set, we go quadratic
-            if (validActions.findIndex(a) != EquitableArray.NONE) {
+            if (validActions.findIndex(a) != ArrayOfEquitables.NONE) {
                 continue;
             }
 
