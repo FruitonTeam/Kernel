@@ -41,6 +41,17 @@ class LineTargetPatternTest {
     }
 
     @Test
+    public function getTargets_zeroDirectonVector_doesNotReturnDuplicates() {
+        Sys.println("=== running getTargets_zeroDirectonVector_doesNotReturnDuplicates");
+
+        var ltp:LineTargetPattern = makeLinePattern(Vector2.ZERO, -10, 10);
+        var origin:Vector2 = Vector2.ZERO;
+        var targets:TargetPattern.Targets = ltp.getTargets(origin);
+
+        Assert.areEqual(1, targets.length);
+    }
+
+    @Test
     public function getTargets_zeroDirectonVector_returnsOnlyOrigin() {
         Sys.println("=== running getTargets_zeroDirectonVector_returnsOnlyOrigin");
 

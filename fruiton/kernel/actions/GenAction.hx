@@ -5,6 +5,7 @@ class GenAction<TContext> extends Action {
     public var actionContext(default, null):TContext;
 
     function new(context:TContext) {
+        super();
         this.actionContext = context;
     }
 

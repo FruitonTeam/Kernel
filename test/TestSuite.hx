@@ -3,6 +3,7 @@ import massive.munit.TestSuite;
 import endTurn.EndTurnTest;
 import movement.BasicMoveTest;
 import targetPatterns.LineTargetPatternTest;
+import targetPatterns.RangeTargetPatternTest;
 
 /**
  * Auto generated Test Suite for MassiveUnit.
@@ -19,5 +20,6 @@ class TestSuite extends massive.munit.TestSuite
 		add(endTurn.EndTurnTest);
 		add(movement.BasicMoveTest);
 		add(targetPatterns.LineTargetPatternTest);
+		add(targetPatterns.RangeTargetPatternTest);
 	}
 }

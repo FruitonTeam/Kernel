@@ -3,8 +3,10 @@ package fruiton.dataStructures;
 /**
  * Immutable class representing 2D vector
  */
- @:forward(x, y)
-abstract Vector2(Point)  {
+ @:forward
+abstract Vector2(Point)
+from Point
+to Point {
 
     public function new(x:Int, y:Int) {
         this = new Point(x, y);
@@ -70,11 +72,11 @@ abstract Vector2(Point)  {
      * @return Whether are given vectors equal
      */
     @:op(A == B)
-    public static function equals(lhs:Vector2, rhs:Vector2):Bool {
-        if (lhs == null || rhs == null) {
+    public static function equalsTo(lhs:Vector2, rhs:Vector2):Bool {
+        if (lhs == null) {
             return false;
         }
-        return lhs.x == rhs.x && lhs.y == rhs.y;
+        return lhs.equalsTo(rhs);
     }
 
     /**
@@ -84,5 +86,22 @@ abstract Vector2(Point)  {
     @:op(A != B)
     public static function nequals(lhs:Vector2, rhs:Vector2):Bool {
         return !(lhs == rhs);
+    }
+
+    public static function compare(lhs:Vector2, rhs:Vector2):Int {
+        if (lhs.x < rhs.x) {
+            return -1;
+        }
+        if (lhs.x > rhs.x) {
+            return 1;
+        }
+        // lhs.x == rhs.x
+        if (lhs.y < rhs.y) {
+            return -1;
+        }
+        if (lhs.y > rhs.y) {
+            return 1;
+        }
+        return 0;
     }
 }

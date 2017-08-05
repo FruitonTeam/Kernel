@@ -44,6 +44,17 @@ class BasicMoveTest {
 		return new Kernel(p1, p2, [fruiton]);
 	}
 
+	function makeKernelWithOverlappingMovement():Kernel {
+		var p1:Player = new Player(1);
+		var p2:Player = new Player(2);
+		var moveGenerators:MoveGenerators = new MoveGenerators();
+		moveGenerators.push(new MoveGenerator(new LineTargetPattern(new Vector2(0, 1), -1, 1)));
+		moveGenerators.push(new MoveGenerator(new LineTargetPattern(new Vector2(1, 0), -1, 1)));
+		moveGenerators.push(new MoveGenerator(new RangeTargetPattern(Vector2.ZERO, 0, 2)));
+		var fruiton:Fruiton = new Fruiton(1, new Vector2(0, 1), p1, moveGenerators);
+		return new Kernel(p1, p2, [fruiton]);
+	}
+
     @Test
     public function performAction_invalidAction_throwsInvalidActionException() {
         Sys.println("=== running performAction_invalidAction_throwsInvalidActionException");
@@ -84,6 +95,21 @@ class BasicMoveTest {
 			}
 		}
 		Assert.isTrue(hasMoveAction);
+	}
+
+	@Test
+	public function getAllValidActions_overlappingMoves_doesNotReturnDuplicateActions() {
+		Sys.println("=== running getAllValidActions_overlappingMoves_doesNotReturnDuplicateActions");
+
+		var k:Kernel = makeKernelWithOverlappingMovement();
+		var actions:IKernel.Actions = k.getAllValidActions();
+
+		var hasMoveAction:Bool = false;
+		for (i in 0...actions.length) {
+			for (j in (i + 1)...actions.length) {
+				Assert.isFalse(actions[i].equalsTo(actions[j]));
+			}
+		}
 	}
 
 	@Test
