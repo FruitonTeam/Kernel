@@ -50,7 +50,7 @@ class EndTurnAction extends GenAction<EndTurnActionContext> {
         return super.toString() + " EndTurn";
     }
 
-    override public function equals(other:Action):Bool {
+    override public function equalsTo(other:Action):Bool {
         if (other == null) {
             return false;
         }
@@ -61,6 +61,6 @@ class EndTurnAction extends GenAction<EndTurnActionContext> {
         var otherEndTurnAction = cast(other, EndTurnAction);
         return
             (this.actionContext == otherEndTurnAction.actionContext) ||
-            (this.actionContext != null && this.actionContext.equals(otherEndTurnAction.actionContext));
+            (this.actionContext != null && this.actionContext.equalsTo(otherEndTurnAction.actionContext));
     }
 }

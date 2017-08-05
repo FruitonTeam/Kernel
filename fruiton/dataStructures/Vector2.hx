@@ -72,11 +72,11 @@ to Point {
      * @return Whether are given vectors equal
      */
     @:op(A == B)
-    public static function equals(lhs:Vector2, rhs:Vector2):Bool {
+    public static function equalsTo(lhs:Vector2, rhs:Vector2):Bool {
         if (lhs == null) {
             return false;
         }
-        return lhs.equals(rhs);
+        return lhs.equalsTo(rhs);
     }
 
     /**

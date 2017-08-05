@@ -15,7 +15,7 @@ class EndTurnActionContext extends ActionContext {
         return "EndTurnActionContext";
     }
 
-    override public function equals(other:ActionContext):Bool {
+    override public function equalsTo(other:ActionContext):Bool {
         if (other == null) {
             return false;
         }

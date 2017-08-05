@@ -10,5 +10,5 @@ class ActionContext implements IAbstractClass implements IEquitable<ActionContex
 
     }
 
-    public function equals(other:ActionContext):Bool;
+    public function equalsTo(other:ActionContext):Bool;
 }

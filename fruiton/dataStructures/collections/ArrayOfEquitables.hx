@@ -21,7 +21,7 @@ to Array<T> {
 
         var idx:Int = 0;
         for(arrayItem in this) {
-            if (item.equals(arrayItem)) {
+            if (item.equalsTo(arrayItem)) {
                 return idx;
             }
             ++idx;
@@ -41,7 +41,7 @@ to Array<T> {
         }
         var i:Int = this.length;
         while (i-- > 1) {
-            if (this[i].equals(this[i - 1])) {
+            if (this[i].equalsTo(this[i - 1])) {
                 this.splice(i, 1);
             }
         }

@@ -17,7 +17,7 @@ class Point implements IEquitable<Point> {
         this.y = y;
     }
 
-    public function equals(other:Point):Bool {
+    public function equalsTo(other:Point):Bool {
         if (other == null) {
             return false;
         }

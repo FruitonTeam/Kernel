@@ -21,7 +21,7 @@ class MoveActionContext extends ActionContext {
         return " MoveActionContext source: " + Std.string(source) + " target: " + Std.string(target);
     }
 
-    override public function equals(other:ActionContext):Bool {
+    override public function equalsTo(other:ActionContext):Bool {
         if (other == null) {
             return false;
         }
@@ -33,11 +33,11 @@ class MoveActionContext extends ActionContext {
 
         var isSourceEqual:Bool =
             (this.source == otherMoveContext.source) ||
-            (this.source != null && this.source.equals(otherMoveContext.source));
+            (this.source != null && this.source.equalsTo(otherMoveContext.source));
 
         var isTargetEqual:Bool =
             (this.target == otherMoveContext.target) ||
-            (this.target != null && this.target.equals(otherMoveContext.target));
+            (this.target != null && this.target.equalsTo(otherMoveContext.target));
 
         return isSourceEqual && isTargetEqual;
     }

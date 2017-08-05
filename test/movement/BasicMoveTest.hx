@@ -107,7 +107,7 @@ class BasicMoveTest {
 		var hasMoveAction:Bool = false;
 		for (i in 0...actions.length) {
 			for (j in (i + 1)...actions.length) {
-				Assert.isFalse(actions[i].equals(actions[j]));
+				Assert.isFalse(actions[i].equalsTo(actions[j]));
 			}
 		}
 	}

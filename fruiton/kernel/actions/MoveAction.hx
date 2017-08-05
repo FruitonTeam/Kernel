@@ -65,7 +65,7 @@ class MoveAction extends GenAction<MoveActionContext> {
         return super.toString() + " MoveAction:" + Std.string(actionContext);
     }
 
-    override public function equals(other:Action):Bool {
+    override public function equalsTo(other:Action):Bool {
         if (other == null) {
             return false;
         }
@@ -76,6 +76,6 @@ class MoveAction extends GenAction<MoveActionContext> {
         var otherMoveAction = cast(other, MoveAction);
         return
             (this.actionContext == otherMoveAction.actionContext) ||
-            (this.actionContext != null && this.actionContext.equals(otherMoveAction.actionContext));
+            (this.actionContext != null && this.actionContext.equalsTo(otherMoveAction.actionContext));
     }
 }
