@@ -32,11 +32,11 @@ class MoveActionContext extends ActionContext {
         var otherMoveContext = cast(other, MoveActionContext);
 
         var isSourceEqual:Bool =
-            (this.source == null && otherMoveContext.source == null) ||
+            (this.source == otherMoveContext.source) ||
             (this.source != null && this.source.equals(otherMoveContext.source));
 
         var isTargetEqual:Bool =
-            (this.target == null && otherMoveContext.target == null) ||
+            (this.target == otherMoveContext.target) ||
             (this.target != null && this.target.equals(otherMoveContext.target));
 
         return isSourceEqual && isTargetEqual;

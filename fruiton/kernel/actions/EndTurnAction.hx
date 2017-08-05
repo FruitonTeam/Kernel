@@ -60,7 +60,7 @@ class EndTurnAction extends GenAction<EndTurnActionContext> {
 
         var otherEndTurnAction = cast(other, EndTurnAction);
         return
-            (this.actionContext == null && otherEndTurnAction.actionContext == null) ||
+            (this.actionContext == otherEndTurnAction.actionContext) ||
             (this.actionContext != null && this.actionContext.equals(otherEndTurnAction.actionContext));
     }
 }
