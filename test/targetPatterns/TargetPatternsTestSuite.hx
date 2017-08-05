@@ -7,5 +7,6 @@ class TargetPatternsTestSuite extends massive.munit.TestSuite {
 		super();
 
 		add(LineTargetPatternTest);
+		add(RangeTargetPatternTest);
 	}
 }
