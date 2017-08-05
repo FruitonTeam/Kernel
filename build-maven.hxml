@@ -1,0 +1,3 @@
+fruiton.kernel.Kernel
+-cp src
+-java build/fruiton-kernel-1.0-SNAPSHOT
