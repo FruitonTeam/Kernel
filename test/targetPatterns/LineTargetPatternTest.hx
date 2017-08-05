@@ -33,13 +33,18 @@ class LineTargetPatternTest {
     }
 
     @Test
-    public function getTargets_zeroDirectonVector_reurnsNoTargets() {
-        Sys.println("=== running getTargets_zeroDirectonVector_reurnsNoTargets");
+    public function getTargets_zeroDirectonVector_returnsOnlyOrigin() {
+        Sys.println("=== running getTargets_zeroDirectonVector_returnsOnlyOrigin");
 
-        var ltp:LineTargetPattern = new LineTargetPattern(Vector2.ZERO, -10, 10);
+        var min:Int = -10;
+        var max:Int = 10;
+        var ltp:LineTargetPattern = new LineTargetPattern(Vector2.ZERO, min, max);
         var origin:Vector2 = Vector2.ZERO;
         var targets:TargetPattern.Targets = ltp.getTargets(origin);
-        Assert.areEqual(0, targets.length);
+
+        for (t in targets) {
+            Assert.isTrue(origin == t);
+        }
     }
 
     @Test
@@ -63,12 +68,31 @@ class LineTargetPatternTest {
             var origin:Vector2 = Vector2.ZERO;
             var targets:TargetPattern.Targets = ltp.getTargets(origin);
 
-            if (minMax == 0) {
-                // Origin is not returned
-                Assert.areEqual(0, targets.length);
-            } else {
-                Assert.areEqual(1, targets.length);
+            Assert.areEqual(1, targets.length);
+        }
+    }
+
+    @Test
+    public function getTargets_fromMinus10to10_returnsLineOf21() {
+        Sys.println("=== running getTargets_fromMinus10to10_returnsLineOf21");
+
+        // Generate all 8 directions
+        var directions:Array<Vector2> = [];
+        for (x in -1...1) {
+            for (y in -1...1) {
+                if (x != 0 && y != 0) {
+                    directions.push(new Vector2(x, y));
+                }
             }
+        }
+
+        for (d in directions) {
+            var min:Int = -10;
+            var max:Int = 10;
+            var ltp:LineTargetPattern = new LineTargetPattern(Vector2.ZERO, min, max);
+            var origin:Vector2 = Vector2.ZERO;
+            var targets:TargetPattern.Targets = ltp.getTargets(origin);
+            Assert.areEqual(21, targets.length);
         }
     }
 }
