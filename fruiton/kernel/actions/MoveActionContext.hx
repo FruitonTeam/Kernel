@@ -30,10 +30,15 @@ class MoveActionContext extends ActionContext {
         }
 
         var otherMoveContext = cast(other, MoveActionContext);
-        return
-            this.source != null &&
-            this.source.equals(otherMoveContext.source) &&
-            this.target != null &&
-            this.target.equals(otherMoveContext.target);
+
+        var isSourceEqual:Bool =
+            (this.source == null && otherMoveContext.source == null) ||
+            (this.source != null && this.source.equals(otherMoveContext.source));
+
+        var isTargetEqual:Bool =
+            (this.target == null && otherMoveContext.target == null) ||
+            (this.target != null && this.target.equals(otherMoveContext.target));
+
+        return isSourceEqual && isTargetEqual;
     }
 }

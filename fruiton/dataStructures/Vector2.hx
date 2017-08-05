@@ -3,7 +3,7 @@ package fruiton.dataStructures;
 /**
  * Immutable class representing 2D vector
  */
- @:forward(x, y, equals)
+ @:forward
 abstract Vector2(Point)
 from Point
 to Point {

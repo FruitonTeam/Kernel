@@ -75,7 +75,7 @@ class MoveAction extends GenAction<MoveActionContext> {
 
         var otherMoveAction = cast(other, MoveAction);
         return
-            this.actionContext != null &&
-            this.actionContext.equals(otherMoveAction.actionContext);
+            (this.actionContext == null && otherMoveAction.actionContext == null) ||
+            (this.actionContext != null && this.actionContext.equals(otherMoveAction.actionContext));
     }
 }
