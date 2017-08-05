@@ -21,7 +21,7 @@ class LineTargetPattern extends TargetPattern {
         }
 
         // Until we have a hash set we may use this n log(n) solution
-        targets.sort(Vector2.xyOrdering);
+        targets.sort(Vector2.compare);
         targets.unique();
 
         return targets;

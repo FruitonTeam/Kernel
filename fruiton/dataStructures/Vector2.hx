@@ -88,7 +88,7 @@ to Point {
         return !(lhs == rhs);
     }
 
-    public static function xyOrdering(lhs:Vector2, rhs:Vector2):Int {
+    public static function compare(lhs:Vector2, rhs:Vector2):Int {
         if (lhs.x < rhs.x) {
             return -1;
         }
