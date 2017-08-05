@@ -54,6 +54,17 @@ class RangeTargetPatternTest {
     }
 
     @Test
+    public function getTargets_zeroDistance_doesNotReturnDuplicates() {
+        Sys.println("=== running getTargets_zeroDistance_doesNotReturnDuplicates");
+
+        var ltp:RangeTargetPattern = zeroPatternFactory();
+        var origin:Vector2 = Vector2.ZERO;
+        var targets:TargetPattern.Targets = ltp.getTargets(origin);
+
+        Assert.areEqual(1, targets.length);
+    }
+
+    @Test
     public function getTargets_negativeRange_returnsNoTargets() {
         Sys.println("=== running getTargets_minGreaterThanMax_returnsNoTargets");
 
