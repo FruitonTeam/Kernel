@@ -10,6 +10,8 @@ abstract Vector2(Point)  {
         this = new Point(x, y);
     }
 
+    public static var ZERO:Vector2 = new Vector2(0, 0);
+
     /**
      * Memberwise multiplies this vector by given scalar value
      * @param scalar - number to multiply this vector with
