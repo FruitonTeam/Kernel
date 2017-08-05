@@ -30,6 +30,10 @@ to Array<T> {
         return NONE;
     }
 
+    public function contains(item:T):Bool {
+        return findIndex(item) != NONE;
+    }
+
     /**
      * Removes duplicate items from array.
      * Only works on sorted arrays - duplicates need to be next to each other.

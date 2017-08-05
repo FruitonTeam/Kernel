@@ -22,7 +22,7 @@ class Kernel implements IKernel {
         for (a in allActions) {
             // Do not return duplicate actions
             // Until we have a hash set, we go quadratic
-            if (validActions.findIndex(a) != ArrayOfEquitables.NONE) {
+            if (validActions.contains(a)) {
                 continue;
             }
 
