@@ -12,9 +12,9 @@ class RangeTargetPatternTest {
 
     @BeforeClass
 	public function beforeClass() {
-		Sys.println("=========================");
+		Sys.println("==========================");
         Sys.println("Range target pattern tests");
-        Sys.println("=========================");
+        Sys.println("==========================");
 	}
 
     function zeroPatternFactory():RangeTargetPattern {
