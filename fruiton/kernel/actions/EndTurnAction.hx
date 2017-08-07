@@ -2,7 +2,7 @@ package fruiton.kernel.actions;
 
 import fruiton.kernel.events.EndTurnEvent;
 
-class EndTurnAction extends GenAction<EndTurnActionContext> {
+class EndTurnAction extends GenericAction<EndTurnActionContext> {
 
     public function new(context:EndTurnActionContext) {
         super(context);
@@ -12,12 +12,7 @@ class EndTurnAction extends GenAction<EndTurnActionContext> {
         return true;
     }
 
-    override public function execute(state:GameState):ActionExecutionResult {
-        var result:ActionExecutionResult = super.execute(state);
-        if (!result.isValid) {
-            return result;
-        }
-
+    override function executeImpl(state:GameState, result:ActionExecutionResult) {
         var newContext:EndTurnActionContext = actionContext.clone();
 
         for (f in state.fruitons) {
@@ -37,8 +32,6 @@ class EndTurnAction extends GenAction<EndTurnActionContext> {
             }
             f.onAfterTurnEnd(newContext, state, result);
         }
-
-        return result;
     }
 
     function endTurn(context:EndTurnActionContext, state:GameState, result:ActionExecutionResult) {
