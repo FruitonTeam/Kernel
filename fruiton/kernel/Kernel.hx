@@ -61,6 +61,7 @@ class Kernel implements IKernel {
                     throw new InvalidActionException(Std.string(currentAction));
                 }
             }
+
             if (currentState.winner != GameState.NONE) {
                 eventBuffer = eventBuffer.concat(finishGame());
                 break;
