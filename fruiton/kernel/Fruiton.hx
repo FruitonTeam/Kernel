@@ -105,7 +105,7 @@ class Fruiton {
         // Modify action and game state
         trace("onAfterAttack Fruiton: " + id + " " + context);
         if (!isAlive) {
-            state.field.set(position, null);
+            state.field.get(position).fruiton = null;
             result.events.push(new DeathEvent(1, position));
         }
     }

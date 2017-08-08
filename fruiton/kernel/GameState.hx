@@ -48,7 +48,9 @@ class GameState  {
         newState.field = field.clone();
         newState.fruitons = [for (f in this.fruitons) f.clone()];
         for (f in newState.fruitons) {
-            newState.field.get(f.position).fruiton = f;
+            if (f.isAlive) {
+                newState.field.get(f.position).fruiton = f;
+            }
         }
         // Players are not cloned to remain the same as fruitons have them
         newState.players = [for (p in this.players) p];

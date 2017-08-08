@@ -51,6 +51,7 @@ class AttackAction extends GenericAction<AttackActionContext> {
     }
 
     function attackFruiton(fruiton:Fruiton, context:AttackActionContext, state:GameState, result:ActionExecutionResult) {
+        state.turnState.attackCount--;
         fruiton.takeDamage(context.damage);
         result.events.push(new AttackEvent(1, context.source, context.target, context.damage));
     }
