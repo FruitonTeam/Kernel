@@ -24,18 +24,18 @@ class Fruiton {
     var moveGenerators:MoveGenerators;
     var attackGenerators:AttackGenerators;
 
-    public function new(id:Int, position:Vector2, owner:Player, moves:MoveGenerators, attacks:AttackGenerators) {
+    public function new(id:Int, position:Vector2, owner:Player, hp:Int, moves:MoveGenerators, attacks:AttackGenerators) {
         this.id = id;
         this.position = position;
         this.owner = owner;
         this.moveGenerators = moves.copy();
         this.attackGenerators = attacks.copy();
-        this.hp = 10;
+        this.hp = hp;
     }
 
     public function clone():Fruiton {
         // Player is no cloned to remain the same as in GameState
-        return new Fruiton(this.id, this.position.clone(), this.owner, this.moveGenerators, this.attackGenerators);
+        return new Fruiton(this.id, this.position.clone(), this.owner, this.hp, this.moveGenerators, this.attackGenerators);
     }
 
     public function getAllActions(state:GameState):IKernel.Actions {
