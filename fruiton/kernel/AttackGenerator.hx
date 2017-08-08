@@ -18,6 +18,7 @@ class AttackGenerator {
 
     public function new(targetPattern:TargetPattern, damage:Int) {
         this.pattern = targetPattern;
+        this.damage = damage;
     }
 
     /**

@@ -17,6 +17,10 @@ class AttackAction extends GenericAction<AttackActionContext> {
             state.field.exists(context.target) &&
             state.turnState.attackCount > 0;
 
+        if (!result) {
+            return false;
+        }
+
         var sourceFruiton:Fruiton = state.field.get(context.source).fruiton;
         var targetFruiton:Fruiton = state.field.get(context.target).fruiton;
 
