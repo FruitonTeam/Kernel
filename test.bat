@@ -1,5 +1,4 @@
 @echo off
-haxelib run munit test
+haxe build-compile.hxml
 echo.
-echo.
-haxelib run checkstyle -s fruiton
+test-fast.bat

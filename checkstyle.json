@@ -449,10 +449,6 @@
         },
         {
             "props": {},
-            "type": "Trace"
-        },
-        {
-            "props": {},
             "type": "TrailingWhitespace"
         },
         {

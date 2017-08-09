@@ -1,0 +1,9 @@
+fruiton.kernel.Kernel
+-cp src
+-java build/java
+
+--next
+
+fruiton.kernel.Kernel
+-cp src
+-cs build/cs

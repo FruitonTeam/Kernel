@@ -30,7 +30,7 @@ class EndTurnTest {
         var moveGenerators:MoveGenerators = new MoveGenerators();
         moveGenerators.push(new MoveGenerator(new LineTargetPattern(new Vector2(0, 1), -1, 1)));
         moveGenerators.push(new MoveGenerator(new LineTargetPattern(new Vector2(1, 0), -1, 1)));
-		var fruiton:Fruiton = new Fruiton(1, new Vector2(0, 1), p1, moveGenerators);
+		var fruiton:Fruiton = new Fruiton(1, new Vector2(0, 1), p1, 10, moveGenerators, []);
 		return new Kernel(p1, p2, [fruiton]);
 	}
 
@@ -41,18 +41,8 @@ class EndTurnTest {
 
         var events:IKernel.Events = kernel.performAction(new EndTurnAction(new EndTurnActionContext()));
 
-        var endTurnEvent:EndTurnEvent = null;
-        // There may be more events associated with turn ending
-        // Fruitons may evolve, take periodical damage etc.
-        for (event in events) {
-            if (Std.is(event, EndTurnEvent)) {
-                // There is no more than one EndTurnEvent
-                Assert.isNull(endTurnEvent);
-                endTurnEvent = cast(event, EndTurnEvent);
-            }
-        }
+        var endTurnEvent:EndTurnEvent = Hlinq.singleOfTypeOrNull(events, EndTurnEvent);
 
-        // There is at least one EndTurnEvent
         Assert.isNotNull(endTurnEvent);
     }
 
@@ -62,15 +52,7 @@ class EndTurnTest {
         var kernel:Kernel = makeKernel();
         var actions:IKernel.Actions = kernel.getAllValidActions();
 
-        var endTurnAction:EndTurnAction = null;
-        for (action in actions) {
-            if (Std.is(action, EndTurnAction)) {
-                kernel.performAction(action);
-                // There is no more than one EndTurnAction
-                Assert.isNull(endTurnAction);
-                endTurnAction = cast(action, EndTurnAction);
-            }
-        }
+        var endTurnAction:EndTurnAction = Hlinq.singleOfTypeOrNull(actions, EndTurnAction);
 
         // There is at least one EndTurnAction
         Assert.isNotNull(endTurnAction);

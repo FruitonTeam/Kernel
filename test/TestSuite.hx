@@ -1,5 +1,6 @@
 import massive.munit.TestSuite;
 
+import attack.AttackTest;
 import endTurn.EndTurnTest;
 import movement.BasicMoveTest;
 import targetPatterns.LineTargetPatternTest;
@@ -17,6 +18,7 @@ class TestSuite extends massive.munit.TestSuite
 	{
 		super();
 
+		add(attack.AttackTest);
 		add(endTurn.EndTurnTest);
 		add(movement.BasicMoveTest);
 		add(targetPatterns.LineTargetPatternTest);

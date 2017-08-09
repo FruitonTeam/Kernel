@@ -20,6 +20,7 @@ class TestMain {
 		suites.push(test.movement.MoveTestSuite);
 		suites.push(test.endTurn.EndTurnTestSuite);
 		suites.push(test.targetPatterns.TargetPatternsTestSuite);
+		suites.push(test.attack.AttackTestSuite);
 
 		var client = new HTTPClient(new JUnitReportClient());
 

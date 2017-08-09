@@ -2,7 +2,7 @@ package fruiton.kernel.actions;
 
 import fruiton.kernel.events.MoveEvent;
 
-class MoveAction extends GenAction<MoveActionContext> {
+class MoveAction extends GenericAction<MoveActionContext> {
 
     public function new(context:MoveActionContext) {
         super(context);
@@ -29,12 +29,7 @@ class MoveAction extends GenAction<MoveActionContext> {
         return result;
     }
 
-    override public function execute(state:GameState):ActionExecutionResult {
-        var result:ActionExecutionResult = super.execute(state);
-        if (!result.isValid) {
-            return result;
-        }
-
+    override function executeImpl(state:GameState, result:ActionExecutionResult) {
         var newContext:MoveActionContext = actionContext.clone();
         var fruiton:Fruiton = state.field.get(newContext.source).fruiton;
 
@@ -48,8 +43,6 @@ class MoveAction extends GenAction<MoveActionContext> {
         if (result.isValid) {
             fruiton.onAfterMove(newContext, state, result);
         }
-
-        return result;
     }
 
     function moveFruiton(fruiton:Fruiton, context:MoveActionContext, state:GameState, result:ActionExecutionResult) {

@@ -3,9 +3,9 @@ package fruiton.dataStructures.collections;
 import fruiton.IEquitable;
 
 @:forward
-abstract ArrayOfEquitables<T:IEquitable<T>>(Array<T>)
-from Array<T>
-to Array<T> {
+abstract ArrayOfEquitables<T:IEquitable<T>>(ExtendedArray<T>)
+from ExtendedArray<T>
+to ExtendedArray<T> {
 
     public static var NONE:Int = -1;
 
