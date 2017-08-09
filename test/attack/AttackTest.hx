@@ -51,15 +51,9 @@ class AttackTest {
 
 		var k:Kernel = makeKernel(true);
 		var actions:IKernel.Actions = k.getAllValidActions();
+		var attackAction:AttackAction = Hlinq.singleOfTypeOrNull(actions, AttackAction);
 
-		var hasAttackAction:Bool = false;
-		for (a in actions) {
-			if (Std.is(a, AttackAction)) {
-                Assert.isFalse(hasAttackAction);
-				hasAttackAction = true;
-			}
-		}
-		Assert.isTrue(hasAttackAction);
+		Assert.isTrue(attackAction != null);
     }
 
     @Test
@@ -68,23 +62,10 @@ class AttackTest {
 
 		var k:Kernel = makeKernel(true);
 		var actions:IKernel.Actions = k.getAllValidActions();
-
-		var action:AttackAction = null;
-		for (a in actions) {
-			if (Std.is(a, AttackAction)) {
-				action = cast(a, AttackAction);
-				break;
-			}
-		}
+		var action:AttackAction = Hlinq.firstOfTypeOrNull(actions, AttackAction);
 
 		var result:IKernel.Events = k.performAction(action);
-		var event:AttackEvent = null;
-		for (e in result) {
-			if (Std.is(e, AttackEvent)) {
-				event = cast(e, AttackEvent);
-				break;
-			}
-		}
+		var event:AttackEvent = Hlinq.firstOfTypeOrNull(result, AttackEvent);
 
 		Assert.isTrue(event != null);
 		Assert.isTrue(action.actionContext.source == event.source);
@@ -98,23 +79,10 @@ class AttackTest {
 
 		var k:Kernel = makeKernel(true);
 		var actions:IKernel.Actions = k.getAllValidActions();
-
-		var action:AttackAction = null;
-		for (a in actions) {
-			if (Std.is(a, AttackAction)) {
-				action = cast(a, AttackAction);
-				break;
-			}
-		}
+		var action:AttackAction = Hlinq.firstOfTypeOrNull(actions, AttackAction);
 
 		var result:IKernel.Events = k.performAction(action);
-		var event:DeathEvent = null;
-		for (e in result) {
-			if (Std.is(e, DeathEvent)) {
-				event = cast(e, DeathEvent);
-				break;
-			}
-		}
+		var event:DeathEvent = Hlinq.firstOfTypeOrNull(result, DeathEvent);
 
 		Assert.isTrue(event != null);
 		Assert.isTrue(action.actionContext.target == event.target);
@@ -126,14 +94,7 @@ class AttackTest {
 
 		var k:Kernel = makeKernel(false);
 		var actions:IKernel.Actions = k.getAllValidActions();
-
-		var action:AttackAction = null;
-		for (a in actions) {
-			if (Std.is(a, AttackAction)) {
-				action = cast(a, AttackAction);
-				break;
-			}
-		}
+		var action:AttackAction = Hlinq.firstOfTypeOrNull(actions, AttackAction);
 
         var hpBefore:Int = k.currentState.field.get(action.actionContext.target).fruiton.hp;
 
