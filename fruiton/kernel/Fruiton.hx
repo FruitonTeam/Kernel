@@ -5,6 +5,8 @@ import fruiton.kernel.actions.EndTurnActionContext;
 import fruiton.kernel.actions.AttackActionContext;
 import fruiton.kernel.events.DeathEvent;
 import fruiton.dataStructures.Vector2;
+import fruiton.dataStructures.collections.ExtendedArray;
+import fruiton.kernel.actions.Action;
 
 typedef MoveGenerators = Array<MoveGenerator>;
 typedef AttackGenerators = Array<AttackGenerator>;
@@ -39,27 +41,20 @@ class Fruiton {
     }
 
     public function getAllActions(state:GameState):IKernel.Actions {
-        var allActions:IKernel.Actions = new IKernel.Actions();
+        var allActions:ExtendedArray<Action> = new IKernel.Actions();
 
         if (!isAlive) {
             return allActions;
         }
 
         // Move actions
-        for (pattern in moveGenerators) {
-            var moveActions:MoveGenerator.Moves = pattern.getMoves(position);
-            // In a world without covariant interfaces...
-            for (move in moveActions) {
-                allActions.push(move);
-            }
+        for (moveGen in moveGenerators) {
+            allActions.pushAll(moveGen.getMoves(position));
         }
 
         // Attack actions
-        for (ag in attackGenerators) {
-            var attackActions:AttackGenerator.Attacks = ag.getAttacks(position);
-            for (attack in attackActions) {
-                allActions.push(attack);
-            }
+        for (attackGen in attackGenerators) {
+            allActions.pushAll(attackGen.getAttacks(position));
         }
 
         return allActions;
