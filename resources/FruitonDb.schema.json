@@ -1,0 +1,41 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "fruiton.FruitonDb.json",
+
+    "definitions": {
+        "fruiton" : {
+            "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "model": {
+                        "type": "string"
+                    },
+                    "hp": {
+                        "type": "integer"
+                    },
+                    "abilities": {
+                        "type": "array",
+                        "items": {
+                            "type": "integer"
+                        }
+                    }
+                },
+                "additionalProperties": false,
+                "required": ["id", "model", "hp", "abilities"]
+        }
+    },
+
+    "type": "object",
+    "properties": {
+        "fruitonDb": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/fruiton"
+            }
+        }
+    },
+    "additionalProperties": false,
+    "required": ["fruitonDb"]
+}

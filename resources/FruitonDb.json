@@ -1,0 +1,16 @@
+{
+    "fruitonDb" : [
+        {
+            "id": 1,
+            "model": "Apple_red",
+            "hp": 10,
+            "abilities": []
+        },
+        {
+            "id": 2,
+            "model": "Kiwi",
+            "hp": 10,
+            "abilities": []
+        }
+    ]
+}
