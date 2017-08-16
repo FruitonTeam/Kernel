@@ -5,25 +5,25 @@
     "definitions": {
         "fruiton" : {
             "type": "object",
-                "properties": {
-                    "id": {
-                        "type": "integer"
-                    },
-                    "model": {
-                        "type": "string"
-                    },
-                    "hp": {
-                        "type": "integer"
-                    },
-                    "abilities": {
-                        "type": "array",
-                        "items": {
-                            "type": "integer"
-                        }
-                    }
+            "properties": {
+                "id": {
+                    "type": "integer"
                 },
-                "additionalProperties": false,
-                "required": ["id", "model", "hp", "abilities"]
+                "model": {
+                    "type": "string"
+                },
+                "hp": {
+                    "type": "integer"
+                },
+                "abilities": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                }
+            },
+            "additionalProperties": false,
+            "required": ["id", "model", "hp", "abilities"]
         }
     },
 
