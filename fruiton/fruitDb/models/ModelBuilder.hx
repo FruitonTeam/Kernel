@@ -100,7 +100,7 @@ class ModelBuilder {
     }
 
     macro public static function buildModel(typeExpr:haxe.macro.Expr):ComplexType {
-        var filePath = fruiton.Config.dbSchema;
+        var filePath = fruiton.Config.DB_SCHEMA;
 
         // Determine enum from given expression
         var typeString:String = switch (typeExpr.expr) {
