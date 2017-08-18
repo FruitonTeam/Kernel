@@ -4,4 +4,6 @@ enum ModelTypes {
 
     Fruiton;
     Movement;
+    Attack;
+    TargetPattern;
 }

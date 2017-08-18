@@ -47,10 +47,19 @@ class ModelBuilder {
 
     static function getPropsForType(jsonSchema:Dynamic, type:ModelTypes):Dynamic {
         switch (type) {
-            case ModelTypes.Fruiton:
+            case ModelTypes.Fruiton: {
                 return jsonSchema.definitions.fruiton.properties;
-            case ModelTypes.Movement:
+            }
+            case ModelTypes.Movement: {
                 return jsonSchema.definitions.movement.properties;
+            }
+            case ModelTypes.TargetPattern: {
+                return jsonSchema.definitions.targetPattern.properties;
+            }
+            case ModelTypes.Attack: {
+                return jsonSchema.definitions.attack.properties;
+            }
+            // Do not specify default so compiler complains about unmatched patterns (if any)
         }
     }
 
@@ -87,12 +96,15 @@ class ModelBuilder {
     public macro static function buildModel(filePath:String, typeExpr:haxe.macro.Expr):ComplexType {
         // Determine enum from given expression
         var typeString:String = switch (typeExpr.expr) {
-            case EConst(CIdent(modelType)): // Without full name specification e.g. Fruiton
+            case EConst(CIdent(modelType)): { // Without full name specification e.g. Fruiton
                 modelType;
-            case EField(e, modelType): // With full name specification e.g. ModelTypes.Fruiton
+            }
+            case EField(e, modelType): { // With full name specification e.g. ModelTypes.Fruiton
                 modelType;
-            default:
+            }
+            default: {
                 throw "Type must be ModelTypes either `ModelTypes.[Type]` or just `[Type]`";
+            }
         }
         var type:ModelTypes = Type.createEnum(ModelTypes, typeString);
 

@@ -20,10 +20,73 @@
                     "items": {
                         "type": "integer"
                     }
+                },
+                "movements": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "attacks": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
                 }
             },
             "additionalProperties": false,
-            "required": ["id", "model", "hp", "abilities"]
+            "required": ["id", "model", "hp", "abilities", "movements"]
+        },
+        "movement": {
+            "type": "object",
+            "properties": {
+                "id" : {
+                    "type": "integer"
+                },
+                "targetPatternId": {
+                    "type": "integer"
+                }
+            },
+            "additionalProperties": false,
+            "required": ["id", "targetPatternId"]
+        },
+        "attack": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "targetPatternId": {
+                    "type": "integer"
+                }
+            },
+            "additionalProperties": false,
+            "required": ["id", "targetPatternId"]
+        },
+        "targetPattern": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "x": {
+                    "type": "integer"
+                },
+                "y": {
+                    "type": "integer"
+                },
+                "min": {
+                    "type": "integer"
+                },
+                "max": {
+                    "type": "integer"
+                }
+            },
+            "additionalProperties": false,
+            "required": ["id", "type", "x", "y", "min", "max"]
         }
     },
 
@@ -34,8 +97,26 @@
             "items": {
                 "$ref": "#/definitions/fruiton"
             }
+        },
+        "movementDb": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/movement"
+            }
+        },
+        "attackDb": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/attack"
+            }
+        },
+        "targetPatternDb": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/targetPattern"
+            }
         }
     },
     "additionalProperties": false,
-    "required": ["fruitonDb"]
+    "required": ["fruitonDb", "movementDb", "attackDb", "targetPatternDb"]
 }
