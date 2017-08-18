@@ -18,13 +18,13 @@ class ModelBuilder {
     static var arrayIntType(default, never):String = "arrayInt";
     static var arrayStringType(default, never):String = "arrayString";
 
-    static function getSchemaFromFile(filePath:String):Array<NameTypePair> {
+    static function getSchemaFromFile(filePath:String, type:ModelTypes):Array<NameTypePair> {
         try {
             var schema:Array<NameTypePair> = [];
-            var json:String = File.getContent(filePath);
-            var s:Dynamic = Json.parse(json);
+            var jsonString:String = File.getContent(filePath);
+            var jsonSchema:Dynamic = Json.parse(jsonString);
 
-            var props:Dynamic = s.definitions.fruiton.properties;
+            var props:Dynamic = getPropsForType(jsonSchema, type);
             for (name in Reflect.fields(props)) {
                 var field:Dynamic = Reflect.field(props, name);
                 if (field.type != arrayType) {
@@ -42,6 +42,15 @@ class ModelBuilder {
         }
         catch(e:Dynamic) {
             return haxe.macro.Context.error('File reading error $filePath: $e', Context.currentPos());
+        }
+    }
+
+    static function getPropsForType(jsonSchema:Dynamic, type:ModelTypes):Dynamic {
+        switch (type) {
+            case ModelTypes.Fruiton:
+                return jsonSchema.definitions.fruiton.properties;
+            case ModelTypes.Movement:
+                return jsonSchema.definitions.movement.properties;
         }
     }
 
@@ -75,8 +84,20 @@ class ModelBuilder {
         return TAnonymous(fields);
     }
 
-    public macro static function buildModel(filePath:String):ComplexType {
-        var schema = getSchemaFromFile(filePath);
+    public macro static function buildModel(filePath:String, typeExpr:haxe.macro.Expr):ComplexType {
+        // Determine enum from given expression
+        var typeString:String = switch (typeExpr.expr) {
+            case EConst(CIdent(modelType)): // Without full name specification e.g. Fruiton
+                modelType;
+            case EField(e, modelType): // With full name specification e.g. ModelTypes.Fruiton
+                modelType;
+            default:
+                throw "Type must be ModelTypes either `ModelTypes.[Type]` or just `[Type]`";
+        }
+        var type:ModelTypes = Type.createEnum(ModelTypes, typeString);
+
+        // Parse schema and return model
+        var schema:Array<NameTypePair> = getSchemaFromFile(filePath, type);
         return buildModelFromSchema(schema);
     }
 }
