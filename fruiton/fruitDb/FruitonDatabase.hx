@@ -3,7 +3,10 @@ package fruiton.fruitDb;
 import sys.io.File;
 import haxe.ds.IntMap;
 import haxe.Json;
-import fruiton.fruitDb.models.Models;
+import fruiton.fruitDb.models.Models.FruitonModel;
+import fruiton.fruitDb.models.Models.MovementModel;
+import fruiton.fruitDb.models.Models.AttackModel;
+import fruiton.fruitDb.models.Models.TargetPatternModel;
 
 class FruitonDatabase {
 

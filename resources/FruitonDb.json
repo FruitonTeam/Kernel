@@ -26,13 +26,14 @@
     "attackDb": [
         {
             "id": 1,
+            "damage": 6,
             "targetPatternId": 1
         }
     ],
     "targetPatternDb": [
         {
             "id": 1,
-            "type": "Line",
+            "type": "line",
             "x": 1,
             "y": 0,
             "min": 0,

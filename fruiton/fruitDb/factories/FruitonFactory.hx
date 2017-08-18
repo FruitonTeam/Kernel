@@ -1,6 +1,9 @@
 package fruiton.fruitDb.factories;
 
-import fruiton.fruitDb.models.Models;
+import fruiton.fruitDb.models.Models.AttackModel;
+import fruiton.fruitDb.models.Models.FruitonModel;
+import fruiton.fruitDb.models.Models.MovementModel;
+import fruiton.fruitDb.models.Models.TargetPatternModel;
 import fruiton.kernel.Fruiton;
 import fruiton.dataStructures.Vector2;
 import fruiton.kernel.targetPatterns.LineTargetPattern;
@@ -10,8 +13,8 @@ import fruiton.kernel.MoveGenerator;
 import fruiton.kernel.AttackGenerator;
 
 enum TargetPatternType {
-    Line;
-    Range;
+    line;
+    range;
 }
 
 class FruitonFactory {
@@ -34,11 +37,12 @@ class FruitonFactory {
             null,
             entry.hp,
             moveGenerators,
-            []);
+            attackGenerators);
     }
 
     public static function makeAttackGenerator(id:Int, db:FruitonDatabase):AttackGenerator {
-        return null;
+        var entry:AttackModel = db.getAttack(id);
+        return new AttackGenerator(makeTargetPattern(entry.targetPatternId, db), entry.damage);
     }
 
     public static function makeMoveGenerator(id:Int, db:FruitonDatabase):MoveGenerator {
@@ -50,10 +54,10 @@ class FruitonFactory {
         var entry:TargetPatternModel = db.getTargetPattern(id);
         var type:TargetPatternType = Type.createEnum(TargetPatternType, entry.type);
         switch (type) {
-            case TargetPatternType.Line: {
+            case TargetPatternType.line: {
                 return new LineTargetPattern(new Vector2(entry.x, entry.y), entry.min, entry.max);
             }
-            case TargetPatternType.Range: {
+            case TargetPatternType.range: {
                 return new RangeTargetPattern(new Vector2(entry.x, entry.y), entry.min, entry.max);
             }
         }

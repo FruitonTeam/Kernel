@@ -56,6 +56,9 @@
                 "id": {
                     "type": "integer"
                 },
+                "damage": {
+                    "type": "integer"
+                },
                 "targetPatternId": {
                     "type": "integer"
                 }

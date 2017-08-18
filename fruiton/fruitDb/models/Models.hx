@@ -1,9 +1,13 @@
 package fruiton.fruitDb.models;
 
-typedef FruitonModel = haxe.macro.MacroType<[fruiton.fruitDb.models.ModelBuilder.buildModel("resources/FruitonDb.schema.json", ModelTypes.Fruiton)]>;
+typedef FruitonModel =
+    haxe.macro.MacroType<[fruiton.fruitDb.models.ModelBuilder.buildModel(ModelTypes.fruiton)]>;
 
-typedef MovementModel = haxe.macro.MacroType<[fruiton.fruitDb.models.ModelBuilder.buildModel("resources/FruitonDb.schema.json", ModelTypes.Movement)]>;
+typedef MovementModel =
+    haxe.macro.MacroType<[fruiton.fruitDb.models.ModelBuilder.buildModel(ModelTypes.movement)]>;
 
-typedef AttackModel = haxe.macro.MacroType<[fruiton.fruitDb.models.ModelBuilder.buildModel("resources/FruitonDb.schema.json", ModelTypes.Attack)]>;
+typedef AttackModel =
+    haxe.macro.MacroType<[fruiton.fruitDb.models.ModelBuilder.buildModel(ModelTypes.attack)]>;
 
-typedef TargetPatternModel = haxe.macro.MacroType<[fruiton.fruitDb.models.ModelBuilder.buildModel("resources/FruitonDb.schema.json", ModelTypes.TargetPattern)]>;
+typedef TargetPatternModel =
+    haxe.macro.MacroType<[fruiton.fruitDb.models.ModelBuilder.buildModel(ModelTypes.targetPattern)]>;

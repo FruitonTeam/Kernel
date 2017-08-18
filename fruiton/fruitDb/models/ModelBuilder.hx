@@ -1,6 +1,7 @@
 package fruiton.fruitDb.models;
 
-import haxe.macro.Expr;
+import haxe.macro.Expr.ComplexType;
+import haxe.macro.Expr.Field;
 import haxe.macro.Context;
 import sys.io.File;
 import haxe.Json;
@@ -28,35 +29,40 @@ class ModelBuilder {
             for (name in Reflect.fields(props)) {
                 var field:Dynamic = Reflect.field(props, name);
                 if (field.type != arrayType) {
-                    schema.push({name: name, type: field.type});
+                    schema.push({
+                        name: name, type: field.type
+                    });
                 } else { // Type is array, find out array of what
                     if (field.items.type == intType) {
-                        schema.push({name: name, type: arrayIntType});
+                        schema.push({
+                            name: name, type: arrayIntType
+                        });
                     } else if (field.items.type == stringType) {
-                        schema.push({name: name, type: arrayStringType});
+                        schema.push({
+                            name: name, type: arrayStringType
+                        });
                     }
                 }
             }
 
             return schema;
-        }
-        catch(e:Dynamic) {
+        } catch(e:Dynamic) {
             return haxe.macro.Context.error('File reading error $filePath: $e', Context.currentPos());
         }
     }
 
     static function getPropsForType(jsonSchema:Dynamic, type:ModelTypes):Dynamic {
         switch (type) {
-            case ModelTypes.Fruiton: {
+            case ModelTypes.fruiton: {
                 return jsonSchema.definitions.fruiton.properties;
             }
-            case ModelTypes.Movement: {
+            case ModelTypes.movement: {
                 return jsonSchema.definitions.movement.properties;
             }
-            case ModelTypes.TargetPattern: {
+            case ModelTypes.targetPattern: {
                 return jsonSchema.definitions.targetPattern.properties;
             }
-            case ModelTypes.Attack: {
+            case ModelTypes.attack: {
                 return jsonSchema.definitions.attack.properties;
             }
             // Do not specify default so compiler complains about unmatched patterns (if any)
@@ -93,7 +99,9 @@ class ModelBuilder {
         return TAnonymous(fields);
     }
 
-    public macro static function buildModel(filePath:String, typeExpr:haxe.macro.Expr):ComplexType {
+    macro public static function buildModel(typeExpr:haxe.macro.Expr):ComplexType {
+        var filePath = fruiton.Config.dbSchema;
+
         // Determine enum from given expression
         var typeString:String = switch (typeExpr.expr) {
             case EConst(CIdent(modelType)): { // Without full name specification e.g. Fruiton
