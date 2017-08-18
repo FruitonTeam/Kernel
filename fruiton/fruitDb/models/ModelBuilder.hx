@@ -69,13 +69,13 @@ class ModelBuilder {
         for (item in schema) {
             var type;
             if (item.type == intType) {
-                type = FVar(macro:Int);
+                type = macro:Int;
             } else if (item.type == stringType) {
-                type = FVar(macro:String);
+                type = macro:String;
             } else if (item.type == arrayIntType) {
-                type = FVar(macro:Array<Int>);
+                type = macro:Array<Int>;
             } else if (item.type == arrayStringType) {
-                type = FVar(macro:Array<String>);
+                type = macro:Array<String>;
             } else {
                 Context.error("Unknown type in schema: " + item.type, Context.currentPos());
             }
@@ -85,7 +85,7 @@ class ModelBuilder {
                 doc: null,
                 meta: [],
                 access: [APublic],
-                kind: type,
+                kind: FieldType.FProp("default", "never", type),
                 pos: Context.currentPos()
             });
         }
