@@ -40,17 +40,17 @@ class FruitonFactory {
             attackGenerators);
     }
 
-    public static function makeAttackGenerator(id:Int, db:FruitonDatabase):AttackGenerator {
+    static function makeAttackGenerator(id:Int, db:FruitonDatabase):AttackGenerator {
         var entry:AttackModel = db.getAttack(id);
         return new AttackGenerator(makeTargetPattern(entry.targetPatternId, db), entry.damage);
     }
 
-    public static function makeMoveGenerator(id:Int, db:FruitonDatabase):MoveGenerator {
+    static function makeMoveGenerator(id:Int, db:FruitonDatabase):MoveGenerator {
         var entry:MovementModel = db.getMovement(id);
         return new MoveGenerator(makeTargetPattern(entry.targetPatternId, db));
     }
 
-    public static function makeTargetPattern(id:Int, db:FruitonDatabase):TargetPattern {
+    static function makeTargetPattern(id:Int, db:FruitonDatabase):TargetPattern {
         var entry:TargetPatternModel = db.getTargetPattern(id);
         var type:TargetPatternType = Type.createEnum(TargetPatternType, entry.type);
         switch (type) {
