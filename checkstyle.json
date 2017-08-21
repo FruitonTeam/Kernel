@@ -69,10 +69,6 @@
         },
         {
             "props": {},
-            "type": "Dynamic"
-        },
-        {
-            "props": {},
             "type": "ERegLiteral"
         },
         {

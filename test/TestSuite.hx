@@ -2,6 +2,8 @@ import massive.munit.TestSuite;
 
 import attack.AttackTest;
 import endTurn.EndTurnTest;
+import fruitonDb.FruitonDbTest;
+import fruitonDb.FruitonFactoryTest;
 import movement.BasicMoveTest;
 import targetPatterns.LineTargetPatternTest;
 import targetPatterns.RangeTargetPatternTest;
@@ -20,6 +22,8 @@ class TestSuite extends massive.munit.TestSuite
 
 		add(attack.AttackTest);
 		add(endTurn.EndTurnTest);
+		add(fruitonDb.FruitonDbTest);
+		add(fruitonDb.FruitonFactoryTest);
 		add(movement.BasicMoveTest);
 		add(targetPatterns.LineTargetPatternTest);
 		add(targetPatterns.RangeTargetPatternTest);

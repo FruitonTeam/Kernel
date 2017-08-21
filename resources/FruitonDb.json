@@ -1,0 +1,43 @@
+{
+    "fruitonDb": [
+        {
+            "id": 1,
+            "model": "Apple_red",
+            "hp": 10,
+            "abilities": [],
+            "movements": [1],
+            "attacks": [1]
+        },
+        {
+            "id": 2,
+            "model": "Kiwi",
+            "hp": 10,
+            "abilities": [],
+            "movements": [1],
+            "attacks": [1]
+        }
+    ],
+    "movementDb": [
+        {
+            "id": 1,
+            "targetPatternId": 1
+        }
+    ],
+    "attackDb": [
+        {
+            "id": 1,
+            "damage": 6,
+            "targetPatternId": 1
+        }
+    ],
+    "targetPatternDb": [
+        {
+            "id": 1,
+            "type": "line",
+            "x": 1,
+            "y": 0,
+            "min": 0,
+            "max": 1
+        }
+    ]
+}
