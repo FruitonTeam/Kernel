@@ -16,6 +16,13 @@ class FruitonDbTest {
         Sys.println("======================");
     }
 
+    var db:FruitonDatabase;
+
+    @Before
+    function beforeTest() {
+        db = makeDb();
+    }
+
     function makeDb():FruitonDatabase {
         return new FruitonDatabase(fruiton.Config.dbFile);
     }
@@ -24,14 +31,13 @@ class FruitonDbTest {
     public function fruitonDatabaseCtor_byDefault_createsDatabase() {
         Sys.println("=== running fruitonDatabaseCtor_byDefault_createsDatabase");
 
-        var db:FruitonDatabase = makeDb();
+        Assert.isTrue(db != null);
     }
 
     @Test
     public function fruitonDatabase_getFruiton1_returnsFruiton() {
         Sys.println("=== running fruitonDatabase_getFruiton1_returnsFruiton");
 
-        var db:FruitonDatabase = makeDb();
         var fruiton:FruitonModel = db.getFruiton(1);
 
         Assert.isTrue(fruiton != null);

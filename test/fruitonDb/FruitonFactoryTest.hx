@@ -18,6 +18,13 @@ class FruitonFactoryTest {
         Sys.println("=====================");
     }
 
+    var db:FruitonDatabase;
+
+    @Before
+    function beforeTest() {
+        db = makeDb();
+    }
+
     function makeDb():FruitonDatabase {
         return new FruitonDatabase(fruiton.Config.dbFile);
     }
@@ -25,8 +32,6 @@ class FruitonFactoryTest {
     @Test
     public function fruitonFactory_makeFruiton1_returnsFruiton() {
         Sys.println("=== running fruitonFactory_makeFruiton1_returnsFruiton");
-
-        var db:FruitonDatabase = makeDb();
 
         var fruiton:Fruiton = FruitonFactory.makeFruiton(1, db);
 
