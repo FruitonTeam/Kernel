@@ -1,3 +1,4 @@
+--macro include('fruiton', true, ['fruiton.fruitDb.models'])
 fruiton.kernel.Kernel
 -D no-compilation
 -cp src
@@ -5,7 +6,8 @@ fruiton.kernel.Kernel
 
 --next
 
+--macro include('fruiton', true, ['fruiton.fruitDb.models'])
 fruiton.kernel.Kernel
 -D no-compilation
--cp src
+-cp ./
 -cs build/cs
