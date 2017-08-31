@@ -97,23 +97,21 @@ class GameState  {
      * @return IKernel.Actions available in this game state doable from `position`.
      */
     public function getAllActionsFrom(position:Vector2):IKernel.Actions {
-        var actions:IKernel.Actions = new IKernel.Actions();
-
-        if (field.exists(position)) {
-            if (actionCache[position.x][position.y] != null) {
-                return actionCache[position.x][position.y];
-            }
-            if (field.get(position).fruiton != null) {
-                actions = actions.concat(field.get(position).fruiton.getAllActions(this));
-            }
+        // Invalid position or no fruiton - no actions
+        if (!field.exists(position) ||
+            field.get(position).fruiton == null) {
+            return [new EndTurnAction(new EndTurnActionContext())];
         }
 
+        // Postion is valid - try cache first
+        if (actionCache[position.x][position.y] != null) {
+            return actionCache[position.x][position.y];
+        }
+
+        var actions:IKernel.Actions = field.get(position).fruiton.getAllActions(this);
         // Player can always end turn
         actions.push(new EndTurnAction(new EndTurnActionContext()));
-
-        if (field.exists(position)) {
-            actionCache[position.x][position.y] = actions.copy();
-        }
+        actionCache[position.x][position.y] = actions.copy();
 
         return actions;
     }
