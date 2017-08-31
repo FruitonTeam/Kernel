@@ -121,6 +121,17 @@ class BasicMoveTest {
         Assert.isTrue(action.actionContext.target == event.to);
     }
 
+    @Test
+    public function getAllActionsFrom_kernelWithOneFruiton_returnsAllActions() {
+        Sys.println("=== running getAllActionsFrom_kernelWithOneFruiton_returnsAllActions");
+
+        var k:Kernel = makeKernel();
+        var allActions:IKernel.Actions = k.getAllValidActions();
+        var allActionsFrom:IKernel.Actions = k.getAllValidActionsFrom(k.currentState.fruitons[0].position);
+
+        Assert.isTrue(allActions.length == allActionsFrom.length);
+    }
+
     function printField(field:Field) {
         for (x in 0...GameState.WIDTH) {
             var line:String = "";

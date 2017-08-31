@@ -29,6 +29,8 @@ class GameState  {
     public var turnState(default, null):TurnState;
     public var winner(default, null):Int;
 
+    var actionCache:Array<Array<IKernel.Actions>>;
+
     public function new(players:Players, activePlayerIdx:Int, fruitons:Fruitons) {
         this.fruitons = fruitons;
         this.field = new Field([for (x in 0...WIDTH) [for (y in 0...HEIGHT) new Tile(new Vector2(x, y))]]);
@@ -39,6 +41,7 @@ class GameState  {
         this.activePlayerIdx = activePlayerIdx;
         this.winner = NONE;
         this.turnState = new TurnState();
+        this.actionCache = [for (x in 0...WIDTH) [for (y in 0...HEIGHT) null]];
     }
 
     public function clone():GameState {
@@ -83,6 +86,34 @@ class GameState  {
 
         // Player can always end turn
         actions.push(new EndTurnAction(new EndTurnActionContext()));
+
+        return actions;
+    }
+
+    /**
+     * Generates all possible actions in this state of game doable from given `position`.
+     * Actions do not have to be valid.
+     * If there is no fruiton at `position` or `position` is not valid only end turn action is returned.
+     * @return IKernel.Actions available in this game state doable from `position`.
+     */
+    public function getAllActionsFrom(position:Vector2):IKernel.Actions {
+        var actions:IKernel.Actions = new IKernel.Actions();
+
+        if (field.exists(position)) {
+            if (actionCache[position.x][position.y] != null) {
+                return actionCache[position.x][position.y];
+            }
+            if (field.get(position).fruiton != null) {
+                actions = actions.concat(field.get(position).fruiton.getAllActions(this));
+            }
+        }
+
+        // Player can always end turn
+        actions.push(new EndTurnAction(new EndTurnActionContext()));
+
+        if (field.exists(position)) {
+            actionCache[position.x][position.y] = actions.copy();
+        }
 
         return actions;
     }
