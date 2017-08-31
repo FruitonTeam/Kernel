@@ -15,16 +15,15 @@ class FruitonDatabase {
     var attackDb:IntMap<AttackModel>;
     var targetPatternDb:IntMap<TargetPatternModel>;
 
-    public function new (dbFile:String) {
+    public function new (dbString:String) {
         fruitonDb = new IntMap<FruitonModel>();
         movementDb = new IntMap<MovementModel>();
         attackDb = new IntMap<AttackModel>();
         targetPatternDb = new IntMap<TargetPatternModel>();
-        loadDb(dbFile);
+        loadDb(dbString);
     }
 
-    function loadDb(dbFile:String) {
-        var dbString:String = File.getContent(dbFile);
+    function loadDb(dbString:String) {
         var json:Dynamic = Json.parse(dbString);
 
         load(json.fruitonDb, fruitonDb);

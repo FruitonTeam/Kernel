@@ -12,6 +12,9 @@
                 "model": {
                     "type": "string"
                 },
+                "type" : {
+                    "type":"integer"
+                },
                 "hp": {
                     "type": "integer"
                 },
@@ -35,7 +38,7 @@
                 }
             },
             "additionalProperties": false,
-            "required": ["id", "model", "hp", "abilities", "movements"]
+            "required": ["id", "model", "type", "hp", "abilities", "movements"]
         },
         "movement": {
             "type": "object",

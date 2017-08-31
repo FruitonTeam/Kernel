@@ -345,13 +345,6 @@
             "type": "ParameterName"
         },
         {
-            "props": {
-                "max": 7,
-                "ignoreOverriddenMethods": false
-            },
-            "type": "ParameterNumber"
-        },
-        {
             "props": {},
             "type": "PublicAccessor"
         },

@@ -36,8 +36,10 @@ class FruitonFactory {
             Vector2.ZERO,
             null,
             entry.hp,
+            entry.model,
             moveGenerators,
-            attackGenerators);
+            attackGenerators,
+            entry.type);
     }
 
     static function makeAttackGenerator(id:Int, db:FruitonDatabase):AttackGenerator {
