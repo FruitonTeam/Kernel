@@ -4,6 +4,7 @@ import fruiton.kernel.exceptions.InvalidActionException;
 import fruiton.kernel.actions.Action;
 import haxe.ds.GenericStack;
 import fruiton.dataStructures.collections.ArrayOfEquitables;
+import fruiton.dataStructures.Vector2;
 
 typedef ActionStack = GenericStack<Action>;
 
@@ -17,6 +18,15 @@ class Kernel implements IKernel {
 
     public function getAllValidActions():IKernel.Actions {
         var allActions:IKernel.Actions = currentState.getAllActions();
+        return pruneInvalidActions(allActions);
+    }
+
+    public function getAllValidActionsFrom(position:Vector2):IKernel.Actions {
+        var allActions:IKernel.Actions = currentState.getAllActionsFrom(position);
+        return pruneInvalidActions(allActions);
+    }
+
+    function pruneInvalidActions(allActions:IKernel.Actions):IKernel.Actions {
         var validActions:ArrayOfEquitables<Action> = new IKernel.Actions();
 
         for (a in allActions) {
