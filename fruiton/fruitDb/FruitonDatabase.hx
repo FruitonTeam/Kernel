@@ -1,6 +1,5 @@
 package fruiton.fruitDb;
 
-import sys.io.File;
 import haxe.ds.IntMap;
 import haxe.Json;
 import fruiton.fruitDb.models.Models.FruitonModel;
