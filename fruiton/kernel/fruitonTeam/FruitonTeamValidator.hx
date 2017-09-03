@@ -4,15 +4,18 @@ import fruiton.fruitDb.FruitonDatabase;
 
 class FruitonTeamValidator {
 
-    static var REQUIRED_COUNTS:Array<Int> = [1, 3, 4];
+    static var REQUIRED_COUNTS(default, never):Array<Int> = [1, 3, 4];
 
-    // fruitonIds: Array of ids of the controlled Fruiton Team.
-    // fruitonDatabase: DB of all fruitons.
-    // partiallyValid: Determines whether to accept uncomplete partially valid Fruiton Teams as valid.
-    public static function validateFruitonTeam(fruitonIds:Array<Int>, fruitonDatabase:FruitonDatabase, partiallyValid:Bool):ValidationMessage {
+    /**
+     * @param fruitonIds Array of ids of the controlled Fruiton Team.
+     * @param fruitonDatabase DB of all fruitons.
+     * @param partiallyValid Determines whether to accept uncomplete partially valid Fruiton Teams as valid.
+     * @return Validation result.
+     */
+    public static function validateFruitonTeam(fruitonIds:Array<Int>, fruitonDatabase:FruitonDatabase):ValidationResult {
         var counts = [0, 0, 0];
         var valid = true;
-        var message = "";
+        var complete = true;
         for (id in fruitonIds) {
             var current = fruitonDatabase.getFruiton(id);
             counts[current.type - 1]++;
@@ -20,19 +23,10 @@ class FruitonTeamValidator {
         for (i in 0...counts.length) {
             if (counts[i] > REQUIRED_COUNTS[i]) {
                 valid = false;
-                message = "Too many Fruitons of type " + (i - 1);
-            } else if (!partiallyValid && counts[i] < REQUIRED_COUNTS[i]) {
-                valid = false;
-                message = "Not enough Fruitons of type " + (i - 1);
+            } else if (counts[i] < REQUIRED_COUNTS[i]) {
+                complete = false;
             }
         }
-        if (valid) {
-            if (partiallyValid) {
-                message = "Fruiton Team is partially valid.";
-            } else {
-                message = "Fruiton Team is valid.";
-            }
-        }
-        return new ValidationMessage(valid, message);
+        return new ValidationResult(valid, complete);
     }
 }

@@ -118,12 +118,6 @@
         },
         {
             "props": {
-                "ignoreReturnAssignments": false
-            },
-            "type": "InnerAssignment"
-        },
-        {
-            "props": {
                 "allowProperties": false,
                 "allowMarkerInterfaces": true
             },

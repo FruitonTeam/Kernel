@@ -1,7 +1,8 @@
 package test.fruitonTeam;
 
+import sys.io.File;
 import fruiton.kernel.fruitonTeam.FruitonTeamValidator;
-import fruiton.kernel.fruitonTeam.ValidationMessage;
+import fruiton.kernel.fruitonTeam.ValidationResult;
 import fruiton.fruitDb.FruitonDatabase;
 import massive.munit.Assert;
 
@@ -18,9 +19,12 @@ class FruitonTeamTest {
 
     @Test
     public function fruitonTeamValidator_getsPartiallyValidTeam_returnsApproval() {
+        Sys.println("=== running fruitonTeamValidator_getsPartiallyValidTeam_returnsApproval");
+
         var team = [1, 2, 2, 2, 3, 3, 3 ,3];
-        var fruitonDB = new FruitonDatabase(fruiton.Config.dbFile);
-        var result = FruitonTeamValidator.validateFruitonTeam(team, fruitonDB, true);
-        Assert.isTrue(result.success);
+        var dbString:String = File.getContent(fruiton.Config.dbFile);
+        var fruitonDB = new FruitonDatabase(dbString);
+        var result = FruitonTeamValidator.validateFruitonTeam(team, fruitonDB);
+        Assert.isTrue(result.valid && result.complete);
     }
 }
