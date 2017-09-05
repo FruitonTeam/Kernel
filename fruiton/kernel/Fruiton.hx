@@ -20,6 +20,15 @@ class Fruiton {
     public var model(default, null):String;
     public var type(default, null):Int;
 
+    public static var KING_TYPE(default, never):Int = 1;
+    public static var MAJOR_TYPE(default, never):Int = 2;
+    public static var MINOR_TYPE(default, never):Int = 3;
+
+    public var isKing(get, never):Bool;
+    function get_isKing():Bool {
+        return type == KING_TYPE;
+    }
+
     public var isAlive(get, never):Bool;
     function get_isAlive():Bool {
         return hp > 0;
@@ -42,6 +51,10 @@ class Fruiton {
     public function clone():Fruiton {
         // Player is no cloned to remain the same as in GameState
         return new Fruiton(this.id, this.position.clone(), this.owner, this.hp, this.model, this.moveGenerators, this.attackGenerators, this.type);
+    }
+
+    public function equalsId(other:Fruiton):Bool {
+        return this.id == other.id;
     }
 
     public function getAllActions(state:GameState):IKernel.Actions {
@@ -106,6 +119,9 @@ class Fruiton {
         if (!isAlive) {
             state.field.get(position).fruiton = null;
             result.events.push(new DeathEvent(1, position));
+            if (isKing) {
+                state.losers.push(owner.id);
+            }
         }
     }
 

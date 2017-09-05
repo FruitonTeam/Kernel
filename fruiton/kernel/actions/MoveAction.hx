@@ -13,7 +13,8 @@ class MoveAction extends GenericAction<MoveActionContext> {
             context != null &&
             context.source != null &&
             state.field.exists(context.source) &&
-            state.field.get(context.source).fruiton != null;
+            state.field.get(context.source).fruiton != null &&
+            !state.turnState.didAttack;
 
         if (!result) return result;
 
@@ -46,6 +47,7 @@ class MoveAction extends GenericAction<MoveActionContext> {
     }
 
     function moveFruiton(fruiton:Fruiton, context:MoveActionContext, state:GameState, result:ActionExecutionResult) {
+        state.turnState.actionPerformer = fruiton;
         state.turnState.moveCount--;
         state.field.get(context.target).fruiton = state.field.get(context.source).fruiton;
         state.field.get(context.source).fruiton = null;

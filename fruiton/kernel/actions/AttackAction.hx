@@ -15,7 +15,8 @@ class AttackAction extends GenericAction<AttackActionContext> {
             state.field.exists(context.source) &&
             context.target != null &&
             state.field.exists(context.target) &&
-            state.turnState.attackCount > 0;
+            state.turnState.attackCount > 0 &&
+            !state.turnState.didAttack;
 
         if (!result) {
             return false;
@@ -30,7 +31,9 @@ class AttackAction extends GenericAction<AttackActionContext> {
             sourceFruiton.owner.equals(state.activePlayer) &&
             targetFruiton != null &&
             targetFruiton.owner != null &&
-            !targetFruiton.owner.equals(state.activePlayer);
+            !targetFruiton.owner.equals(state.activePlayer) &&
+            (state.turnState.actionPerformer == null ||
+            sourceFruiton.equalsId(state.turnState.actionPerformer));
 
         return result;
     }
@@ -52,6 +55,7 @@ class AttackAction extends GenericAction<AttackActionContext> {
 
     function attackFruiton(fruiton:Fruiton, context:AttackActionContext, state:GameState, result:ActionExecutionResult) {
         state.turnState.attackCount--;
+        state.turnState.didAttack = true;
         fruiton.takeDamage(context.damage);
         result.events.push(new AttackEvent(1, context.source, context.target, context.damage));
     }

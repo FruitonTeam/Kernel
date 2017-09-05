@@ -23,6 +23,7 @@ class TestMain {
 		suites.push(test.attack.AttackTestSuite);
 		suites.push(test.fruitonDb.FruitonDbTestSuite);
 		suites.push(test.fruitonTeam.FruitonTeamTestSuite);
+		suites.push(test.gameRules.GameRulesTestSuite);
 
 		var client = new HTTPClient(new JUnitReportClient());
 

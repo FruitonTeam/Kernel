@@ -10,4 +10,8 @@ class DeathEvent extends Event {
         super(id);
         this.target = target;
     }
+
+    override public function toString():String {
+        return super.toString() + " DeathEvent Target: " + Std.string(target);
+    }
 }
