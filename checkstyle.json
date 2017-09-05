@@ -118,12 +118,6 @@
         },
         {
             "props": {
-                "ignoreReturnAssignments": false
-            },
-            "type": "InnerAssignment"
-        },
-        {
-            "props": {
                 "allowProperties": false,
                 "allowMarkerInterfaces": true
             },
@@ -343,13 +337,6 @@
                 "tokens": []
             },
             "type": "ParameterName"
-        },
-        {
-            "props": {
-                "max": 7,
-                "ignoreOverriddenMethods": false
-            },
-            "type": "ParameterNumber"
         },
         {
             "props": {},

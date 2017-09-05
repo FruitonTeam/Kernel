@@ -1,5 +1,6 @@
 package test.fruitonDb;
 
+import sys.io.File;
 import fruiton.fruitDb.FruitonDatabase;
 import massive.munit.Assert;
 import fruiton.fruitDb.models.Models;
@@ -26,7 +27,8 @@ class FruitonFactoryTest {
     }
 
     function makeDb():FruitonDatabase {
-        return new FruitonDatabase(fruiton.Config.dbFile);
+        var dbString:String = File.getContent(fruiton.Config.dbFile);
+        return new FruitonDatabase(dbString);
     }
 
     @Test
