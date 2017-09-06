@@ -5,6 +5,7 @@ import endTurn.EndTurnTest;
 import fruitonDb.FruitonDbTest;
 import fruitonDb.FruitonFactoryTest;
 import fruitonTeam.FruitonTeamTest;
+import gameRules.GameRulesTest;
 import movement.BasicMoveTest;
 import targetPatterns.LineTargetPatternTest;
 import targetPatterns.RangeTargetPatternTest;
@@ -26,6 +27,7 @@ class TestSuite extends massive.munit.TestSuite
 		add(fruitonDb.FruitonDbTest);
 		add(fruitonDb.FruitonFactoryTest);
 		add(fruitonTeam.FruitonTeamTest);
+		add(gameRules.GameRulesTest);
 		add(movement.BasicMoveTest);
 		add(targetPatterns.LineTargetPatternTest);
 		add(targetPatterns.RangeTargetPatternTest);

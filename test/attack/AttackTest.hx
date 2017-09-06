@@ -36,6 +36,7 @@ class AttackTest {
         moveGenerators.push(new MoveGenerator(new LineTargetPattern(new Vector2(0, 1), -1, 1)));
         moveGenerators.push(new MoveGenerator(new LineTargetPattern(new Vector2(1, 0), -1, 1)));
 
+
         var attackGenerators:AttackGenerators = new AttackGenerators();
         attackGenerators.push(new AttackGenerator(new RangeTargetPattern(Vector2.ZERO, 0, 1), dmg));
         attackGenerators.push(new AttackGenerator(new LineTargetPattern(new Vector2(1, 0), -1, 1), dmg));
@@ -104,4 +105,18 @@ class AttackTest {
 
 		Assert.isTrue(hpBefore - hpAfter == action.actionContext.damage);
 	}
+
+	@Test
+    public function getAllActions_afterAttackPerformed_returnsOnlyEndTurn() {
+		Sys.println("=== running getAllActions_afterMovePerformed_returnsOnlyEndTurn");
+
+		var k:Kernel = makeKernel(false);
+		var actions = k.getAllValidActions();
+		var action:AttackAction = Hlinq.firstOfTypeOrNull(actions, AttackAction);
+		k.performAction(action);
+
+		actions = k.getAllValidActions();
+		var endTurnAction = Hlinq.firstOfTypeOrNull(actions, EndTurnAction);
+		Assert.isTrue(endTurnAction != null);
+    }
 }
