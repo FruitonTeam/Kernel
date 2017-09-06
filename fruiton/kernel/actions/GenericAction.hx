@@ -27,7 +27,10 @@ class GenericAction<TContext> extends Action {
         return result;
     }
 
-    function validate(state:GameState, context:TContext):Bool;
+    function validate(state:GameState, context:TContext):Bool {
+        return !dependsOnTurnTime ||
+            state.turnState.endTime >= Sys.time();
+    }
 
     function executeImpl(state:GameState, result:ActionExecutionResult);
 }

@@ -10,6 +10,7 @@ class AttackAction extends GenericAction<AttackActionContext> {
 
     override function validate(state:GameState, context:AttackActionContext):Bool {
         var result:Bool =
+            super.validate(state, context) &&
             context != null &&
             context.source != null &&
             state.field.exists(context.source) &&

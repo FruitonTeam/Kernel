@@ -26,7 +26,7 @@ class GameRulesTest {
      * Factory method for unified and simple kernel creation
      * @return Kernel which is initialized
      */
-    function makeKernel(kill:Bool):Kernel {
+    function makeKernel(kill:Bool, ?timeLimit:Float = 999):Kernel {
 		var p1:Player = new Player(0);
 		var p2:Player = new Player(1);
 
@@ -44,6 +44,7 @@ class GameRulesTest {
         var fruiton:Fruiton = new Fruiton(1, new Vector2(0, 0), p1, hp, "", moveGenerators, attackGenerators, Fruiton.KING_TYPE);
         var fruiton1:Fruiton = new Fruiton(2, new Vector2(1, 1), p1, hp, "", moveGenerators, attackGenerators, Fruiton.MINOR_TYPE);
         var fruiton2:Fruiton = new Fruiton(3, new Vector2(0, 1), p2, hp, "", moveGenerators, attackGenerators, Fruiton.KING_TYPE);
+        Kernel.turnTimeLimit = timeLimit;
 		return new Kernel(p1, p2, [fruiton, fruiton1, fruiton2]);
 	}
 
@@ -88,5 +89,22 @@ class GameRulesTest {
         var attackAfter = Hlinq.firstOfTypeOrNull(actionsAfter, AttackAction);
         Assert.isTrue(attackBefore != null);
         Assert.isTrue(attackAfter == null);
+    }
+
+    @Test
+    function performAction_actionAfterTimeout_returnsTimeExpiredEvent() {
+        Sys.println("=== running performAction_actionAfterTimeout_returnsTimeExpiredEvent");
+
+        var k:Kernel = makeKernel(true, 0.01);
+        var actions = k.getAllValidActionsFrom(new Vector2(1, 1));
+        var attackAction = Hlinq.firstOfTypeOrNull(actions, AttackAction);
+
+        Sys.sleep(Kernel.turnTimeLimit * 2);
+
+        var result = k.performAction(attackAction);
+        var timeExpiredEvent = Hlinq.singleOfTypeOrNull(result, TimeExpiredEvent);
+
+        Assert.isTrue(result.length == 1);
+        Assert.isTrue(timeExpiredEvent != null);
     }
 }

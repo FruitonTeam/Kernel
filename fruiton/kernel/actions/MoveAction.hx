@@ -10,6 +10,7 @@ class MoveAction extends GenericAction<MoveActionContext> {
 
     override function validate(state:GameState, context:MoveActionContext):Bool {
         var result:Bool =
+            super.validate(state, context) &&
             context != null &&
             context.source != null &&
             state.field.exists(context.source) &&
