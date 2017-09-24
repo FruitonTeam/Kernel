@@ -5,10 +5,17 @@ import fruiton.kernel.actions.Action;
 import haxe.ds.GenericStack;
 import fruiton.dataStructures.collections.ArrayOfEquitables;
 import fruiton.dataStructures.Vector2;
+import fruiton.kernel.events.GameOverEvent;
+import fruiton.kernel.events.TimeExpiredEvent;
 
 typedef ActionStack = GenericStack<Action>;
 
 class Kernel implements IKernel {
+
+    /**
+     * Time in seconds a player has to make moves
+     */
+    public static var turnTimeLimit(default, default):Float = 10; // TODO change to non static variable loaded from db
 
     public var currentState(default, null):GameState;
 
@@ -51,8 +58,16 @@ class Kernel implements IKernel {
             throw new InvalidActionException("Null action");
         }
 
-        var actions:ActionStack = new ActionStack();
         var eventBuffer:IKernel.Events = new IKernel.Events();
+
+        if (userAction.dependsOnTurnTime &&
+        currentState.turnState.endTime < Sys.time()) {
+            eventBuffer = eventBuffer.concat(timeExpired());
+            return eventBuffer;
+        }
+
+        var actions:ActionStack = new ActionStack();
+
         actions.add(userAction);
 
         while (!actions.isEmpty()) {
@@ -72,7 +87,8 @@ class Kernel implements IKernel {
                 }
             }
 
-            if (currentState.winner != GameState.NONE) {
+            // Is game over?
+            if (currentState.losers.length > 0) {
                 eventBuffer = eventBuffer.concat(finishGame());
                 break;
             }
@@ -82,7 +98,11 @@ class Kernel implements IKernel {
     }
 
     function finishGame():IKernel.Events {
-        return [];
+        return [new GameOverEvent(1, currentState.losers)];
+    }
+
+    function timeExpired():IKernel.Events {
+        return [new TimeExpiredEvent(1)];
     }
 
     // ==============

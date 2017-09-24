@@ -14,20 +14,25 @@ class GameState  {
 
     public static var WIDTH(default, never):Int = 8;
     public static var HEIGHT(default, never):Int = 8;
-    public static var NONE(default, never):Int = -1;
 
     public var field(default, null):Field;
     public var fruitons(default, null):Fruitons;
 
     var players:Players;
     var activePlayerIdx:Int;
+
     /**
      * Player whose turn it is
      */
     public var activePlayer(get, never):Player;
 
+    /**
+     * Player whose turn it is not
+     */
+    public var otherPlayer(get, never):Player;
+
     public var turnState(default, null):TurnState;
-    public var winner(default, null):Int;
+    public var losers(default, null):Array<Int>;
 
     var actionCache:Array<Array<IKernel.Actions>>;
 
@@ -39,7 +44,7 @@ class GameState  {
         }
         this.players = players;
         this.activePlayerIdx = activePlayerIdx;
-        this.winner = NONE;
+        this.losers = [];
         this.turnState = new TurnState();
         this.actionCache = [for (x in 0...WIDTH) [for (y in 0...HEIGHT) null]];
     }
@@ -59,7 +64,7 @@ class GameState  {
         newState.players = [for (p in this.players) p];
         newState.activePlayerIdx = this.activePlayerIdx;
         newState.turnState = this.turnState.clone();
-        newState.winner = this.winner;
+        newState.losers = this.losers.copy();
 
         return newState;
     }
@@ -118,5 +123,9 @@ class GameState  {
 
     function get_activePlayer():Player {
         return players[activePlayerIdx];
+    }
+
+    function get_otherPlayer():Player {
+        return players[1 - activePlayerIdx];
     }
 }

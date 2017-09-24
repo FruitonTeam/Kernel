@@ -6,10 +6,11 @@ class EndTurnAction extends GenericAction<EndTurnActionContext> {
 
     public function new(context:EndTurnActionContext) {
         super(context);
+        dependsOnTurnTime = false;
     }
 
     override function validate(state:GameState, context:EndTurnActionContext):Bool {
-        return true;
+        return super.validate(state, context);
     }
 
     override function executeImpl(state:GameState, result:ActionExecutionResult) {

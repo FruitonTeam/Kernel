@@ -10,10 +10,12 @@ class MoveAction extends GenericAction<MoveActionContext> {
 
     override function validate(state:GameState, context:MoveActionContext):Bool {
         var result:Bool =
+            super.validate(state, context) &&
             context != null &&
             context.source != null &&
             state.field.exists(context.source) &&
-            state.field.get(context.source).fruiton != null;
+            state.field.get(context.source).fruiton != null &&
+            !state.turnState.didAttack;
 
         if (!result) return result;
 
@@ -46,6 +48,7 @@ class MoveAction extends GenericAction<MoveActionContext> {
     }
 
     function moveFruiton(fruiton:Fruiton, context:MoveActionContext, state:GameState, result:ActionExecutionResult) {
+        state.turnState.actionPerformer = fruiton;
         state.turnState.moveCount--;
         state.field.get(context.target).fruiton = state.field.get(context.source).fruiton;
         state.field.get(context.source).fruiton = null;

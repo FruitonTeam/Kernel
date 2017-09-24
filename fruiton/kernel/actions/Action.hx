@@ -5,8 +5,10 @@ import fruiton.IEquitable;
 
 class Action implements IAbstractClass implements IEquitable<Action> {
 
-    function new() {
+    public var dependsOnTurnTime(default, null):Bool;
 
+    function new() {
+        this.dependsOnTurnTime = true;
     }
 
     public function execute(state:GameState):ActionExecutionResult;
