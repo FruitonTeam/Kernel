@@ -4,7 +4,7 @@ import fruiton.fruitDb.FruitonDatabase;
 
 class FruitonTeamValidator {
 
-    static var REQUIRED_COUNTS(default, never):Array<Int> = [1, 3, 4];
+    static var REQUIRED_COUNTS(default, never):Array<Int> = [1, 4, 5];
 
     /**
      * @param fruitonIds Array of ids of the controlled Fruiton Team.

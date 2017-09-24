@@ -21,7 +21,7 @@ class FruitonTeamTest {
     public function fruitonTeamValidator_getsPartiallyValidTeam_returnsApproval() {
         Sys.println("=== running fruitonTeamValidator_getsPartiallyValidTeam_returnsApproval");
 
-        var team = [1, 2, 2, 2, 3, 3, 3 ,3];
+        var team = [1, 2, 2, 2, 2, 3, 3, 3, 3, 3];
         var dbString:String = File.getContent(fruiton.Config.dbFile);
         var fruitonDB = new FruitonDatabase(dbString);
         var result = FruitonTeamValidator.validateFruitonTeam(team, fruitonDB);
