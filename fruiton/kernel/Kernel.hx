@@ -23,6 +23,14 @@ class Kernel implements IKernel {
         this.currentState = new GameState([p1, p2], 0, fruitons);
     }
 
+    /**
+     * Sets all things necessary to start the game and resets round timer
+     * Used to decouple Kernel initialization and game start.
+     */
+    public function startGame() {
+        currentState.resetTurn();
+    }
+
     public function getAllValidActions():IKernel.Actions {
         var allActions:IKernel.Actions = currentState.getAllActions();
         return pruneInvalidActions(allActions);

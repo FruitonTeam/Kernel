@@ -107,4 +107,22 @@ class GameRulesTest {
         Assert.isTrue(result.length == 1);
         Assert.isTrue(timeExpiredEvent != null);
     }
+
+    @Test
+    function startGame_byDefault_resetsTimer() {
+        Sys.println("=== running startGame_byDefault_resetsTimer");
+
+        var k:Kernel = makeKernel(true, 0.01);
+
+        Sys.sleep(Kernel.turnTimeLimit * 2);
+
+        k.startGame();
+        var actions = k.getAllValidActionsFrom(new Vector2(1, 1));
+        var attackAction = Hlinq.firstOfTypeOrNull(actions, AttackAction);
+
+        var result = k.performAction(attackAction);
+        var timeExpiredEvent = Hlinq.singleOfTypeOrNull(result, TimeExpiredEvent);
+
+        Assert.isTrue(timeExpiredEvent == null);
+    }
 }
