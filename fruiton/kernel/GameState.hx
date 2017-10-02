@@ -74,7 +74,7 @@ class GameState  {
      */
     public function nextTurn() {
         turnState = new TurnState();
-        activePlayerIdx = (activePlayerIdx + 1) % players.length;
+        activePlayerIdx = 1 - activePlayerIdx;
     }
 
     /**
@@ -127,5 +127,9 @@ class GameState  {
 
     function get_otherPlayer():Player {
         return players[1 - activePlayerIdx];
+    }
+
+    public function resetTurn() {
+        turnState = new TurnState();
     }
 }
