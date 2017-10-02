@@ -1,6 +1,7 @@
 package fruiton.kernel;
 
 import fruiton.kernel.exceptions.InvalidActionException;
+import fruiton.kernel.exceptions.InvalidOperationException;
 import fruiton.kernel.actions.Action;
 import haxe.ds.GenericStack;
 import fruiton.dataStructures.collections.ArrayOfEquitables;
@@ -19,8 +20,23 @@ class Kernel implements IKernel {
 
     public var currentState(default, null):GameState;
 
+    var isStarted(default, null):Bool;
+
     public function new(p1:Player, p2:Player, fruitons:GameState.Fruitons) {
         this.currentState = new GameState([p1, p2], 0, fruitons);
+    }
+
+    /**
+     * Sets all things necessary to start the game and resets round timer
+     * Used to decouple Kernel initialization and game start. Can be called
+     * multiple times but not after the first action was performed.
+     */
+    public function startGame() {
+        if (isStarted) {
+            throw new InvalidOperationException("Game already started");
+        }
+
+        currentState.resetTurn();
     }
 
     public function getAllValidActions():IKernel.Actions {
@@ -54,6 +70,7 @@ class Kernel implements IKernel {
     }
 
     public function performAction(userAction:Action):IKernel.Events {
+        isStarted = true;
         if (userAction == null) {
             throw new InvalidActionException("Null action");
         }
