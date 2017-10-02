@@ -15,7 +15,7 @@ class Kernel implements IKernel {
     /**
      * Time in seconds a player has to make moves
      */
-    public static var turnTimeLimit(default, default):Float = 10; // TODO change to non static variable loaded from db
+    public static var turnTimeLimit(default, default):Float = 90; // TODO change to non static variable loaded from db
 
     public var currentState(default, null):GameState;
 

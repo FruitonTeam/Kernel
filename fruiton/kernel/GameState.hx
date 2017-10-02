@@ -12,8 +12,8 @@ typedef Players = Array<Player>;
  */
 class GameState  {
 
-    public static var WIDTH(default, never):Int = 8;
-    public static var HEIGHT(default, never):Int = 8;
+    public static var WIDTH(default, never):Int = 9;
+    public static var HEIGHT(default, never):Int = 10;
 
     public var field(default, null):Field;
     public var fruitons(default, null):Fruitons;
