@@ -1,6 +1,7 @@
 package fruiton.kernel;
 
-class Player {
+
+class Player implements IHashable{
 
     public var id(default, null):Int;
 
@@ -10,5 +11,9 @@ class Player {
 
     public function equals(other:Player):Bool {
         return this.id == other.id;
+    }
+    
+    public function getHashCode() : Int {
+        return id * HashHelper.getPrime(0) + HashHelper.getPrime(1);
     }
 }

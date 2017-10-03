@@ -26,4 +26,11 @@ class RangeTargetPattern extends TargetPattern {
 
         return targets;
     }
+    
+    override public function getHashCode():Int {
+        return HashHelper.getPrime(7) * vector.getHashCode() +
+         HashHelper.getPrime(10) * min + 
+         HashHelper.getPrime(11) * max + 
+         HashHelper.getPrime(18); 
+    }
 }

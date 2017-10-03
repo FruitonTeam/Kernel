@@ -26,4 +26,11 @@ class LineTargetPattern extends TargetPattern {
 
         return targets;
     }
+
+    override public function getHashCode():Int {
+        return HashHelper.getPrime(4) * vector.getHashCode() +
+         HashHelper.getPrime(6) * min + 
+         HashHelper.getPrime(13) * max + 
+         HashHelper.getPrime(15); 
+    }
 }

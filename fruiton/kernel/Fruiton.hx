@@ -11,7 +11,7 @@ import fruiton.kernel.actions.Action;
 typedef MoveGenerators = Array<MoveGenerator>;
 typedef AttackGenerators = Array<AttackGenerator>;
 
-class Fruiton {
+class Fruiton implements IHashable {
 
     public var id(default, null):Int;
     public var position(default, null):Vector2;
@@ -127,5 +127,17 @@ class Fruiton {
 
     public function toString():String {
         return "Fruiton Id: " + id + " Position: " + Std.string(position);
+    }
+
+    public function getHashCode():Int {
+        return HashHelper.getPrime(6) * id +
+            HashHelper.getPrime(7) * position.getHashCode() +
+            HashHelper.getPrime(8) * owner.getHashCode() +
+            HashHelper.getPrime(9) * hp +
+            HashHelper.getPrime(10) * HashHelper.hashString(model) +
+            HashHelper.getPrime(11) * type +
+            HashHelper.getPrime(13) * HashHelper.hashIterable(moveGenerators, 14, 1) +
+            HashHelper.getPrime(15) * HashHelper.hashIterable(attackGenerators, 16, 2) +
+            HashHelper.getPrime(12);
     }
 }

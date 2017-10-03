@@ -10,7 +10,7 @@ typedef Players = Array<Player>;
 /**
  * State of a single game
  */
-class GameState  {
+class GameState implements IHashable {
 
     public static var WIDTH(default, never):Int = 9;
     public static var HEIGHT(default, never):Int = 10;
@@ -131,5 +131,13 @@ class GameState  {
 
     public function resetTurn() {
         turnState = new TurnState();
+    }
+
+    public function getHashCode():Int {
+        return HashHelper.getPrime(0) * HashHelper.hashIterable(players, 0, 3) +
+            HashHelper.getPrime(1) * HashHelper.hashIterable(fruitons, 9, 5) +
+            HashHelper.getPrime(2) * activePlayerIdx +
+            HashHelper.getPrime(3) * turnState.getHashCode() +
+            HashHelper.getPrime(4);
     }
 }
