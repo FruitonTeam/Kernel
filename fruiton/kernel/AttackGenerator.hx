@@ -38,8 +38,11 @@ class AttackGenerator implements IHashable {
     }
 
     public function getHashCode():Int {
-        return HashHelper.getPrime(9) * pattern.getHashCode() +
-         HashHelper.getPrime(10) * damage + 
-         HashHelper.getPrime(11); 
+        var p0 = HashHelper.getPrime(9);
+        var p1 = HashHelper.getPrime(10);
+        var hash = p0;
+        hash = hash * p1 +  pattern.getHashCode();
+        hash = hash * p1 +  damage;
+        return hash;
     }
 }

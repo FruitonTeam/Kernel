@@ -134,10 +134,14 @@ class GameState implements IHashable {
     }
 
     public function getHashCode():Int {
-        return HashHelper.getPrime(0) * HashHelper.hashIterable(players, 0, 3) +
-            HashHelper.getPrime(1) * HashHelper.hashIterable(fruitons, 9, 5) +
-            HashHelper.getPrime(2) * activePlayerIdx +
-            HashHelper.getPrime(3) * turnState.getHashCode() +
-            HashHelper.getPrime(4);
+        var p0 = HashHelper.getPrime(10);
+        var p1 = HashHelper.getPrime(11);
+
+        var hash = p0;
+        hash = hash * p1 +  activePlayerIdx;
+        hash = hash * p1 +  turnState.getHashCode();
+        hash = hash * p1 +  HashHelper.hashIterable(players, 12, 13);
+        hash = hash * p1 +  HashHelper.hashIterable(fruitons, 13, 14);
+        return hash;
     }
 }

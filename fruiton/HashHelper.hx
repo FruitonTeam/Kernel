@@ -14,25 +14,29 @@ class HashHelper {
     }
 
     public static function hashString(string: String): Int {
-        return Lambda.fold(
-            [for (i in (0...string.length)) string.charCodeAt(i) * getPrime(3)],
-            SUM_FUNCTION,
-            0
-        ) + getPrime(8);
+        var p0 = getPrime(6);
+        var p1 = getPrime(7);
+        var hash = p0;
+
+        for (i in (0...string.length)) {
+            hash = hash * p1 + string.charCodeAt(i);
+        }
+
+        return hash;
     }
 
     /**
      * Creates order dependent hash of iterable object
      */
-    public static function hashIterable(iterable: Iterable<IHashable>, indexStart: Int, indexDiff: Int): Int {
-        var result: Int = 0;
-        var primeIndex = indexStart;
+    public static function hashIterable(iterable: Iterable<IHashable>, p0index: Int, p1index: Int): Int {
+        var p0 = getPrime(p0index);
+        var p1 = getPrime(p1index);
+        var hash = p0;
         
         for (element in iterable) {
-            result += element.getHashCode() * getPrime(primeIndex);
-            primeIndex += indexDiff;
+            hash = hash * p1 + element.getHashCode();
         }
 
-        return result;
+        return hash;
     }
 }

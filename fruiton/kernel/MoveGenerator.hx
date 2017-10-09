@@ -36,6 +36,11 @@ class MoveGenerator implements IHashable {
     }
 
     public function getHashCode():Int {
-        return HashHelper.getPrime(19) * pattern.getHashCode() + HashHelper.getPrime(9); 
+        var p0 = HashHelper.getPrime(9);
+        var p1 = HashHelper.getPrime(10);
+
+        var hash = p0;
+        hash = hash * p1 +  pattern.getHashCode();
+        return hash;
     }
 }

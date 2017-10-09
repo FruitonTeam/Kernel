@@ -106,8 +106,12 @@ to Point {
     }
 
     public function getHashCode() : Int {
-        return HashHelper.getPrime(3) * this.x +
-            HashHelper.getPrime(4) * this.y +
-            HashHelper.getPrime(5);
+        var p0 = HashHelper.getPrime(4);
+        var p1 = HashHelper.getPrime(5);
+        var hash = p0;
+
+        hash = hash * p1 +  this.x;
+        hash = hash * p1 +  this.y;
+        return hash;
     }   
 }

@@ -14,6 +14,10 @@ class Player implements IHashable{
     }
     
     public function getHashCode() : Int {
-        return id * HashHelper.getPrime(0) + HashHelper.getPrime(1);
+        var p0 = HashHelper.getPrime(0);
+        var p1 = HashHelper.getPrime(1);
+        var hash = p0;
+        hash  = hash * p1 +  id;
+        return hash;
     }
 }

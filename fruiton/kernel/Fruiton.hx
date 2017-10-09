@@ -130,14 +130,18 @@ class Fruiton implements IHashable {
     }
 
     public function getHashCode():Int {
-        return HashHelper.getPrime(6) * id +
-            HashHelper.getPrime(7) * position.getHashCode() +
-            HashHelper.getPrime(8) * owner.getHashCode() +
-            HashHelper.getPrime(9) * hp +
-            HashHelper.getPrime(10) * HashHelper.hashString(model) +
-            HashHelper.getPrime(11) * type +
-            HashHelper.getPrime(13) * HashHelper.hashIterable(moveGenerators, 14, 1) +
-            HashHelper.getPrime(15) * HashHelper.hashIterable(attackGenerators, 16, 2) +
-            HashHelper.getPrime(12);
+        var p0 = HashHelper.getPrime(5);
+        var p1 = HashHelper.getPrime(6);
+
+        var hash = p0;
+        hash = hash * p1 +  id;
+        hash = hash * p1 +  position.getHashCode();
+        hash = hash * p1 +  owner.getHashCode();
+        hash = hash * p1 +  hp;
+        hash = hash * p1 +  type;
+        hash = hash * p1 + HashHelper.hashString(model);
+        hash = hash * p1 + HashHelper.hashIterable(moveGenerators, 7, 8);
+        hash = hash * p1 + HashHelper.hashIterable(attackGenerators, 8, 9);
+        return hash;
     }
 }

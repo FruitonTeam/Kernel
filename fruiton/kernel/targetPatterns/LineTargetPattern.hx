@@ -28,9 +28,13 @@ class LineTargetPattern extends TargetPattern {
     }
 
     override public function getHashCode():Int {
-        return HashHelper.getPrime(4) * vector.getHashCode() +
-         HashHelper.getPrime(6) * min + 
-         HashHelper.getPrime(13) * max + 
-         HashHelper.getPrime(15); 
+        var p0 = HashHelper.getPrime(1);
+        var p1 = HashHelper.getPrime(2);
+
+        var hash = p0;
+        hash = hash * p1 +  vector.getHashCode();
+        hash = hash * p1 +  min;
+        hash = hash * p1 +  max;
+        return hash;
     }
 }
