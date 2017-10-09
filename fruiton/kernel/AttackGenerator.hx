@@ -11,7 +11,7 @@ typedef Attacks = Array<AttackAction>;
 /**
  * Immutable class representing a way of attacking
  */
-class AttackGenerator {
+class AttackGenerator implements IHashable {
 
     var pattern:TargetPattern;
     var damage:Int;
@@ -35,5 +35,15 @@ class AttackGenerator {
         }
 
         return attacks;
+    }
+
+    public function getHashCode():Int {
+        var p0 = HashHelper.PRIME_0;
+        var p1 = HashHelper.PRIME_1;
+
+        var hash = p0 * HashHelper.hashString(Type.getClassName(Type.getClass(this)));
+        hash = hash * p1 + pattern.getHashCode();
+        hash = hash * p1 + damage;
+        return hash;
     }
 }

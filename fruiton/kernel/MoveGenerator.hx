@@ -11,7 +11,7 @@ typedef Moves = Array<MoveAction>;
 /**
  * Immutable class representing movement pattern
  */
-class MoveGenerator {
+class MoveGenerator implements IHashable {
 
     var pattern:TargetPattern;
 
@@ -20,7 +20,7 @@ class MoveGenerator {
     }
 
     /**
-     * Generates all moves from orgin by current TargetPattern
+     * Generates all moves from origin by current TargetPattern
      * @param origin - where all moves start (where fruiton stands)
      * @return Moves generated according to TargetPattern
      */
@@ -33,5 +33,14 @@ class MoveGenerator {
         }
 
         return moves;
+    }
+
+    public function getHashCode():Int {
+        var p0 = HashHelper.PRIME_0;
+        var p1 = HashHelper.PRIME_1;
+
+        var hash = p0 * HashHelper.hashString(Type.getClassName(Type.getClass(this)));
+        hash = hash * p1 +  pattern.getHashCode();
+        return hash;
     }
 }

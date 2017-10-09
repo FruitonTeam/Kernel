@@ -3,13 +3,14 @@ package fruiton.kernel.targetPatterns;
 import fruiton.dataStructures.Vector2;
 import fruiton.IAbstractClass;
 import fruiton.kernel.exceptions.InvalidArgumentException;
+import fruiton.kernel.exceptions.Exception;
 
 typedef Targets = Array<Vector2>;
 
 /**
  * Immutable abstract base class for target patterns
  */
-class TargetPattern implements IAbstractClass {
+class TargetPattern implements IAbstractClass implements IHashable {
 
     var vector:Vector2;
     var min:Int;
@@ -31,5 +32,9 @@ class TargetPattern implements IAbstractClass {
             throw new InvalidArgumentException("Origin cannot be null.");
         }
         return new Targets();
+    }
+
+    public function getHashCode():Int {
+        throw new Exception("Generic target pattern class does not have hash function");
     }
 }

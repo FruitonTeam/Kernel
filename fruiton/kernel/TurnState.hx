@@ -26,4 +26,24 @@ class TurnState {
 
         return newState;
     }
+
+    public function getHashCode():Int {
+        var p0 = HashHelper.PRIME_0;
+        var p1 = HashHelper.PRIME_1;
+        var p2 = HashHelper.PRIME_0;
+        var p3 = HashHelper.PRIME_1;
+
+        var hash = p0 * HashHelper.hashString(Type.getClassName(Type.getClass(this)));
+        if (actionPerformer != null) {
+            hash  = hash * p1 +  actionPerformer.getHashCode();
+        }
+        if (didAttack) {
+            hash  = hash * p1 +  p2;
+        } else {
+            hash  = hash * p1 +  p3;
+        }
+        hash = hash * p1 +  moveCount;
+        hash = hash * p1 +  attackCount;
+        return hash;
+    }
 }
