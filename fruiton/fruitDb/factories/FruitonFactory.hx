@@ -36,6 +36,7 @@ class FruitonFactory {
             Vector2.ZERO,
             null,
             entry.hp,
+            entry.damage,
             entry.model,
             moveGenerators,
             attackGenerators,
@@ -44,7 +45,7 @@ class FruitonFactory {
 
     static function makeAttackGenerator(id:Int, db:FruitonDatabase):AttackGenerator {
         var entry:AttackModel = db.getAttack(id);
-        return new AttackGenerator(makeTargetPattern(entry.targetPatternId, db), entry.damage);
+        return new AttackGenerator(makeTargetPattern(entry.targetPatternId, db));
     }
 
     static function makeMoveGenerator(id:Int, db:FruitonDatabase):MoveGenerator {

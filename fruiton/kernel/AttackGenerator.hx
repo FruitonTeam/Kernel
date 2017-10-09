@@ -14,11 +14,9 @@ typedef Attacks = Array<AttackAction>;
 class AttackGenerator implements IHashable {
 
     var pattern:TargetPattern;
-    var damage:Int;
 
-    public function new(targetPattern:TargetPattern, damage:Int) {
+    public function new(targetPattern:TargetPattern) {
         this.pattern = targetPattern;
-        this.damage = damage;
     }
 
     /**
@@ -26,7 +24,7 @@ class AttackGenerator implements IHashable {
      * @param origin - where all attack start (where fruiton stands)
      * @return Attacks generated according to TargetPattern
      */
-    public function getAttacks(origin:Vector2):Attacks {
+    public function getAttacks(origin:Vector2, damage:Int):Attacks {
         var attacks:Attacks = new Attacks();
         var positions:Targets = pattern.getTargets(origin);
 
@@ -43,7 +41,6 @@ class AttackGenerator implements IHashable {
 
         var hash = p0 * HashHelper.hashString(Type.getClassName(Type.getClass(this)));
         hash = hash * p1 + pattern.getHashCode();
-        hash = hash * p1 + damage;
         return hash;
     }
 }

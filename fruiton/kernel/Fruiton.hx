@@ -19,6 +19,7 @@ class Fruiton implements IHashable {
     public var hp(default, null):Int;
     public var model(default, null):String;
     public var type(default, null):Int;
+    public var damage(default, null):Int;
 
     public static var KING_TYPE(default, never):Int = 1;
     public static var MAJOR_TYPE(default, never):Int = 2;
@@ -37,20 +38,21 @@ class Fruiton implements IHashable {
     var moveGenerators:MoveGenerators;
     var attackGenerators:AttackGenerators;
 
-    public function new(id:Int, position:Vector2, owner:Player, hp:Int, model:String, moves:MoveGenerators, attacks:AttackGenerators, type:Int) {
+    public function new(id:Int, position:Vector2, owner:Player, hp:Int, damage:Int, model:String, moves:MoveGenerators, attacks:AttackGenerators, type:Int) {
         this.id = id;
         this.position = position;
         this.owner = owner;
         this.moveGenerators = moves.copy();
         this.attackGenerators = attacks.copy();
         this.hp = hp;
+        this.damage = damage;
         this.model = model;
         this.type = type;
     }
 
     public function clone():Fruiton {
         // Player is no cloned to remain the same as in GameState
-        return new Fruiton(this.id, this.position.clone(), this.owner, this.hp, this.model, this.moveGenerators, this.attackGenerators, this.type);
+        return new Fruiton(this.id, this.position.clone(), this.owner, this.hp, this.damage, this.model, this.moveGenerators, this.attackGenerators, this.type);
     }
 
     public function equalsId(other:Fruiton):Bool {
@@ -71,14 +73,14 @@ class Fruiton implements IHashable {
 
         // Attack actions
         for (attackGen in attackGenerators) {
-            allActions.pushAll(attackGen.getAttacks(position));
+            allActions.pushAll(attackGen.getAttacks(position, damage));
         }
 
         return allActions;
     }
 
-    public function takeDamage(damage:Int) {
-        hp -= damage;
+    public function takeDamage(dmg:Int) {
+        hp -= dmg;
     }
 
     public function moveTo(newPosition:Vector2) {
@@ -134,14 +136,15 @@ class Fruiton implements IHashable {
         var p1 = HashHelper.PRIME_1;
 
         var hash = p0 * HashHelper.hashString(Type.getClassName(Type.getClass(this)));
-        hash = hash * p1 +  id;
-        hash = hash * p1 +  position.getHashCode();
-        hash = hash * p1 +  owner.getHashCode();
-        hash = hash * p1 +  hp;
-        hash = hash * p1 +  type;
+        hash = hash * p1 + id;
+        hash = hash * p1 + position.getHashCode();
+        hash = hash * p1 + owner.getHashCode();
+        hash = hash * p1 + hp;
+        hash = hash * p1 + type;
         hash = hash * p1 + HashHelper.hashString(model);
         hash = hash * p1 + HashHelper.hashIterable(moveGenerators);
         hash = hash * p1 + HashHelper.hashIterable(attackGenerators);
+        hash = hash * p1 + damage;
         return hash;
     }
 }

@@ -38,11 +38,11 @@ class AttackTest {
 
 
         var attackGenerators:AttackGenerators = new AttackGenerators();
-        attackGenerators.push(new AttackGenerator(new RangeTargetPattern(Vector2.ZERO, 0, 1), dmg));
-        attackGenerators.push(new AttackGenerator(new LineTargetPattern(new Vector2(1, 0), -1, 1), dmg));
+        attackGenerators.push(new AttackGenerator(new RangeTargetPattern(Vector2.ZERO, 0, 1)));
+        attackGenerators.push(new AttackGenerator(new LineTargetPattern(new Vector2(1, 0), -1, 1)));
 
-        var fruiton:Fruiton = new Fruiton(1, new Vector2(0, 0), p1, hp, "", moveGenerators, attackGenerators, 1);
-        var fruiton2:Fruiton = new Fruiton(2, new Vector2(0, 1), p2, hp, "", moveGenerators, attackGenerators, 1);
+        var fruiton:Fruiton = new Fruiton(1, new Vector2(0, 0), p1, hp, dmg, "", moveGenerators, attackGenerators, 1);
+        var fruiton2:Fruiton = new Fruiton(2, new Vector2(0, 1), p2, hp, dmg, "", moveGenerators, attackGenerators, 1);
 		return new Kernel(p1, p2, [fruiton, fruiton2]);
 	}
 
