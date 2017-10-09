@@ -7,7 +7,6 @@ import fruiton.kernel.events.DeathEvent;
 import fruiton.dataStructures.Vector2;
 import fruiton.dataStructures.collections.ExtendedArray;
 import fruiton.kernel.actions.Action;
-import fruiton.Macros;
 
 typedef MoveGenerators = Array<MoveGenerator>;
 typedef AttackGenerators = Array<AttackGenerator>;
@@ -131,8 +130,8 @@ class Fruiton implements IHashable {
     }
 
     public function getHashCode():Int {
-        var p0 = Macros.getPrime();
-        var p1 = Macros.getPrime();
+        var p0 = HashHelper.PRIME_0;
+        var p1 = HashHelper.PRIME_1;
 
         var hash = p0 * HashHelper.hashString(Type.getClassName(Type.getClass(this)));
         hash = hash * p1 +  id;
@@ -141,8 +140,8 @@ class Fruiton implements IHashable {
         hash = hash * p1 +  hp;
         hash = hash * p1 +  type;
         hash = hash * p1 + HashHelper.hashString(model);
-        hash = hash * p1 + HashHelper.hashIterable(moveGenerators, p0, p1);
-        hash = hash * p1 + HashHelper.hashIterable(attackGenerators, p0, p1);
+        hash = hash * p1 + HashHelper.hashIterable(moveGenerators);
+        hash = hash * p1 + HashHelper.hashIterable(attackGenerators);
         return hash;
     }
 }

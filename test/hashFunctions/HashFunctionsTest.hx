@@ -46,19 +46,8 @@ class HashFunctionsTest {
         Assert.isType(fruiton.getHashCode(), Int);
         Assert.isType(gameState.getHashCode(), Int);
         Assert.isType(HashHelper.hashString("aaa"), Int);
-        Assert.isType(HashHelper.hashIterable([player], 0, 1), Int);
+        Assert.isType(HashHelper.hashIterable([player]), Int);
 
-    }
-
-    @Test
-    public function hashFunction_hashClassesWithSameSupeClass_returnDifferentHash() {
-        Sys.println("=== running hashFunction_hashClassesWithSameSupeClass_returnDifferentHash");
-
-        var vector2: Vector2 = new Vector2(0, 0);
-        var linePattern: LineTargetPattern = new LineTargetPattern(vector2, 1, 0);
-        var rangePattern: RangeTargetPattern = new RangeTargetPattern(vector2, 1, 0);
-
-        Assert.areNotEqual(linePattern.getHashCode(), rangePattern.getHashCode());
     }
 
     @Test
@@ -71,8 +60,8 @@ class HashFunctionsTest {
         Assert.areNotEqual(player1.getHashCode(), player2.getHashCode());
 
         Assert.areNotEqual(
-            HashHelper.hashIterable([player1, player2], 1, 2),
-            HashHelper.hashIterable([player2, player1], 1, 2)
+            HashHelper.hashIterable([player1, player2]),
+            HashHelper.hashIterable([player2, player1])
             );
     }
 }

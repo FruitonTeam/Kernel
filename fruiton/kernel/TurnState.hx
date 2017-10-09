@@ -28,10 +28,10 @@ class TurnState {
     }
 
     public function getHashCode():Int {
-        var p0 = Macros.getPrime();
-        var p1 = Macros.getPrime();
-        var p2 = Macros.getPrime();
-        var p3 = Macros.getPrime();
+        var p0 = HashHelper.PRIME_0;
+        var p1 = HashHelper.PRIME_1;
+        var p2 = HashHelper.PRIME_0;
+        var p3 = HashHelper.PRIME_1;
 
         var hash = p0 * HashHelper.hashString(Type.getClassName(Type.getClass(this)));
         if (actionPerformer != null) {

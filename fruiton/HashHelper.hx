@@ -2,22 +2,14 @@ package fruiton;
 
 class HashHelper {
 
-    public static var PRIMES:Array<Int> = Macros.getPrimes();
-
-    /**
-     * Return a prime from primes.txt file, if the index is too high it loops back
-     */
-    public static function getPrime(index: Int) :Int {
-        return PRIMES[index % PRIMES.length];
-    }
+    public static var PRIME_0: Int = 1453335277;
+    public static var PRIME_1: Int = 402682283;
 
     public static function hashString(string: String): Int {
-        var p0 = Macros.getPrime();
-        var p1 = Macros.getPrime();
-        var hash = p0;
+        var hash = PRIME_0;
 
         for (i in (0...string.length)) {
-            hash = hash * p1 + string.charCodeAt(i);
+            hash = hash * PRIME_1 + string.charCodeAt(i);
         }
 
         return hash;
@@ -26,13 +18,12 @@ class HashHelper {
     /**
      * Creates order dependent hash of iterable object
      */
-    public static function hashIterable(iterable: Iterable<IHashable>, p0: Int, p1: Int): Int {
-        var hash = p0;
+    public static function hashIterable(iterable: Iterable<IHashable>): Int {
+        var hash = PRIME_0;
 
         for (element in iterable) {
-            hash = hash * p1 + element.getHashCode();
+            hash = hash * PRIME_1 + element.getHashCode();
         }
-
         return hash;
     }
 }
