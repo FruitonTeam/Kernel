@@ -20,7 +20,7 @@ class Macros {
   macro public static function getPrimes(): Expr {
     var primes : Array<Int>;
     try {
-      var path : String = Context.resolvePath("fruiton/kernel/primes.txt");
+      var path : String = Context.resolvePath("resources/primes.txt");
       var primeStrings: Array<String> = sys.io.File.getContent(path).split("\n");
       primes = [for (s in primeStrings) Std.parseInt(s)];
     } catch (e:Dynamic) {
