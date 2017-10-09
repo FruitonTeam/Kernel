@@ -28,10 +28,10 @@ class LineTargetPattern extends TargetPattern {
     }
 
     override public function getHashCode():Int {
-        var p0 = HashHelper.getPrime(1);
-        var p1 = HashHelper.getPrime(2);
+        var p0 = Macros.getPrime();
+        var p1 = Macros.getPrime();
 
-        var hash = p0;
+        var hash = p0 * HashHelper.hashString(Type.getClassName(Type.getClass(this)));
         hash = hash * p1 +  vector.getHashCode();
         hash = hash * p1 +  min;
         hash = hash * p1 +  max;

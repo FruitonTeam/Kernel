@@ -4,8 +4,6 @@ class HashHelper {
 
     public static var PRIMES:Array<Int> = Macros.getPrimes();
 
-    public static var SUM_FUNCTION = function (num: Int, total: Int) return total += num;
-
     /**
      * Return a prime from primes.txt file, if the index is too high it loops back
      */
@@ -14,8 +12,8 @@ class HashHelper {
     }
 
     public static function hashString(string: String): Int {
-        var p0 = getPrime(6);
-        var p1 = getPrime(7);
+        var p0 = Macros.getPrime();
+        var p1 = Macros.getPrime();
         var hash = p0;
 
         for (i in (0...string.length)) {
@@ -28,11 +26,9 @@ class HashHelper {
     /**
      * Creates order dependent hash of iterable object
      */
-    public static function hashIterable(iterable: Iterable<IHashable>, p0index: Int, p1index: Int): Int {
-        var p0 = getPrime(p0index);
-        var p1 = getPrime(p1index);
+    public static function hashIterable(iterable: Iterable<IHashable>, p0: Int, p1: Int): Int {
         var hash = p0;
-        
+
         for (element in iterable) {
             hash = hash * p1 + element.getHashCode();
         }

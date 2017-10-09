@@ -1,6 +1,5 @@
 package fruiton.kernel;
 
-
 class Player implements IHashable{
 
     public var id(default, null):Int;
@@ -12,11 +11,12 @@ class Player implements IHashable{
     public function equals(other:Player):Bool {
         return this.id == other.id;
     }
-    
+
     public function getHashCode() : Int {
-        var p0 = HashHelper.getPrime(0);
-        var p1 = HashHelper.getPrime(1);
-        var hash = p0;
+        var p0 = Macros.getPrime();
+        var p1 = Macros.getPrime();
+
+        var hash = p0 * HashHelper.hashString(Type.getClassName(Type.getClass(this)));
         hash  = hash * p1 +  id;
         return hash;
     }

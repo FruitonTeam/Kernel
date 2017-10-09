@@ -25,8 +25,8 @@ class HashFunctionsTest {
     }
 
     @Test
-    public function hashFunctions_areDefined() {
-        Sys.println("=== running hashFunctions_areDefined");
+    public function hashFunctions_byDefault_returnInt() {
+        Sys.println("=== running hashFunctions_byDefault_returnInt");
 
         var vector2: Vector2 = new Vector2(0, 0);
         var lineTargetPattern: LineTargetPattern = new LineTargetPattern(vector2, 1, 0);
@@ -51,8 +51,19 @@ class HashFunctionsTest {
     }
 
     @Test
-    public function hashIterable_isOrderDependent() {
-        Sys.println("=== running hashIterable_isOrderDependent");
+    public function hashFunction_hashClassesWithSameSupeClass_returnDifferentHash() {
+        Sys.println("=== running hashFunction_hashClassesWithSameSupeClass_returnDifferentHash");
+
+        var vector2: Vector2 = new Vector2(0, 0);
+        var linePattern: LineTargetPattern = new LineTargetPattern(vector2, 1, 0);
+        var rangePattern: RangeTargetPattern = new RangeTargetPattern(vector2, 1, 0);
+
+        Assert.areNotEqual(linePattern.getHashCode(), rangePattern.getHashCode());
+    }
+
+    @Test
+    public function hashIterable_switchElementOrder_returnDifferentHash() {
+        Sys.println("=== running hashIterable_switchElementOrder_returnDifferentHash");
 
         var player1: Player = new Player(0);
         var player2: Player = new Player(1);
