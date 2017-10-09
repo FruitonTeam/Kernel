@@ -25,32 +25,6 @@ class HashFunctionsTest {
     }
 
     @Test
-    public function hashFunctions_byDefault_returnInt() {
-        Sys.println("=== running hashFunctions_byDefault_returnInt");
-
-        var vector2: Vector2 = new Vector2(0, 0);
-        var lineTargetPattern: LineTargetPattern = new LineTargetPattern(vector2, 1, 0);
-        var attackGenerator: AttackGenerator = new AttackGenerator(lineTargetPattern, 1);
-        var player: Player = new Player(0);
-        var moveGenerator: MoveGenerator = new MoveGenerator(lineTargetPattern);
-        var fruiton: Fruiton = new Fruiton(0, vector2, player, 2, "model1", [], [], 0);
-        var gameState: GameState = new GameState([player], 0, [fruiton]);
-
-        Assert.isType(vector2.getHashCode(), Int);
-        Assert.isType(lineTargetPattern.getHashCode(), Int);
-        Assert.isType(new RangeTargetPattern(vector2, 1, 0).getHashCode(), Int);
-        Assert.isType(attackGenerator.getHashCode(), Int);
-        Assert.isType(player.getHashCode(), Int);
-        Assert.isType(moveGenerator.getHashCode(), Int);
-        Assert.isType(new TurnState().getHashCode(), Int);
-        Assert.isType(fruiton.getHashCode(), Int);
-        Assert.isType(gameState.getHashCode(), Int);
-        Assert.isType(HashHelper.hashString("aaa"), Int);
-        Assert.isType(HashHelper.hashIterable([player]), Int);
-
-    }
-
-    @Test
     public function hashIterable_switchElementOrder_returnDifferentHash() {
         Sys.println("=== running hashIterable_switchElementOrder_returnDifferentHash");
 
