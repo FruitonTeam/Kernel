@@ -42,7 +42,6 @@ class TurnState {
         } else {
             hash  = hash * p1 +  p3;
         }
-        hash = hash * p1 +  actionPerformer.getHashCode();
         hash = hash * p1 +  moveCount;
         hash = hash * p1 +  attackCount;
         return hash;

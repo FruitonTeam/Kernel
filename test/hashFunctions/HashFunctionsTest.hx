@@ -71,8 +71,8 @@ class HashFunctionsTest {
         Assert.areNotEqual(player1.getHashCode(), player2.getHashCode());
 
         Assert.areNotEqual(
-            HashHelper.hashIterable([player1, player2], 0, 1),
-            HashHelper.hashIterable([player2, player1], 0, 1)
+            HashHelper.hashIterable([player1, player2], 1, 2),
+            HashHelper.hashIterable([player2, player1], 1, 2)
             );
     }
 }
