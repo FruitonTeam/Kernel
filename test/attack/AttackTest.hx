@@ -25,7 +25,7 @@ class AttackTest {
      * Factory method for unified and simple kernel creation
      * @return Kernel which is initialized
      */
-    function makeKernel(kill:Bool):Kernel {
+    public static function makeKernel(kill:Bool):Kernel {
 		var p1:Player = new Player(0);
 		var p2:Player = new Player(1);
 

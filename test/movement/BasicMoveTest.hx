@@ -62,10 +62,12 @@ class BasicMoveTest {
             var kernel:IKernel = makeKernel();
             var a:Action = new MoveAction(new MoveActionContext(null, null));
             kernel.performAction(a);
-        }
-        catch (e : InvalidActionException) {
+        } catch (e : InvalidActionException) {
             // Expected behavior
+            return;
         }
+
+        Assert.isTrue(false);
     }
 
     @Test
@@ -74,10 +76,12 @@ class BasicMoveTest {
         try {
             var kernel:IKernel = makeKernel();
             kernel.performAction(null);
-        }
-        catch (e : InvalidActionException) {
+        } catch (e : InvalidActionException) {
             // Expected behavior
+            return;
         }
+
+        Assert.isTrue(false);
     }
 
     @Test
