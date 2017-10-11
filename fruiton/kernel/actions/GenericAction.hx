@@ -4,6 +4,8 @@ class GenericAction<TContext:(ActionContext)> extends Action {
 
     public var actionContext(default, null):TContext;
 
+    public static var ID:Int = 123;
+
     function new(context:TContext) {
         super();
         this.actionContext = context;

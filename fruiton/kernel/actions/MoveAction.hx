@@ -4,7 +4,7 @@ import fruiton.kernel.events.MoveEvent;
 
 class MoveAction extends TargetableAction<MoveActionContext> {
 
-    public static inline var ID:Int = 2;
+    public static var ID:Int = 2;
 
     public function new(context:MoveActionContext) {
         super(context);
