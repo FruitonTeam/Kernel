@@ -14,23 +14,43 @@ class AddEffectAction extends GenericAction<EffectActionContext> {
         var result:Bool =
             (ignoreTime || super.validate(state, context)) &&
             context != null &&
-            context.owner != null &&
-            context.effect != null;
+            context.source != null &&
+            state.field.exists(context.source) &&
+            context.target != null &&
+            state.field.exists(context.target);
+
+        if (!result) {
+            return false;
+        }
+
+        var sourceFruiton:Fruiton = state.field.get(context.source).fruiton;
+        var targetFruiton:Fruiton = state.field.get(context.target).fruiton;
+
+        result =
+            sourceFruiton != null &&
+            sourceFruiton.owner != null &&
+            sourceFruiton.owner.equals(state.activePlayer) &&
+            targetFruiton != null &&
+            targetFruiton.owner != null &&
+            !targetFruiton.owner.equals(state.activePlayer) &&
+            (state.turnState.actionPerformer == null ||
+            sourceFruiton.equalsId(state.turnState.actionPerformer));
 
         return result;
     }
 
     override function executeImpl(state:GameState, result:ActionExecutionResult) {
         var newContext:EffectActionContext = actionContext.clone();
+        var sourceFruiton:Fruiton = state.field.get(newContext.target).fruiton;
 
         if (result.isValid) {
-            newContext.owner.onBeforeEffectAdded(newContext, state, result);
+            sourceFruiton.onBeforeEffectAdded(newContext, state, result);
         }
         if (result.isValid) {
-            newContext.owner.addEffect(newContext.effect);
+            sourceFruiton.addEffect(newContext.effect);
         }
         if (result.isValid) {
-            newContext.owner.onAfterEffectAdded(newContext, state, result);
+            sourceFruiton.onAfterEffectAdded(newContext, state, result);
         }
     }
 

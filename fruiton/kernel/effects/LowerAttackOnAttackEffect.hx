@@ -21,8 +21,9 @@ class LowerAttackOnAttackEffect extends Effect {
                 result.actions.add(
                     new AddEffectAction(
                         new EffectActionContext(
-                            target,
-                            new LoweredAttackEffect(amount)
+                            new LoweredAttackEffect(amount),
+                            context.source,
+                            context.target
                         ),
                         true
                     )

@@ -42,7 +42,7 @@ class FruitonFactory {
             entry.model,
             moveGenerators,
             attackGenerators,
-            [new LowerAttackOnAttackEffect(10)],
+            [new LowerAttackOnAttackEffect(1)],
             entry.type);
     }
 

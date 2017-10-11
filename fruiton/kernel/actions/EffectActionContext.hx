@@ -1,24 +1,23 @@
 package fruiton.kernel.actions;
 
 import fruiton.kernel.effects.Effect;
+import fruiton.dataStructures.Vector2;
 
-class EffectActionContext extends ActionContext {
+class EffectActionContext extends TargetableActionContext {
 
-    public var owner(default, default):Fruiton;
     public var effect(default, default):Effect;
 
-    public function new(owner:Fruiton, effect:Effect) {
-        super();
-        this.owner = owner;
+    public function new(effect:Effect, source:Vector2, target:Vector2) {
+        super(source, target);
         this.effect = effect;
     }
 
     public function clone():EffectActionContext {
-        return new EffectActionContext(owner, effect);
+        return new EffectActionContext(effect, source, target);
     }
 
     public function toString():String {
-        return " EffectActionContext owner: " + Std.string(owner) + " effect: " + Std.string(effect);
+        return " EffectActionContext effect: " + Std.string(effect) + " source: " + Std.string(source) + " target: " + Std.string(target);
     }
 
     override public function equalsTo(other:ActionContext):Bool {
@@ -31,7 +30,19 @@ class EffectActionContext extends ActionContext {
 
         var otherEffectContext = cast(other, EffectActionContext);
 
-        return (this.owner.id == otherEffectContext.owner.id) &&
-        this.effect.equalsTo(otherEffectContext.effect);
+        var isEffectEqual:Bool =
+        (this.effect == otherEffectContext.effect) ||
+        (this.effect != null && this.effect.equalsTo(otherEffectContext.effect));
+
+
+        var isSourceEqual:Bool =
+        (this.source == otherEffectContext.source) ||
+        (this.source != null && this.target.equalsTo(otherEffectContext.source));
+
+        var isTargetEqual:Bool =
+        (this.target == otherEffectContext.target) ||
+        (this.target != null && this.target.equalsTo(otherEffectContext.target));
+
+        return isEffectEqual && isSourceEqual && isTargetEqual;
     }
 }
