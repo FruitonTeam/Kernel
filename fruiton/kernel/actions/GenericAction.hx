@@ -1,6 +1,6 @@
 package fruiton.kernel.actions;
 
-class GenericAction<TContext> extends Action {
+class GenericAction<TContext:(ActionContext)> extends Action {
 
     public var actionContext(default, null):TContext;
 

@@ -2,17 +2,13 @@ package fruiton.kernel.actions;
 
 import fruiton.dataStructures.Vector2;
 
-class AttackActionContext extends ActionContext {
+class AttackActionContext extends TargetableActionContext {
 
-    public var source(default, default):Vector2;
-    public var target(default, default):Vector2;
     public var damage(default, default):Int;
 
     public function new(damage:Int, source:Vector2, target:Vector2) {
-        super();
+        super(source, target);
         this.damage = damage;
-        this.source = source;
-        this.target = target;
     }
 
     public function clone():AttackActionContext {
