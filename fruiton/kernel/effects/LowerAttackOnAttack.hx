@@ -8,8 +8,7 @@ class LowerAttackOnAttack extends Effect {
 
     var amount: Int;
 
-    public function new(owner: Fruiton, amount:Int = 1){
-        super(owner);
+    public function new(amount:Int = 1){
         name = "lower-attack-on-attack";
         this.amount = amount;
     }
@@ -22,7 +21,7 @@ class LowerAttackOnAttack extends Effect {
                     new AddEffectAction(
                         new EffectActionContext(
                             target,
-                            new LoweredAttackEffect(target)
+                            new LoweredAttackEffect(1)
                         ),
                         true
                     )
@@ -41,7 +40,6 @@ class LowerAttackOnAttack extends Effect {
 
         var otherEffect = cast(other, LowerAttackOnAttack);
 
-        return (this.owner.id == otherEffect.owner.id) &&
-        this.amount == otherEffect.amount;
+        return this.amount == otherEffect.amount;
     }
 }

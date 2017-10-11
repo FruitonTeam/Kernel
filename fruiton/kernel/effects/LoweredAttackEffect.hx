@@ -6,8 +6,7 @@ class LoweredAttackEffect extends Effect {
 
     var amount:Int;
 
-    public function new(owner: Fruiton, amount: Int = 1){
-        super(owner);
+    public function new(amount: Int = 1){
         name = "lowered-attack";
         this.amount = amount;
     }
@@ -26,7 +25,6 @@ class LoweredAttackEffect extends Effect {
 
         var otherEffect = cast(other, LoweredAttackEffect);
 
-        return (this.owner.id == otherEffect.owner.id) &&
-        this.amount == otherEffect.amount;
+        return this.amount == otherEffect.amount;
     }
 }

@@ -23,15 +23,15 @@ class AddEffectAction extends GenericAction<EffectActionContext> {
     override function executeImpl(state:GameState, result:ActionExecutionResult) {
         var newContext:EffectActionContext = actionContext.clone();
 
-//        if (result.isValid) {
-//            targetFruion.onBeforeAttack(newContext, state, result);
-//        }
-//        if (result.isValid) {
-//            attackFruiton(targetFruion, newContext, state, result);
-//        }
-//        if (result.isValid) {
-//            targetFruion.onAfterAttack(newContext, state, result);
-//        }
+        if (result.isValid) {
+            newContext.owner.onBeforeEffectAdded(newContext, state, result);
+        }
+        if (result.isValid) {
+            newContext.owner.addEffect(newContext.effect);
+        }
+        if (result.isValid) {
+            newContext.owner.onAfterEffectAdded(newContext, state, result);
+        }
     }
 
     override public function toString():String {

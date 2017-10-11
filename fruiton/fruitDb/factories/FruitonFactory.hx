@@ -11,6 +11,7 @@ import fruiton.kernel.targetPatterns.RangeTargetPattern;
 import fruiton.kernel.targetPatterns.TargetPattern;
 import fruiton.kernel.MoveGenerator;
 import fruiton.kernel.AttackGenerator;
+import fruiton.kernel.effects.LowerAttackOnAttack;
 
 enum TargetPatternType {
     line;
@@ -40,7 +41,7 @@ class FruitonFactory {
             entry.model,
             moveGenerators,
             attackGenerators,
-            [],
+            [new LowerAttackOnAttack(3)],
             entry.type);
     }
 

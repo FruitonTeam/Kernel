@@ -2,6 +2,7 @@ package fruiton.kernel;
 
 import fruiton.kernel.actions.MoveActionContext;
 import fruiton.kernel.actions.EndTurnActionContext;
+import fruiton.kernel.actions.EffectActionContext;
 import fruiton.kernel.actions.AttackActionContext;
 import fruiton.kernel.events.DeathEvent;
 import fruiton.kernel.effects.Effect;
@@ -124,24 +125,24 @@ class Fruiton implements IHashable implements IGameEventHandler {
     // ==============
     // Event handlers
     // ==============
-    public function onBeforeEffectAdded(target:Fruiton, effect:Effect, state: GameState, result:ActionExecutionResult) {
+    public function onBeforeEffectAdded(context: EffectActionContext, state: GameState, result:ActionExecutionResult) {
         // Modify action and game state
-        trace("onBeforeEffectAdded Fruiton: " + id + ">" + effect.name);
+        trace("onBeforeEffectAdded Fruiton: " + id + ">" + context.effect.name);
     }
 
-    public function onAfterEffectAdded(target:Fruiton, effect:Effect, state: GameState, result:ActionExecutionResult) {
+    public function onAfterEffectAdded(context: EffectActionContext, state: GameState, result:ActionExecutionResult) {
         // Modify action and game state
-        trace("onAfterEffectAdded Fruiton: " + id + ">" + effect.name);
+        trace("onAfterEffectAdded Fruiton: " + id + ">" + context.effect.name);
     }
 
-    public function onBeforeEffectRemoved(target:Fruiton, effect:Effect, state: GameState, result:ActionExecutionResult) {
+    public function onBeforeEffectRemoved(context: EffectActionContext, state: GameState, result:ActionExecutionResult) {
         // Modify action and game state
-        trace("onBeforeEffectRemoved Fruiton: " + id + ">" + effect.name);
+        trace("onBeforeEffectRemoved Fruiton: " + id + ">" + context.effect.name);
     }
 
-    public function onAfterEffectRemoved(target:Fruiton, effect:Effect, state: GameState, result:ActionExecutionResult) {
+    public function onAfterEffectRemoved(context: EffectActionContext, state: GameState, result:ActionExecutionResult) {
         // Modify action and game state
-        trace("onAfterEffectRemoved Fruiton: " + id + ">" + effect.name);
+        trace("onAfterEffectRemoved Fruiton: " + id + ">" + context.effect.name);
     }
 
     public function onBeforeTurnEnd(context:EndTurnActionContext, state:GameState, result:ActionExecutionResult) {
@@ -167,6 +168,9 @@ class Fruiton implements IHashable implements IGameEventHandler {
     public function onBeforeAttack(context:AttackActionContext, state:GameState, result:ActionExecutionResult) {
         // Modify action and game state
         trace("onBeforeAttack Fruiton: " + id + " " + context);
+        for (effect in effects) {
+            effect.onBeforeAttack(context, state, result);
+        }
     }
 
     public function onAfterAttack(context:AttackActionContext, state:GameState, result:ActionExecutionResult) {

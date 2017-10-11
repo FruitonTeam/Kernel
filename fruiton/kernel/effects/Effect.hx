@@ -1,6 +1,7 @@
 package fruiton.kernel.effects;
 
 import fruiton.kernel.actions.EndTurnActionContext;
+import fruiton.kernel.actions.EffectActionContext;
 import fruiton.kernel.actions.MoveActionContext;
 import fruiton.kernel.actions.AttackActionContext;
 
@@ -8,30 +9,24 @@ class Effect implements IGameEventHandler  implements IAbstractClass implements 
 
     public var name(default, null): String = "";
 
-    var owner: Fruiton;
-
-    function new(owner:Fruiton){
-        this.owner = owner;
+    public function onBeforeEffectAdded(context: EffectActionContext, state: GameState, result:ActionExecutionResult) {
+        // Modify action and game state
+        trace("onBeforeEffectAdded Effect: " + name + ">" + context.effect.name);
     }
 
-    public function onBeforeEffectAdded(target:Fruiton, effect:Effect, state: GameState, result:ActionExecutionResult) {
+    public function onAfterEffectAdded(context: EffectActionContext, state: GameState, result:ActionExecutionResult) {
         // Modify action and game state
-        trace("onBeforeEffectAdded Effect: " + name + ">" + effect.name);
+        trace("onAfterEffectAdded Effect: " + name + ">" + context.effect.name);
     }
 
-    public function onAfterEffectAdded(target:Fruiton, effect:Effect, state: GameState, result:ActionExecutionResult) {
+    public function onBeforeEffectRemoved(context: EffectActionContext, state: GameState, result:ActionExecutionResult) {
         // Modify action and game state
-        trace("onAfterEffectAdded Effect: " + name + ">" + effect.name);
+        trace("onBeforeEffectRemoved Effect: " + name + ">" + context.effect.name);
     }
 
-    public function onBeforeEffectRemoved(target:Fruiton, effect:Effect, state: GameState, result:ActionExecutionResult) {
+    public function onAfterEffectRemoved(context: EffectActionContext, state: GameState, result:ActionExecutionResult) {
         // Modify action and game state
-        trace("onBeforeEffectRemoved Effect: " + name + ">" + effect.name);
-    }
-
-    public function onAfterEffectRemoved(target:Fruiton, effect:Effect, state: GameState, result:ActionExecutionResult) {
-        // Modify action and game state
-        trace("onAfterEffectRemoved Effect: " + name + ">" + effect.name);
+        trace("onAfterEffectRemoved Effect: " + name + ">" + context.effect.name);
     }
 
     public function onBeforeTurnEnd(context:EndTurnActionContext, state:GameState, result:ActionExecutionResult) {
@@ -64,5 +59,5 @@ class Effect implements IGameEventHandler  implements IAbstractClass implements 
         trace("onAfterAttack Effect: " + name + " " + context);
     }
 
-    public function equalsTo(other:Effect):Bool;
+    public function equalsTo(other:Effect): Bool;
 }
