@@ -57,6 +57,7 @@
             "hp": 4,
             "damage": 2,
             "abilities": [],
+            "effects": ["garlic"],
             "movements": [1],
             "attacks": [1]
         }

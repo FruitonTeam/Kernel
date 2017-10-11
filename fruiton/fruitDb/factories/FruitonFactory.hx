@@ -40,6 +40,7 @@ class FruitonFactory {
             entry.model,
             moveGenerators,
             attackGenerators,
+            [],
             entry.type);
     }
 

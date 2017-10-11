@@ -4,14 +4,16 @@ import fruiton.kernel.actions.MoveActionContext;
 import fruiton.kernel.actions.EndTurnActionContext;
 import fruiton.kernel.actions.AttackActionContext;
 import fruiton.kernel.events.DeathEvent;
+import fruiton.kernel.effects.Effect;
 import fruiton.dataStructures.Vector2;
 import fruiton.dataStructures.collections.ExtendedArray;
 import fruiton.kernel.actions.Action;
 
 typedef MoveGenerators = Array<MoveGenerator>;
 typedef AttackGenerators = Array<AttackGenerator>;
+typedef Effects = Array<Effect>;
 
-class Fruiton implements IHashable {
+class Fruiton implements IHashable implements IGameEventHandler {
 
     public var id(default, null):Int;
     public var position(default, null):Vector2;
@@ -37,13 +39,26 @@ class Fruiton implements IHashable {
 
     var moveGenerators:MoveGenerators;
     var attackGenerators:AttackGenerators;
+    var effects:Effects;
 
-    public function new(id:Int, position:Vector2, owner:Player, hp:Int, damage:Int, model:String, moves:MoveGenerators, attacks:AttackGenerators, type:Int) {
+    public function new(
+        id:Int,
+        position:Vector2,
+        owner:Player,
+        hp:Int,
+        damage:Int,
+        model:String,
+        moves:MoveGenerators,
+        attacks:AttackGenerators,
+        effects:Effects,
+        type:Int
+    ) {
         this.id = id;
         this.position = position;
         this.owner = owner;
         this.moveGenerators = moves.copy();
         this.attackGenerators = attacks.copy();
+        this.effects = effects.copy();
         this.hp = hp;
         this.damage = damage;
         this.model = model;
@@ -52,7 +67,18 @@ class Fruiton implements IHashable {
 
     public function clone():Fruiton {
         // Player is no cloned to remain the same as in GameState
-        return new Fruiton(this.id, this.position.clone(), this.owner, this.hp, this.damage, this.model, this.moveGenerators, this.attackGenerators, this.type);
+        return new Fruiton(
+            this.id,
+            this.position.clone(),
+            this.owner,
+            this.hp,
+            this.damage,
+            this.model,
+            this.moveGenerators,
+            this.attackGenerators,
+            this.effects,
+            this.type
+        );
     }
 
     public function equalsId(other:Fruiton):Bool {
@@ -83,6 +109,14 @@ class Fruiton implements IHashable {
         hp -= dmg;
     }
 
+    public function addEffect(effect:Effect) {
+        effects.push(effect);
+    }
+
+    public function removeEffect(effect:Effect) {
+        effects.remove(effect);
+    }
+
     public function moveTo(newPosition:Vector2) {
         position = newPosition;
     }
@@ -90,6 +124,26 @@ class Fruiton implements IHashable {
     // ==============
     // Event handlers
     // ==============
+    public function onBeforeEffectAdded(target:Fruiton, effect:Effect, state: GameState, result:ActionExecutionResult) {
+        // Modify action and game state
+        trace("onBeforeEffectAdded Fruiton: " + id + ">" + effect.name);
+    }
+
+    public function onAfterEffectAdded(target:Fruiton, effect:Effect, state: GameState, result:ActionExecutionResult) {
+        // Modify action and game state
+        trace("onAfterEffectAdded Fruiton: " + id + ">" + effect.name);
+    }
+
+    public function onBeforeEffectRemoved(target:Fruiton, effect:Effect, state: GameState, result:ActionExecutionResult) {
+        // Modify action and game state
+        trace("onBeforeEffectRemoved Fruiton: " + id + ">" + effect.name);
+    }
+
+    public function onAfterEffectRemoved(target:Fruiton, effect:Effect, state: GameState, result:ActionExecutionResult) {
+        // Modify action and game state
+        trace("onAfterEffectRemoved Fruiton: " + id + ">" + effect.name);
+    }
+
     public function onBeforeTurnEnd(context:EndTurnActionContext, state:GameState, result:ActionExecutionResult) {
         // Modify action and game state
         trace("onBeforeTurnEnd Fruiton: " + id + " " + context);
