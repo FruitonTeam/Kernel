@@ -18,4 +18,6 @@ class Action implements IAbstractClass implements IEquitable<Action> {
     }
 
     public function equalsTo(other:Action):Bool;
+
+    public function getId():Int;
 }

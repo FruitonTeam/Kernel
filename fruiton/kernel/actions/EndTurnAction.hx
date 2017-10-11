@@ -4,6 +4,8 @@ import fruiton.kernel.events.EndTurnEvent;
 
 class EndTurnAction extends GenericAction<EndTurnActionContext> {
 
+    public static inline var ID:Int = 1;
+
     public function new(context:EndTurnActionContext) {
         super(context);
         dependsOnTurnTime = false;
@@ -56,5 +58,9 @@ class EndTurnAction extends GenericAction<EndTurnActionContext> {
         return
             (this.actionContext == otherEndTurnAction.actionContext) ||
             (this.actionContext != null && this.actionContext.equalsTo(otherEndTurnAction.actionContext));
+    }
+
+    override public function getId():Int {
+        return ID;
     }
 }

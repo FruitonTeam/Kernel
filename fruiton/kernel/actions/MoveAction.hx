@@ -4,6 +4,8 @@ import fruiton.kernel.events.MoveEvent;
 
 class MoveAction extends GenericAction<MoveActionContext> {
 
+    public static inline var ID:Int = 2;
+
     public function new(context:MoveActionContext) {
         super(context);
     }
@@ -73,5 +75,9 @@ class MoveAction extends GenericAction<MoveActionContext> {
         return
             (this.actionContext == otherMoveAction.actionContext) ||
             (this.actionContext != null && this.actionContext.equalsTo(otherMoveAction.actionContext));
+    }
+
+    override public function getId():Int {
+        return ID;
     }
 }

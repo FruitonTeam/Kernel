@@ -4,6 +4,8 @@ import fruiton.kernel.events.AttackEvent;
 
 class AttackAction extends GenericAction<AttackActionContext> {
 
+    public static inline var ID:Int = 0;
+
     public function new(context:AttackActionContext) {
         super(context);
     }
@@ -78,5 +80,9 @@ class AttackAction extends GenericAction<AttackActionContext> {
         return
             (this.actionContext == otherAttack.actionContext) ||
             (this.actionContext != null && this.actionContext.equalsTo(otherAttack.actionContext));
+    }
+
+    override public function getId():Int {
+        return ID;
     }
 }
