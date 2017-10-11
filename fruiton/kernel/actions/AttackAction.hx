@@ -34,7 +34,8 @@ class AttackAction extends GenericAction<AttackActionContext> {
             targetFruiton.owner != null &&
             !targetFruiton.owner.equals(state.activePlayer) &&
             (state.turnState.actionPerformer == null ||
-            sourceFruiton.equalsId(state.turnState.actionPerformer));
+            sourceFruiton.equalsId(state.turnState.actionPerformer)) &&
+            sourceFruiton.damage == actionContext.damage;
 
         return result;
     }

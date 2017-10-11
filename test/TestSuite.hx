@@ -1,5 +1,6 @@
 import massive.munit.TestSuite;
 
+import attack.AttackRulesTest;
 import attack.AttackTest;
 import endTurn.EndTurnTest;
 import fruitonDb.FruitonDbTest;
@@ -23,6 +24,7 @@ class TestSuite extends massive.munit.TestSuite
 	{
 		super();
 
+		add(attack.AttackRulesTest);
 		add(attack.AttackTest);
 		add(endTurn.EndTurnTest);
 		add(fruitonDb.FruitonDbTest);

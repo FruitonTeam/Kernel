@@ -6,5 +6,6 @@ class AttackTestSuite extends massive.munit.TestSuite {
 		super();
 
 		add(AttackTest);
+		add(AttackRulesTest);
 	}
 }

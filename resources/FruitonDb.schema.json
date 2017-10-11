@@ -18,6 +18,9 @@
                 "hp": {
                     "type": "integer"
                 },
+                "damage": {
+                    "type": "integer"
+                },
                 "abilities": {
                     "type": "array",
                     "items": {
@@ -38,7 +41,7 @@
                 }
             },
             "additionalProperties": false,
-            "required": ["id", "model", "type", "hp", "abilities", "movements"]
+            "required": ["id", "model", "type", "hp", "damage", "abilities", "movements"]
         },
         "movement": {
             "type": "object",
@@ -57,9 +60,6 @@
             "type": "object",
             "properties": {
                 "id": {
-                    "type": "integer"
-                },
-                "damage": {
                     "type": "integer"
                 },
                 "targetPatternId": {

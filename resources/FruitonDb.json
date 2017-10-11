@@ -5,6 +5,7 @@
             "model": "Apple_red",
           	"type": 1,
             "hp": 12,
+            "damage": 2,
             "abilities": [],
             "movements": [1],
             "attacks": [1]
@@ -14,6 +15,7 @@
             "model": "Kiwi",
           	"type": 2,
             "hp": 5,
+            "damage": 2,
             "abilities": [],
             "movements": [1],
             "attacks": [1]
@@ -23,6 +25,7 @@
             "model": "BlackCube",
             "type": 3,
             "hp": 4,
+            "damage": 2,
             "abilities": [],
             "movements": [1],
             "attacks": [1]
@@ -32,6 +35,7 @@
             "model": "BlueCube",
             "type": 3,
             "hp": 4,
+            "damage": 2,
             "abilities": [],
             "movements": [1],
             "attacks": [1]
@@ -41,6 +45,7 @@
             "model": "GreenCube",
             "type": 3,
             "hp": 4,
+            "damage": 2,
             "abilities": [],
             "movements": [1],
             "attacks": [1]
@@ -50,6 +55,7 @@
             "model": "CyanCube",
             "type": 3,
             "hp": 4,
+            "damage": 2,
             "abilities": [],
             "movements": [1],
             "attacks": [1]
@@ -64,7 +70,6 @@
     "attackDb": [
         {
             "id": 1,
-            "damage": 2,
             "targetPatternId": 1
         }
     ],
