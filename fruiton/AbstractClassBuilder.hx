@@ -99,9 +99,6 @@ class AbstractClassBuilder {
         }
 
         if (!allAbsFields.empty() && cls.constructor != null && cls.constructor.get().isPublic) {
-            trace("********");
-            trace(cls.constructor);
-            trace(cls);
             var missingFields = [];
             for (k in allAbsFields.keys()) missingFields.push(k);
             Context.error("Abstract class cannot have public constructor. Missing implementation of: " + missingFields.join(", "), cls.pos);

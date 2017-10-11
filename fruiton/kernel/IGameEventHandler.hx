@@ -17,4 +17,6 @@ interface IGameEventHandler {
     function onAfterMove(context:MoveActionContext, state:GameState, result:ActionExecutionResult): Void;
     function onBeforeAttack(context:AttackActionContext, state:GameState, result:ActionExecutionResult): Void;
     function onAfterAttack(context:AttackActionContext, state:GameState, result:ActionExecutionResult): Void;
+    function onBeforeBeingAttacked(context:AttackActionContext, state:GameState, result:ActionExecutionResult): Void;
+    function onAfterBeingAttacked(context:AttackActionContext, state:GameState, result:ActionExecutionResult): Void;
 }

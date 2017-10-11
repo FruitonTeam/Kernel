@@ -111,7 +111,7 @@ class Fruiton implements IHashable implements IGameEventHandler {
     }
 
     public function addEffect(effect:Effect) {
-        effects.push(effect);
+        this.effects.push(effect);
     }
 
     public function removeEffect(effect:Effect) {
@@ -168,7 +168,7 @@ class Fruiton implements IHashable implements IGameEventHandler {
     public function onBeforeAttack(context:AttackActionContext, state:GameState, result:ActionExecutionResult) {
         // Modify action and game state
         trace("onBeforeAttack Fruiton: " + id + " " + context);
-        for (effect in effects) {
+        for (effect in this.effects) {
             effect.onBeforeAttack(context, state, result);
         }
     }
@@ -176,12 +176,31 @@ class Fruiton implements IHashable implements IGameEventHandler {
     public function onAfterAttack(context:AttackActionContext, state:GameState, result:ActionExecutionResult) {
         // Modify action and game state
         trace("onAfterAttack Fruiton: " + id + " " + context);
+        for (effect in effects) {
+            effect.onAfterAttack(context, state, result);
+        }
+    }
+
+    public function onBeforeBeingAttacked(context:AttackActionContext, state:GameState, result:ActionExecutionResult) {
+        // Modify action and game state
+        trace("onBeforeBeingAttacked Fruiton: " + id + " " + context);
+        for (effect in effects) {
+            effect.onBeforeBeingAttacked(context, state, result);
+        }
+    }
+
+    public function onAfterBeingAttacked(context:AttackActionContext, state:GameState, result:ActionExecutionResult) {
+        // Modify action and game state
+        trace("onAfterBeingAttacked Fruiton: " + id + " " + context);
         if (!isAlive) {
             state.field.get(position).fruiton = null;
             result.events.push(new DeathEvent(1, position));
             if (isKing) {
                 state.losers.push(owner.id);
             }
+        }
+        for (effect in effects) {
+            effect.onAfterBeingAttacked(context, state, result);
         }
     }
 

@@ -4,11 +4,12 @@ import fruiton.kernel.actions.AddEffectAction;
 import fruiton.kernel.actions.AttackActionContext;
 import fruiton.kernel.actions.EffectActionContext;
 
-class LowerAttackOnAttack extends Effect {
+class LowerAttackOnAttackEffect extends Effect {
 
     var amount: Int;
 
     public function new(amount:Int = 1){
+        super();
         name = "lower-attack-on-attack";
         this.amount = amount;
     }
@@ -21,7 +22,7 @@ class LowerAttackOnAttack extends Effect {
                     new AddEffectAction(
                         new EffectActionContext(
                             target,
-                            new LoweredAttackEffect(1)
+                            new LoweredAttackEffect(amount)
                         ),
                         true
                     )
@@ -34,11 +35,11 @@ class LowerAttackOnAttack extends Effect {
         if (other == null) {
             return false;
         }
-        if (!Std.is(other, LowerAttackOnAttack)) {
+        if (!Std.is(other, LowerAttackOnAttackEffect)) {
             return false;
         }
 
-        var otherEffect = cast(other, LowerAttackOnAttack);
+        var otherEffect = cast(other, LowerAttackOnAttackEffect);
 
         return this.amount == otherEffect.amount;
     }

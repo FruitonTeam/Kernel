@@ -9,6 +9,8 @@ class Effect implements IGameEventHandler  implements IAbstractClass implements 
 
     public var name(default, null): String = "";
 
+    function new(){}
+
     public function onBeforeEffectAdded(context: EffectActionContext, state: GameState, result:ActionExecutionResult) {
         // Modify action and game state
         trace("onBeforeEffectAdded Effect: " + name + ">" + context.effect.name);
@@ -55,6 +57,16 @@ class Effect implements IGameEventHandler  implements IAbstractClass implements 
     }
 
     public function onAfterAttack(context:AttackActionContext, state:GameState, result:ActionExecutionResult) {
+        // Modify action and game state
+        trace("onAfterAttack Effect: " + name + " " + context);
+    }
+
+    public function onBeforeBeingAttacked(context:AttackActionContext, state:GameState, result:ActionExecutionResult) {
+        // Modify action and game state
+        trace("onBeforeAttack Effect: " + name + " " + context);
+    }
+
+    public function onAfterBeingAttacked(context:AttackActionContext, state:GameState, result:ActionExecutionResult) {
         // Modify action and game state
         trace("onAfterAttack Effect: " + name + " " + context);
     }

@@ -45,15 +45,22 @@ class AttackAction extends TargetableAction<AttackActionContext> {
     override function executeImpl(state:GameState, result:ActionExecutionResult) {
         var newContext:AttackActionContext = actionContext.clone();
         var targetFruiton:Fruiton = state.field.get(newContext.target).fruiton;
+        var attackingFruiton:Fruiton = state.field.get(newContext.source).fruiton;
 
         if (result.isValid) {
-            targetFruiton.onBeforeAttack(newContext, state, result);
+            attackingFruiton.onBeforeAttack(newContext, state, result);
+        }
+        if (result.isValid) {
+            targetFruiton.onBeforeBeingAttacked(newContext, state, result);
         }
         if (result.isValid) {
             attackFruiton(targetFruiton, newContext, state, result);
         }
         if (result.isValid) {
-            targetFruiton.onAfterAttack(newContext, state, result);
+            attackingFruiton.onAfterAttack(newContext, state, result);
+        }
+        if (result.isValid) {
+            targetFruiton.onAfterBeingAttacked(newContext, state, result);
         }
     }
 

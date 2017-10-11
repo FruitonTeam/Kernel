@@ -5,6 +5,8 @@ import fruiton.kernel.Kernel;
 import fruiton.kernel.*;
 import fruiton.kernel.actions.*;
 import fruiton.kernel.events.*;
+import fruiton.kernel.effects.LoweredAttackEffect;
+import fruiton.kernel.effects.LowerAttackOnAttackEffect;
 import fruiton.kernel.Fruiton.MoveGenerators;
 import fruiton.kernel.Fruiton.AttackGenerators;
 import fruiton.kernel.targetPatterns.*;
@@ -41,82 +43,28 @@ class AttackTest {
         attackGenerators.push(new AttackGenerator(new RangeTargetPattern(Vector2.ZERO, 0, 1)));
         attackGenerators.push(new AttackGenerator(new LineTargetPattern(new Vector2(1, 0), -1, 1)));
 
-        var fruiton:Fruiton = new Fruiton(1, new Vector2(0, 0), p1, hp, dmg, "", moveGenerators, attackGenerators, [], 1);
-        var fruiton2:Fruiton = new Fruiton(2, new Vector2(0, 1), p2, hp, dmg, "", moveGenerators, attackGenerators, [], 1);
+        var fruiton:Fruiton = new Fruiton(1, new Vector2(0, 0), p1, hp, dmg, "", moveGenerators, attackGenerators, [new LowerAttackOnAttackEffect(30)], 1);
+        var fruiton2:Fruiton = new Fruiton(2, new Vector2(0, 1), p2, hp, dmg, "", moveGenerators, attackGenerators, [new LowerAttackOnAttackEffect(30)], 1);
 		return new Kernel(p1, p2, [fruiton, fruiton2]);
 	}
-
-    @Test
-    public function getAllValidActions_fruitonsInRange_returnsOneAttackAction() {
-        Sys.println("=== running getAllValidActions_fruitonsInRange_returnsOneAttackAction");
-
-		var k:Kernel = makeKernel(true);
-		var actions:IKernel.Actions = k.getAllValidActions();
-		var attackAction:AttackAction = Hlinq.singleOfTypeOrNull(actions, AttackAction);
-
-		Assert.isTrue(attackAction != null);
-    }
 
     @Test
 	public function performAction_validAttackAction_returnsMatchingEvent() {
 		Sys.println("=== running performAction_validAttackAction_returnsMatchingEvent");
 
-		var k:Kernel = makeKernel(true);
-		var actions:IKernel.Actions = k.getAllValidActions();
-		var action:AttackAction = Hlinq.firstOfTypeOrNull(actions, AttackAction);
-
-		var result:IKernel.Events = k.performAction(action);
-		var event:AttackEvent = Hlinq.firstOfTypeOrNull(result, AttackEvent);
-
-		Assert.isTrue(event != null);
-		Assert.isTrue(action.actionContext.source == event.source);
-		Assert.isTrue(action.actionContext.target == event.target);
-        Assert.isTrue(action.actionContext.damage == event.damage);
-	}
-
-    @Test
-	public function performAction_attackKill_returnsDeathEvent() {
-		Sys.println("=== running performAction_attackKill_returnsDeathEvent");
-
-		var k:Kernel = makeKernel(true);
-		var actions:IKernel.Actions = k.getAllValidActions();
-		var action:AttackAction = Hlinq.firstOfTypeOrNull(actions, AttackAction);
-
-		var result:IKernel.Events = k.performAction(action);
-		var event:DeathEvent = Hlinq.firstOfTypeOrNull(result, DeathEvent);
-
-		Assert.isTrue(event != null);
-		Assert.isTrue(action.actionContext.target == event.target);
-	}
-
-    @Test
-	public function performAction_attackNoKill_lowersFruitonHealth() {
-		Sys.println("=== running performAction_attackNoKill_lowersFruitonHealth");
-
 		var k:Kernel = makeKernel(false);
 		var actions:IKernel.Actions = k.getAllValidActions();
-		var action:AttackAction = Hlinq.firstOfTypeOrNull(actions, AttackAction);
+		var action:Action = Hlinq.firstOfTypeOrNull(actions, AttackAction);
 
-        var hpBefore:Int = k.currentState.field.get(action.actionContext.target).fruiton.hp;
-
-		k.performAction(action);
-
-        var hpAfter:Int = k.currentState.field.get(action.actionContext.target).fruiton.hp;
-
-		Assert.isTrue(hpBefore - hpAfter == action.actionContext.damage);
+		Sys.println("1******************************************************************************");
+		var result:IKernel.Events = k.performAction(action);
+		Sys.println("2******************************************************************************");
+		action = Hlinq.firstOfTypeOrNull(k.getAllValidActions(), EndTurnAction);
+		Sys.println("3******************************************************************************");
+		result = k.performAction(action);
+		Sys.println("4******************************************************************************");
+		action = Hlinq.firstOfTypeOrNull(k.getAllValidActions(), AttackAction);
+		Sys.println("5******************************************************************************");
+		result = k.performAction(action);
 	}
-
-	@Test
-    public function getAllActions_afterAttackPerformed_returnsOnlyEndTurn() {
-		Sys.println("=== running getAllActions_afterMovePerformed_returnsOnlyEndTurn");
-
-		var k:Kernel = makeKernel(false);
-		var actions = k.getAllValidActions();
-		var action:AttackAction = Hlinq.firstOfTypeOrNull(actions, AttackAction);
-		k.performAction(action);
-
-		actions = k.getAllValidActions();
-		var endTurnAction = Hlinq.firstOfTypeOrNull(actions, EndTurnAction);
-		Assert.isTrue(endTurnAction != null);
-    }
 }
