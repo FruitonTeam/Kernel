@@ -95,7 +95,7 @@ class GameRulesTest {
     function performAction_actionAfterTimeout_returnsTimeExpiredEvent() {
         Sys.println("=== running performAction_actionAfterTimeout_returnsTimeExpiredEvent");
 
-        var k:Kernel = makeKernel(true, 0.01);
+        var k:Kernel = makeKernel(true, 0.1);
         var actions = k.getAllValidActionsFrom(new Vector2(1, 1));
         var attackAction = Hlinq.firstOfTypeOrNull(actions, AttackAction);
 
@@ -112,7 +112,7 @@ class GameRulesTest {
     function startGame_byDefault_resetsTimer() {
         Sys.println("=== running startGame_byDefault_resetsTimer");
 
-        var k:Kernel = makeKernel(true, 0.01);
+        var k:Kernel = makeKernel(true, 0.1);
 
         Sys.sleep(Kernel.turnTimeLimit * 2);
 
