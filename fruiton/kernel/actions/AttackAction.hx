@@ -2,7 +2,7 @@ package fruiton.kernel.actions;
 
 import fruiton.kernel.events.AttackEvent;
 
-class AttackAction extends GenericAction<AttackActionContext> {
+class AttackAction extends TargetableAction<AttackActionContext> {
 
     public static inline var ID:Int = 0;
 

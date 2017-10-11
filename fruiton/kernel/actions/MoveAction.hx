@@ -2,7 +2,7 @@ package fruiton.kernel.actions;
 
 import fruiton.kernel.events.MoveEvent;
 
-class MoveAction extends GenericAction<MoveActionContext> {
+class MoveAction extends TargetableAction<MoveActionContext> {
 
     public static inline var ID:Int = 2;
 
