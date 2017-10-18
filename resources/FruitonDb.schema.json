@@ -47,7 +47,7 @@
                 }
             },
             "additionalProperties": false,
-            "required": ["id", "model", "type", "hp", "damage", "abilities", "movements"]
+            "required": ["id", "model", "type", "hp", "damage", "abilities", "effects", "movements"]
         },
         "movement": {
             "type": "object",
