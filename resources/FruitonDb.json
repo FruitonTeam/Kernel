@@ -74,6 +74,13 @@
             "targetPatternId": 1
         }
     ],
+    "effectDb": [
+        {
+            "id": "garlic",
+            "className": "lowerAttackOnAttack",
+            "params": [1]
+        }
+    ],
     "targetPatternDb": [
         {
             "id": 1,
