@@ -1,5 +1,7 @@
 package fruiton.kernel.actions;
 
+import fruiton.kernel.events.AddEffectEvent;
+
 class AddEffectAction extends GenericAction<EffectActionContext> {
 
     public static inline var ID:Int = 3;
@@ -48,6 +50,7 @@ class AddEffectAction extends GenericAction<EffectActionContext> {
         }
         if (result.isValid) {
             sourceFruiton.addEffect(newContext.effect);
+            result.events.push(new AddEffectEvent(1, context.source, context.target, newContext.effect.name));
         }
         if (result.isValid) {
             sourceFruiton.onAfterEffectAdded(newContext, state, result);
