@@ -22,7 +22,9 @@ class Fruiton implements IHashable implements IGameEventHandler {
     public var hp(default, null):Int;
     public var model(default, null):String;
     public var type(default, null):Int;
-    public var damage(default, null):Int;
+    public var damage(default, default):Int;
+    public var effects(default, null):Effects;
+
 
     public static var KING_TYPE(default, never):Int = 1;
     public static var MAJOR_TYPE(default, never):Int = 2;
@@ -40,7 +42,6 @@ class Fruiton implements IHashable implements IGameEventHandler {
 
     var moveGenerators:MoveGenerators;
     var attackGenerators:AttackGenerators;
-    var effects:Effects;
 
     public function new(
         id:Int,

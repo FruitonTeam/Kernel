@@ -8,14 +8,14 @@ class AddEffectEvent extends Event {
     public var target(default, null):Vector2;
     public var name(default, null):String;
 
-    public function new(id:Int, source:Vector2, target:Vector2, damage:Int) {
+    public function new(id:Int, source:Vector2, target:Vector2, name:String) {
         super(id);
         this.source = source;
         this.target = target;
-        this.name = damage;
+        this.name = name;
     }
 
     override public function toString():String {
-        return super.toString() + " EffectAddedEvent Source: " + Std.string(source) + " Target: " + Std.string(target) + " Damage: " + Std.string(name);
+        return super.toString() + " AddEffectEvent Source: " + Std.string(source) + " Target: " + Std.string(target) + " Damage: " + Std.string(name);
     }
 }

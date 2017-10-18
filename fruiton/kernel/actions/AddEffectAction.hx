@@ -50,7 +50,7 @@ class AddEffectAction extends GenericAction<EffectActionContext> {
         }
         if (result.isValid) {
             sourceFruiton.addEffect(newContext.effect);
-            result.events.push(new AddEffectEvent(1, context.source, context.target, newContext.effect.name));
+            result.events.push(new AddEffectEvent(1, newContext.source, newContext.target, newContext.effect.name));
         }
         if (result.isValid) {
             sourceFruiton.onAfterEffectAdded(newContext, state, result);

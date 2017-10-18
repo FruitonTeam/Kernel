@@ -1,10 +1,10 @@
 package fruiton.kernel.effects;
 
-import fruiton.kernel.actions.AttackActionContext;
+import fruiton.kernel.actions.EffectActionContext;
 
 class LoweredAttackEffect extends Effect {
 
-    var amount:Int;
+    public var amount(default, null):Int;
 
     public function new(amount: Int = 1){
         super();
@@ -12,10 +12,26 @@ class LoweredAttackEffect extends Effect {
         this.amount = amount;
     }
 
-    override public function onBeforeAttack(context:AttackActionContext, state:GameState, result:ActionExecutionResult) {
-        trace("FUCK YEA");
-        context.damage -= amount;
+    override public function onAfterEffectAdded(context: EffectActionContext, state: GameState, result:ActionExecutionResult) {
+        super.onAfterEffectAdded(context, state, result);
+        if(context.effect == this){
+            var target = state.field.get(context.target).fruiton;
+            if (target != null) {
+                target.damage -= amount;
+            }
+        }
     }
+
+    override public function onBeforeEffectRemoved(context: EffectActionContext, state: GameState, result:ActionExecutionResult) {
+        super.onBeforeEffectRemoved(context, state, result);
+        if(context.effect == this){
+            var target = state.field.get(context.target).fruiton;
+            if (target != null) {
+                target.damage += amount;
+            }
+        }
+    }
+
 
     override public function equalsTo(other:Effect):Bool {
         if (other == null) {

@@ -17,7 +17,7 @@ class LowerAttackOnAttackEffect extends Effect {
     override function onAfterAttack(context:AttackActionContext, state:GameState, result:ActionExecutionResult) {
         if (context.damage > 0) {
             var target = state.field.get(context.target).fruiton;
-            if (target != null) {
+            if (target != null && target.damage > 1) {
                 result.actions.add(
                     new AddEffectAction(
                         new EffectActionContext(
