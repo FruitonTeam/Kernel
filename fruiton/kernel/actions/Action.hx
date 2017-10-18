@@ -3,6 +3,7 @@ package fruiton.kernel.actions;
 import fruiton.IAbstractClass;
 import fruiton.IEquitable;
 
+@:autoBuild(fruiton.macro.IdChecker.check())
 class Action implements IAbstractClass implements IEquitable<Action> {
 
     public var dependsOnTurnTime(default, null):Bool;

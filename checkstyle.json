@@ -200,12 +200,6 @@
         },
         {
             "props": {
-                "max": 50
-            },
-            "type": "MethodLength"
-        },
-        {
-            "props": {
                 "ignoreExtern": true,
                 "format": "^[a-z][a-zA-Z0-9]*$",
                 "tokens": []
