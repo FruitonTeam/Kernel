@@ -1,4 +1,4 @@
---macro include('fruiton', true, ['fruiton.fruitDb.models'])
+--macro include('fruiton', true, ['fruiton.fruitDb.models', 'fruiton.macro'])
 fruiton.kernel.Kernel
 -cp src
 -java build/java
