@@ -32,7 +32,6 @@ class LoweredAttackEffect extends Effect {
         }
     }
 
-
     override public function equalsTo(other:Effect):Bool {
         if (other == null) {
             return false;

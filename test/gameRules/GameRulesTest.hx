@@ -41,9 +41,9 @@ class GameRulesTest {
         attackGenerators.push(new AttackGenerator(new RangeTargetPattern(Vector2.ZERO, 0, 1)));
         attackGenerators.push(new AttackGenerator(new LineTargetPattern(new Vector2(1, 0), -1, 1)));
 
-        var fruiton:Fruiton = new Fruiton(1, new Vector2(0, 0), p1, hp, dmg, "", moveGenerators, attackGenerators, Fruiton.KING_TYPE);
-        var fruiton1:Fruiton = new Fruiton(2, new Vector2(1, 1), p1, hp, dmg, "", moveGenerators, attackGenerators, Fruiton.MINOR_TYPE);
-        var fruiton2:Fruiton = new Fruiton(3, new Vector2(0, 1), p2, hp, dmg, "", moveGenerators, attackGenerators, Fruiton.KING_TYPE);
+        var fruiton:Fruiton = new Fruiton(1, new Vector2(0, 0), p1, hp, dmg, "", moveGenerators, attackGenerators, [], Fruiton.KING_TYPE);
+        var fruiton1:Fruiton = new Fruiton(2, new Vector2(1, 1), p1, hp, dmg, "", moveGenerators, attackGenerators, [], Fruiton.MINOR_TYPE);
+        var fruiton2:Fruiton = new Fruiton(3, new Vector2(0, 1), p2, hp, dmg, "", moveGenerators, attackGenerators, [], Fruiton.KING_TYPE);
         Kernel.turnTimeLimit = timeLimit;
 		return new Kernel(p1, p2, [fruiton, fruiton1, fruiton2]);
 	}

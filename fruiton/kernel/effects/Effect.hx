@@ -9,7 +9,8 @@ class Effect implements IGameEventHandler  implements IAbstractClass implements 
 
     public var name(default, null): String = "";
 
-    function new(){}
+    function new(){
+    }
 
     public function onBeforeEffectAdded(context: EffectActionContext, state: GameState, result:ActionExecutionResult) {
         // Modify action and game state

@@ -34,7 +34,6 @@ class EffectActionContext extends TargetableActionContext {
         (this.effect == otherEffectContext.effect) ||
         (this.effect != null && this.effect.equalsTo(otherEffectContext.effect));
 
-
         var isSourceEqual:Bool =
         (this.source == otherEffectContext.source) ||
         (this.source != null && this.target.equalsTo(otherEffectContext.source));

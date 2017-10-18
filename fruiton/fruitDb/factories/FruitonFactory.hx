@@ -14,7 +14,6 @@ import fruiton.kernel.MoveGenerator;
 import fruiton.kernel.AttackGenerator;
 import fruiton.kernel.effects.Effect;
 import fruiton.kernel.effects.LowerAttackOnAttackEffect;
-import fruiton.kernel.effects.LoweredAttackEffect;
 
 enum EffectType {
     lowerAttackOnAttack;

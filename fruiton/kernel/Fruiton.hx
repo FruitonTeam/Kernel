@@ -25,7 +25,6 @@ class Fruiton implements IHashable implements IGameEventHandler {
     public var damage(default, default):Int;
     public var effects(default, null):Effects;
 
-
     public static var KING_TYPE(default, never):Int = 1;
     public static var MAJOR_TYPE(default, never):Int = 2;
     public static var MINOR_TYPE(default, never):Int = 3;
