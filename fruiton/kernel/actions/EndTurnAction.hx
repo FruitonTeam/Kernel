@@ -6,7 +6,18 @@ class EndTurnAction extends GenericAction<EndTurnActionContext> {
 
     public static inline var ID:Int = 1;
 
-    public function new(context:EndTurnActionContext) {
+    /**
+     * Factory method to create an action with default context.
+     */
+    public static function createNew():EndTurnAction {
+        return new EndTurnAction(new EndTurnActionContext());
+    }
+
+    /**
+     * Private constructor since we can have only one. Instances should be
+     * created using factory methods e.g. `createNew()`.
+     */
+    function new(context:EndTurnActionContext) {
         super(context);
         dependsOnTurnTime = false;
     }

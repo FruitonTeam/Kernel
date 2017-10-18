@@ -39,7 +39,7 @@ class EndTurnTest {
         Sys.println("=== running kerel_performEndTurnAction_returnsOneEndTurnEvent");
         var kernel:Kernel = makeKernel();
 
-        var events:IKernel.Events = kernel.performAction(new EndTurnAction(new EndTurnActionContext()));
+        var events:IKernel.Events = kernel.performAction(EndTurnAction.createNew());
 
         var endTurnEvent:EndTurnEvent = Hlinq.singleOfTypeOrNull(events, EndTurnEvent);
 
@@ -64,7 +64,7 @@ class EndTurnTest {
         var kernel:Kernel = makeKernel();
 
         var p1:Player = kernel.currentState.activePlayer;
-        kernel.performAction(new EndTurnAction(new EndTurnActionContext()));
+        kernel.performAction(EndTurnAction.createNew());
         var p2:Player = kernel.currentState.activePlayer;
 
         Assert.isFalse(p1.equals(p2));
@@ -77,8 +77,8 @@ class EndTurnTest {
         var kernel:Kernel = makeKernel();
 
         var p1:Player = kernel.currentState.activePlayer;
-        kernel.performAction(new EndTurnAction(new EndTurnActionContext()));
-        kernel.performAction(new EndTurnAction(new EndTurnActionContext()));
+        kernel.performAction(EndTurnAction.createNew());
+        kernel.performAction(EndTurnAction.createNew());
         var p1Again:Player = kernel.currentState.activePlayer;
 
         Assert.isTrue(p1.equals(p1Again));
