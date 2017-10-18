@@ -1,7 +1,6 @@
 package fruiton.kernel;
 
 import fruiton.kernel.actions.EndTurnAction;
-import fruiton.kernel.actions.EndTurnActionContext;
 import fruiton.dataStructures.Vector2;
 
 typedef Fruitons = Array<Fruiton>;
@@ -90,7 +89,7 @@ class GameState implements IHashable {
         }
 
         // Player can always end turn
-        actions.push(new EndTurnAction(new EndTurnActionContext()));
+        actions.push(EndTurnAction.createNew());
 
         return actions;
     }
@@ -105,7 +104,7 @@ class GameState implements IHashable {
         // Invalid position or no fruiton - no actions
         if (!field.exists(position) ||
             field.get(position).fruiton == null) {
-            return [new EndTurnAction(new EndTurnActionContext())];
+            return [EndTurnAction.createNew()];
         }
 
         // Postion is valid - try cache first
@@ -115,7 +114,7 @@ class GameState implements IHashable {
 
         var actions:IKernel.Actions = field.get(position).fruiton.getAllActions(this);
         // Player can always end turn
-        actions.push(new EndTurnAction(new EndTurnActionContext()));
+        actions.push(EndTurnAction.createNew());
         actionCache[position.x][position.y] = actions.copy();
 
         return actions;
