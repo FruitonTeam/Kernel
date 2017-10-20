@@ -32,9 +32,11 @@ class Kernel implements IKernel {
     public function startGame():IKernel.Events {
         var events:IKernel.Events = new IKernel.Events();
 
+        // trigger add effect events on effects that are present in the game from the beggining
         for (fruiton in currentState.fruitons) {
             for (effect in fruiton.effects) {
                 var action:AddEffectAction = new AddEffectAction(
+                    // context with `gameStarted = true` ensures, that the effect won't be duplicated
                     new EffectActionContext(
                         effect,
                         fruiton.position,
