@@ -96,22 +96,20 @@ class EffectsTest {
     @Test
     public function loweredAttack_attackEnemy_dealLowerDamage() {
         Sys.println("=== loweredAttack_attackEnemy_dealLowerDamage");
-        var targetPos = new Vector2(0, 1);
         var k:Kernel = new Kernel(p1, p2,
         [
             new Fruiton(1, new Vector2(0, 0), p1, 10, 5, "", getMoveGenerators(), getAttackGenerators(),
             [new LoweredAttackEffect(3)], 1),
 
-            new Fruiton(2, targetPos, p2, 10, 5, "", getMoveGenerators(), getAttackGenerators(), [], 1)
+            new Fruiton(2, new Vector2(0, 1), p2, 10, 5, "", getMoveGenerators(), getAttackGenerators(), [], 1)
         ]
         );
+        k.startGame();
         var actions:IKernel.Actions = k.getAllValidActions();
         var action:AttackAction = Hlinq.firstOfTypeOrNull(actions, AttackAction);
-
         var result:IKernel.Events = k.performAction(action);
 
         var event:AttackEvent = Hlinq.firstOfTypeOrNull(result, AttackEvent);
-
         Assert.isNotNull(event);
         Assert.isTrue(event.damage == 2);
     }

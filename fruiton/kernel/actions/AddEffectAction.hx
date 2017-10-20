@@ -31,13 +31,8 @@ class AddEffectAction extends GenericAction<EffectActionContext> {
         result =
             sourceFruiton != null &&
             sourceFruiton.owner != null &&
-            sourceFruiton.owner.equals(state.activePlayer) &&
             targetFruiton != null &&
-            targetFruiton.owner != null &&
-            !targetFruiton.owner.equals(state.activePlayer) &&
-            (state.turnState.actionPerformer == null ||
-            sourceFruiton.equalsId(state.turnState.actionPerformer));
-
+            targetFruiton.owner != null;
         return result;
     }
 
@@ -48,7 +43,7 @@ class AddEffectAction extends GenericAction<EffectActionContext> {
         if (result.isValid) {
             sourceFruiton.onBeforeEffectAdded(newContext, state, result);
         }
-        if (result.isValid) {
+        if (result.isValid && !newContext.gameStarted) {
             sourceFruiton.addEffect(newContext.effect);
             result.events.push(new AddEffectEvent(1, newContext.source, newContext.target, newContext.effect.name));
         }

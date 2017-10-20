@@ -6,14 +6,16 @@ import fruiton.dataStructures.Vector2;
 class EffectActionContext extends TargetableActionContext {
 
     public var effect(default, default):Effect;
+    public var gameStarted(default, null):Bool;
 
-    public function new(effect:Effect, source:Vector2, target:Vector2) {
+    public function new(effect:Effect, source:Vector2, target:Vector2, gameStarted:Bool = false) {
         super(source, target);
         this.effect = effect;
+        this.gameStarted = gameStarted;
     }
 
     public function clone():EffectActionContext {
-        return new EffectActionContext(effect, source, target);
+        return new EffectActionContext(effect, source, target, gameStarted);
     }
 
     public function toString():String {

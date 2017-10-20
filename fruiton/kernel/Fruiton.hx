@@ -128,41 +128,65 @@ class Fruiton implements IHashable implements IGameEventHandler {
     public function onBeforeEffectAdded(context: EffectActionContext, state: GameState, result:ActionExecutionResult) {
         // Modify action and game state
         trace("onBeforeEffectAdded Fruiton: " + id + ">" + context.effect.name);
+        for (effect in this.effects) {
+            effect.onBeforeEffectAdded(context, state, result);
+        }
     }
 
     public function onAfterEffectAdded(context: EffectActionContext, state: GameState, result:ActionExecutionResult) {
         // Modify action and game state
         trace("onAfterEffectAdded Fruiton: " + id + ">" + context.effect.name);
+        for (effect in this.effects) {
+            effect.onAfterEffectAdded(context, state, result);
+        }
     }
 
     public function onBeforeEffectRemoved(context: EffectActionContext, state: GameState, result:ActionExecutionResult) {
         // Modify action and game state
         trace("onBeforeEffectRemoved Fruiton: " + id + ">" + context.effect.name);
+        for (effect in this.effects) {
+            effect.onBeforeEffectRemoved(context, state, result);
+        }
     }
 
     public function onAfterEffectRemoved(context: EffectActionContext, state: GameState, result:ActionExecutionResult) {
         // Modify action and game state
         trace("onAfterEffectRemoved Fruiton: " + id + ">" + context.effect.name);
+        for (effect in this.effects) {
+            effect.onAfterEffectRemoved(context, state, result);
+        }
     }
 
     public function onBeforeTurnEnd(context:EndTurnActionContext, state:GameState, result:ActionExecutionResult) {
         // Modify action and game state
         trace("onBeforeTurnEnd Fruiton: " + id + " " + context);
+        for (effect in this.effects) {
+            effect.onBeforeTurnEnd(context, state, result);
+        }
     }
 
     public function onAfterTurnEnd(context:EndTurnActionContext, state:GameState, result:ActionExecutionResult) {
         // Modify action and game state
         trace("onAfterTurnEnd Fruiton: " + id + " " + context);
+        for (effect in this.effects) {
+            effect.onAfterTurnEnd(context, state, result);
+        }
     }
 
     public function onBeforeMove(context:MoveActionContext, state:GameState, result:ActionExecutionResult) {
         // Modify action and game state
         trace("onBeforeMove Fruiton: " + id + " " + context);
+        for (effect in this.effects) {
+            effect.onBeforeMove(context, state, result);
+        }
     }
 
     public function onAfterMove(context:MoveActionContext, state:GameState, result:ActionExecutionResult) {
         // Modify action and game state
         trace("onAfterMove Fruiton: " + id + " " + context);
+        for (effect in this.effects) {
+            effect.onAfterMove(context, state, result);
+        }
     }
 
     public function onBeforeAttack(context:AttackActionContext, state:GameState, result:ActionExecutionResult) {
