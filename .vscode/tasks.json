@@ -1,0 +1,25 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "taskName": "Build",
+            "command": "haxe",
+            "args": [
+                "build.hxml"
+            ],
+            "problemMatcher": "$haxe",
+            "isBuildCommand": true
+        },
+        {
+            "taskName": "Test",
+            "command": "haxelib",
+            "args": [
+                "run",
+                "munit",
+                "test",
+                "-neko"
+            ],
+            "isTestCommand": true
+        }
+    ]
+}

@@ -1,0 +1,128 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "fruiton.FruitonDb.json",
+
+    "definitions": {
+        "fruiton" : {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "model": {
+                    "type": "string"
+                },
+                "type" : {
+                    "type":"integer"
+                },
+                "hp": {
+                    "type": "integer"
+                },
+                "damage": {
+                    "type": "integer"
+                },
+                "abilities": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "movements": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "attacks": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                }
+            },
+            "additionalProperties": false,
+            "required": ["id", "model", "type", "hp", "damage", "abilities", "movements"]
+        },
+        "movement": {
+            "type": "object",
+            "properties": {
+                "id" : {
+                    "type": "integer"
+                },
+                "targetPatternId": {
+                    "type": "integer"
+                }
+            },
+            "additionalProperties": false,
+            "required": ["id", "targetPatternId"]
+        },
+        "attack": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "targetPatternId": {
+                    "type": "integer"
+                }
+            },
+            "additionalProperties": false,
+            "required": ["id", "targetPatternId"]
+        },
+        "targetPattern": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "x": {
+                    "type": "integer"
+                },
+                "y": {
+                    "type": "integer"
+                },
+                "min": {
+                    "type": "integer"
+                },
+                "max": {
+                    "type": "integer"
+                }
+            },
+            "additionalProperties": false,
+            "required": ["id", "type", "x", "y", "min", "max"]
+        }
+    },
+
+    "type": "object",
+    "properties": {
+        "fruitonDb": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/fruiton"
+            }
+        },
+        "movementDb": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/movement"
+            }
+        },
+        "attackDb": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/attack"
+            }
+        },
+        "targetPatternDb": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/targetPattern"
+            }
+        }
+    },
+    "additionalProperties": false,
+    "required": ["fruitonDb", "movementDb", "attackDb", "targetPatternDb"]
+}
