@@ -2,8 +2,6 @@ package fruiton.kernel;
 
 import fruiton.kernel.exceptions.InvalidActionException;
 import fruiton.kernel.actions.Action;
-import fruiton.kernel.actions.AddEffectAction;
-import fruiton.kernel.actions.EffectActionContext;
 import haxe.ds.GenericStack;
 import fruiton.dataStructures.collections.ArrayOfEquitables;
 import fruiton.dataStructures.Vector2;
@@ -23,33 +21,17 @@ class Kernel implements IKernel {
 
     public function new(p1:Player, p2:Player, fruitons:GameState.Fruitons) {
         this.currentState = new GameState([p1, p2], 0, fruitons);
+        for(fruiton in fruitons) {
+            fruiton.applyEffectsOnGameStart(currentState);
+        }
     }
 
     /**
      * Sets all things necessary to start the game and resets round timer
      * Used to decouple Kernel initialization and game start.
      */
-    public function startGame():IKernel.Events {
-        var events:IKernel.Events = new IKernel.Events();
-
-        // trigger add effect events on effects that are present in the game from the beggining
-        for (fruiton in currentState.fruitons) {
-            for (effect in fruiton.effects) {
-                var action:AddEffectAction = new AddEffectAction(
-                    // context with `gameStarted = true` ensures, that the effect won't be duplicated
-                    new EffectActionContext(
-                        effect,
-                        fruiton.position,
-                        fruiton.position,
-                        true
-                    ),
-                    true
-                );
-                events = events.concat(performAction(action));
-            }
-        }
+    public function startGame() {
         currentState.resetTurn();
-        return events;
     }
 
     public function getAllValidActions():IKernel.Actions {

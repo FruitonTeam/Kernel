@@ -30,11 +30,13 @@ class Fruiton implements IHashable implements IGameEventHandler {
     public static var MINOR_TYPE(default, never):Int = 3;
 
     public var isKing(get, never):Bool;
+
     function get_isKing():Bool {
         return type == KING_TYPE;
     }
 
     public var isAlive(get, never):Bool;
+
     function get_isAlive():Bool {
         return hp > 0;
     }
@@ -66,19 +68,34 @@ class Fruiton implements IHashable implements IGameEventHandler {
         this.type = type;
     }
 
+    public function applyEffectsOnGameStart(state: GameState) {
+        // trigger add effect events on effects that are present in the game from the beggining
+        for (effect in effects) {
+            onAfterEffectAdded(
+                new EffectActionContext(
+                    effect,
+                    position,
+                    position
+                ),
+                state,
+                new ActionExecutionResult()
+            );
+        }
+    }
+
     public function clone():Fruiton {
         // Player is no cloned to remain the same as in GameState
         return new Fruiton(
-            this.id,
-            this.position.clone(),
-            this.owner,
-            this.hp,
-            this.damage,
-            this.model,
-            this.moveGenerators,
-            this.attackGenerators,
-            this.effects,
-            this.type
+        this.id,
+        this.position.clone(),
+        this.owner,
+        this.hp,
+        this.damage,
+        this.model,
+        this.moveGenerators,
+        this.attackGenerators,
+        this.effects,
+        this.type
         );
     }
 
@@ -125,32 +142,28 @@ class Fruiton implements IHashable implements IGameEventHandler {
     // ==============
     // Event handlers
     // ==============
-    public function onBeforeEffectAdded(context: EffectActionContext, state: GameState, result:ActionExecutionResult) {
-        // Modify action and game state
+    public function onBeforeEffectAdded(context:EffectActionContext, state:GameState, result:ActionExecutionResult) {
         trace("onBeforeEffectAdded Fruiton: " + id + ">" + context.effect.name);
         for (effect in this.effects) {
             effect.onBeforeEffectAdded(context, state, result);
         }
     }
 
-    public function onAfterEffectAdded(context: EffectActionContext, state: GameState, result:ActionExecutionResult) {
-        // Modify action and game state
+    public function onAfterEffectAdded(context:EffectActionContext, state:GameState, result:ActionExecutionResult) {
         trace("onAfterEffectAdded Fruiton: " + id + ">" + context.effect.name);
         for (effect in this.effects) {
             effect.onAfterEffectAdded(context, state, result);
         }
     }
 
-    public function onBeforeEffectRemoved(context: EffectActionContext, state: GameState, result:ActionExecutionResult) {
-        // Modify action and game state
+    public function onBeforeEffectRemoved(context:EffectActionContext, state:GameState, result:ActionExecutionResult) {
         trace("onBeforeEffectRemoved Fruiton: " + id + ">" + context.effect.name);
         for (effect in this.effects) {
             effect.onBeforeEffectRemoved(context, state, result);
         }
     }
 
-    public function onAfterEffectRemoved(context: EffectActionContext, state: GameState, result:ActionExecutionResult) {
-        // Modify action and game state
+    public function onAfterEffectRemoved(context:EffectActionContext, state:GameState, result:ActionExecutionResult) {
         trace("onAfterEffectRemoved Fruiton: " + id + ">" + context.effect.name);
         for (effect in this.effects) {
             effect.onAfterEffectRemoved(context, state, result);
@@ -158,7 +171,6 @@ class Fruiton implements IHashable implements IGameEventHandler {
     }
 
     public function onBeforeTurnEnd(context:EndTurnActionContext, state:GameState, result:ActionExecutionResult) {
-        // Modify action and game state
         trace("onBeforeTurnEnd Fruiton: " + id + " " + context);
         for (effect in this.effects) {
             effect.onBeforeTurnEnd(context, state, result);
@@ -166,7 +178,6 @@ class Fruiton implements IHashable implements IGameEventHandler {
     }
 
     public function onAfterTurnEnd(context:EndTurnActionContext, state:GameState, result:ActionExecutionResult) {
-        // Modify action and game state
         trace("onAfterTurnEnd Fruiton: " + id + " " + context);
         for (effect in this.effects) {
             effect.onAfterTurnEnd(context, state, result);
@@ -174,7 +185,6 @@ class Fruiton implements IHashable implements IGameEventHandler {
     }
 
     public function onBeforeMove(context:MoveActionContext, state:GameState, result:ActionExecutionResult) {
-        // Modify action and game state
         trace("onBeforeMove Fruiton: " + id + " " + context);
         for (effect in this.effects) {
             effect.onBeforeMove(context, state, result);
@@ -182,7 +192,6 @@ class Fruiton implements IHashable implements IGameEventHandler {
     }
 
     public function onAfterMove(context:MoveActionContext, state:GameState, result:ActionExecutionResult) {
-        // Modify action and game state
         trace("onAfterMove Fruiton: " + id + " " + context);
         for (effect in this.effects) {
             effect.onAfterMove(context, state, result);
@@ -190,7 +199,6 @@ class Fruiton implements IHashable implements IGameEventHandler {
     }
 
     public function onBeforeAttack(context:AttackActionContext, state:GameState, result:ActionExecutionResult) {
-        // Modify action and game state
         trace("onBeforeAttack Fruiton: " + id + " " + context);
         for (effect in this.effects) {
             effect.onBeforeAttack(context, state, result);
@@ -198,7 +206,6 @@ class Fruiton implements IHashable implements IGameEventHandler {
     }
 
     public function onAfterAttack(context:AttackActionContext, state:GameState, result:ActionExecutionResult) {
-        // Modify action and game state
         trace("onAfterAttack Fruiton: " + id + " " + context);
         for (effect in effects) {
             effect.onAfterAttack(context, state, result);
@@ -206,7 +213,6 @@ class Fruiton implements IHashable implements IGameEventHandler {
     }
 
     public function onBeforeBeingAttacked(context:AttackActionContext, state:GameState, result:ActionExecutionResult) {
-        // Modify action and game state
         trace("onBeforeBeingAttacked Fruiton: " + id + " " + context);
         for (effect in effects) {
             effect.onBeforeBeingAttacked(context, state, result);
@@ -214,7 +220,6 @@ class Fruiton implements IHashable implements IGameEventHandler {
     }
 
     public function onAfterBeingAttacked(context:AttackActionContext, state:GameState, result:ActionExecutionResult) {
-        // Modify action and game state
         trace("onAfterBeingAttacked Fruiton: " + id + " " + context);
         if (!isAlive) {
             state.field.get(position).fruiton = null;

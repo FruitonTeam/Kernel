@@ -2,19 +2,18 @@ package fruiton.kernel.actions;
 
 import fruiton.kernel.events.AddEffectEvent;
 
-class AddEffectAction extends GenericAction<EffectActionContext> {
+class AddEffectAction extends TargetableAction<EffectActionContext> {
 
     public static inline var ID:Int = 3;
-    var ignoreTime: Bool;
 
-    public function new(context:EffectActionContext, ignoreTime: Bool) {
+    public function new(context:EffectActionContext, dependsOnTurnTime:Bool = true) {
         super(context);
-        this.ignoreTime = ignoreTime;
+        this.dependsOnTurnTime = dependsOnTurnTime;
     }
 
     override function validate(state:GameState, context:EffectActionContext):Bool {
         var result:Bool =
-            (ignoreTime || super.validate(state, context)) &&
+            super.validate(state, context) &&
             context != null &&
             context.source != null &&
             state.field.exists(context.source) &&
@@ -28,12 +27,10 @@ class AddEffectAction extends GenericAction<EffectActionContext> {
         var sourceFruiton:Fruiton = state.field.get(context.source).fruiton;
         var targetFruiton:Fruiton = state.field.get(context.target).fruiton;
 
-        result =
-            sourceFruiton != null &&
+        return sourceFruiton != null &&
             sourceFruiton.owner != null &&
             targetFruiton != null &&
             targetFruiton.owner != null;
-        return result;
     }
 
     override function executeImpl(state:GameState, result:ActionExecutionResult) {
@@ -41,11 +38,14 @@ class AddEffectAction extends GenericAction<EffectActionContext> {
         var sourceFruiton:Fruiton = state.field.get(newContext.target).fruiton;
 
         if (result.isValid) {
+            newContext.effect.onBeforeEffectAdded(newContext, state, result);
+        }
+        if (result.isValid) {
             sourceFruiton.onBeforeEffectAdded(newContext, state, result);
         }
-        if (result.isValid && !newContext.gameStarted) {
+        if (result.isValid) {
             sourceFruiton.addEffect(newContext.effect);
-            result.events.push(new AddEffectEvent(1, newContext.source, newContext.target, newContext.effect.name));
+            result.events.push(new AddEffectEvent(1, newContext.source, newContext.target));
         }
         if (result.isValid) {
             sourceFruiton.onAfterEffectAdded(newContext, state, result);

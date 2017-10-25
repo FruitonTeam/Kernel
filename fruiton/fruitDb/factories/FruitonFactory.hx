@@ -14,6 +14,7 @@ import fruiton.kernel.MoveGenerator;
 import fruiton.kernel.AttackGenerator;
 import fruiton.kernel.effects.Effect;
 import fruiton.kernel.effects.LowerAttackOnAttackEffect;
+import fruiton.kernel.exceptions.Exception;
 
 enum EffectType {
     lowerAttackOnAttack;
@@ -69,6 +70,9 @@ class FruitonFactory {
             case EffectType.lowerAttackOnAttack: {
                 return new LowerAttackOnAttackEffect(entry.params[0]);
             }
+            default: {
+                throw new Exception('Unknown effect $type');
+            }
         }
     }
 
@@ -86,6 +90,9 @@ class FruitonFactory {
             }
             case TargetPatternType.range: {
                 return new RangeTargetPattern(new Vector2(entry.x, entry.y), entry.min, entry.max);
+            }
+            default: {
+                throw new Exception('Unknown target pattern $type');
             }
         }
     }

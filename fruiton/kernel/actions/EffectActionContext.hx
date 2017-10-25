@@ -6,16 +6,14 @@ import fruiton.dataStructures.Vector2;
 class EffectActionContext extends TargetableActionContext {
 
     public var effect(default, default):Effect;
-    public var gameStarted(default, null):Bool;
 
-    public function new(effect:Effect, source:Vector2, target:Vector2, gameStarted:Bool = false) {
+    public function new(effect:Effect, source:Vector2, target:Vector2) {
         super(source, target);
         this.effect = effect;
-        this.gameStarted = gameStarted;
     }
 
     public function clone():EffectActionContext {
-        return new EffectActionContext(effect, source, target, gameStarted);
+        return new EffectActionContext(effect, source, target);
     }
 
     public function toString():String {
@@ -33,16 +31,16 @@ class EffectActionContext extends TargetableActionContext {
         var otherEffectContext = cast(other, EffectActionContext);
 
         var isEffectEqual:Bool =
-        (this.effect == otherEffectContext.effect) ||
-        (this.effect != null && this.effect.equalsTo(otherEffectContext.effect));
+            (this.effect == otherEffectContext.effect) ||
+            (this.effect != null && this.effect.equalsTo(otherEffectContext.effect));
 
         var isSourceEqual:Bool =
-        (this.source == otherEffectContext.source) ||
-        (this.source != null && this.target.equalsTo(otherEffectContext.source));
+            (this.source == otherEffectContext.source) ||
+            (this.source != null && this.target.equalsTo(otherEffectContext.source));
 
         var isTargetEqual:Bool =
-        (this.target == otherEffectContext.target) ||
-        (this.target != null && this.target.equalsTo(otherEffectContext.target));
+            (this.target == otherEffectContext.target) ||
+            (this.target != null && this.target.equalsTo(otherEffectContext.target));
 
         return isEffectEqual && isSourceEqual && isTargetEqual;
     }

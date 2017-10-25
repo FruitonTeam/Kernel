@@ -6,25 +6,34 @@ class LoweredAttackEffect extends Effect {
 
     public var amount(default, null):Int;
 
-    public function new(amount: Int = 1){
+    public function new(amount: Int){
         super();
-        name = "lowered-attack";
         this.amount = amount;
+    }
+
+    override public function onBeforeEffectAdded(context: EffectActionContext, state: GameState, result:ActionExecutionResult) {
+        super.onBeforeEffectAdded(context, state, result);
+        if (context.effect == this) {
+            var target = state.field.get(context.target).fruiton;
+            if (target.damage <= 1) {
+                result.isValid = false;
+            }
+        }
     }
 
     override public function onAfterEffectAdded(context: EffectActionContext, state: GameState, result:ActionExecutionResult) {
         super.onAfterEffectAdded(context, state, result);
-        if(context.effect == this){
+        if (context.effect == this) {
             var target = state.field.get(context.target).fruiton;
             if (target != null) {
-                target.damage -= amount;
+                target.damage = cast Math.max(1, target.damage - amount);
             }
         }
     }
 
     override public function onBeforeEffectRemoved(context: EffectActionContext, state: GameState, result:ActionExecutionResult) {
         super.onBeforeEffectRemoved(context, state, result);
-        if(context.effect == this){
+        if (context.effect == this) {
             var target = state.field.get(context.target).fruiton;
             if (target != null) {
                 target.damage += amount;

@@ -8,16 +8,15 @@ class LowerAttackOnAttackEffect extends Effect {
 
     var amount: Int;
 
-    public function new(amount:Int = 1){
+    public function new(amount:Int){
         super();
-        name = "lower-attack-on-attack";
         this.amount = amount;
     }
 
     override function onAfterAttack(context:AttackActionContext, state:GameState, result:ActionExecutionResult) {
         if (context.damage > 0) {
             var target = state.field.get(context.target).fruiton;
-            if (target != null && target.damage > 1) {
+            if (target != null) {
                 result.actions.add(
                     new AddEffectAction(
                         new EffectActionContext(
@@ -25,7 +24,7 @@ class LowerAttackOnAttackEffect extends Effect {
                             context.source,
                             context.target
                         ),
-                        true
+                        false
                     )
                 );
             }

@@ -42,7 +42,7 @@ class EffectsTest {
 
     @Test
     public function lowerAttackOnAttack_attackEnemy_createsEventAppliesDebuff() {
-        Sys.println("=== running lowerAttackOnAttack_attackEnemy_appliesDebuff");
+        Sys.println("=== running lowerAttackOnAttack_attackEnemy_createsEventAppliesDebuff");
         var targetPos = new Vector2(0, 1);
         var k:Kernel = new Kernel(p1, p2,
         [
@@ -61,11 +61,12 @@ class EffectsTest {
 
         var event:AddEffectEvent = Hlinq.firstOfTypeOrNull(result, AddEffectEvent);
 
+        var effect:Effect = k.currentState.field.get(targetPos).fruiton.effects[0];
         Assert.isNotNull(event);
-        Assert.isTrue(k.currentState.field.get(targetPos).fruiton.effects[0] != null);
-        Assert.isTrue(Std.is(k.currentState.field.get(targetPos).fruiton.effects[0], LoweredAttackEffect));
+        Assert.isTrue(effect != null);
+        Assert.isTrue(Std.is(effect, LoweredAttackEffect));
         Assert.isTrue(
-            Std.instance(k.currentState.field.get(targetPos).fruiton.effects[0], LoweredAttackEffect)
+            Std.instance(effect, LoweredAttackEffect)
             .amount == 2);
     }
 
@@ -104,7 +105,6 @@ class EffectsTest {
             new Fruiton(2, new Vector2(0, 1), p2, 10, 5, "", getMoveGenerators(), getAttackGenerators(), [], 1)
         ]
         );
-        k.startGame();
         var actions:IKernel.Actions = k.getAllValidActions();
         var action:AttackAction = Hlinq.firstOfTypeOrNull(actions, AttackAction);
         var result:IKernel.Events = k.performAction(action);
