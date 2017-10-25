@@ -44,7 +44,6 @@ class ModelBuilder {
                     }
                 }
             }
-
             return schema;
         } catch(e:Dynamic) {
             return haxe.macro.Context.error('File reading error $filePath: $e', Context.currentPos());
@@ -61,6 +60,9 @@ class ModelBuilder {
             }
             case ModelTypes.targetPattern: {
                 return jsonSchema.definitions.targetPattern.properties;
+            }
+            case ModelTypes.effect: {
+                return jsonSchema.definitions.effect.properties;
             }
             case ModelTypes.attack: {
                 return jsonSchema.definitions.attack.properties;

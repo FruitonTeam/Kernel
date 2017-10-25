@@ -27,6 +27,12 @@
                         "type": "integer"
                     }
                 },
+                "effects": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
                 "movements": {
                     "type": "array",
                     "items": {
@@ -41,7 +47,7 @@
                 }
             },
             "additionalProperties": false,
-            "required": ["id", "model", "type", "hp", "damage", "abilities", "movements"]
+            "required": ["id", "model", "type", "hp", "damage", "abilities", "effects", "movements"]
         },
         "movement": {
             "type": "object",
@@ -68,6 +74,22 @@
             },
             "additionalProperties": false,
             "required": ["id", "targetPatternId"]
+        },
+        "effect": {
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "className": {
+                    "type": "string"
+                },
+                "params": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                }
+            }
         },
         "targetPattern": {
             "type": "object",
@@ -114,6 +136,12 @@
             "type": "array",
             "items": {
                 "$ref": "#/definitions/attack"
+            }
+        },
+        "effectDb": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/effect"
             }
         },
         "targetPatternDb": {

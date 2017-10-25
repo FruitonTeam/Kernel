@@ -21,6 +21,7 @@ class TestMain {
 		suites.push(test.endTurn.EndTurnTestSuite);
 		suites.push(test.targetPatterns.TargetPatternsTestSuite);
 		suites.push(test.attack.AttackTestSuite);
+		suites.push(test.effects.EffectsTestSuite);
 		suites.push(test.fruitonDb.FruitonDbTestSuite);
 		suites.push(test.fruitonTeam.FruitonTeamTestSuite);
 		suites.push(test.gameRules.GameRulesTestSuite);

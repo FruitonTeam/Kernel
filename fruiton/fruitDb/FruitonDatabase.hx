@@ -1,10 +1,12 @@
 package fruiton.fruitDb;
 
 import haxe.ds.IntMap;
+import haxe.ds.StringMap;
 import haxe.Json;
 import fruiton.fruitDb.models.Models.FruitonModel;
 import fruiton.fruitDb.models.Models.MovementModel;
 import fruiton.fruitDb.models.Models.AttackModel;
+import fruiton.fruitDb.models.Models.EffectModel;
 import fruiton.fruitDb.models.Models.TargetPatternModel;
 
 class FruitonDatabase {
@@ -12,12 +14,14 @@ class FruitonDatabase {
     var fruitonDb:IntMap<FruitonModel>;
     var movementDb:IntMap<MovementModel>;
     var attackDb:IntMap<AttackModel>;
+    var effectDb: StringMap<EffectModel>;
     var targetPatternDb:IntMap<TargetPatternModel>;
 
     public function new (dbString:String) {
         fruitonDb = new IntMap<FruitonModel>();
         movementDb = new IntMap<MovementModel>();
         attackDb = new IntMap<AttackModel>();
+        effectDb = new StringMap<EffectModel>();
         targetPatternDb = new IntMap<TargetPatternModel>();
         loadDb(dbString);
     }
@@ -28,6 +32,7 @@ class FruitonDatabase {
         load(json.fruitonDb, fruitonDb);
         load(json.movementDb, movementDb);
         load(json.attackDb, attackDb);
+        loadStringMap(json.effectDb, effectDb);
         load(json.targetPatternDb, targetPatternDb);
     }
 
@@ -39,8 +44,20 @@ class FruitonDatabase {
         }
     }
 
+    function loadStringMap<T>(defs:Array<Dynamic>, map:StringMap<T>) {
+        for (item in defs) {
+            var id = item.id;
+            var dbItem:T = item;
+            map.set(id, dbItem);
+        }
+    }
+
     public function getFruiton(id:Int):FruitonModel {
         return fruitonDb.get(id);
+    }
+
+    public function getEffect(name:String):EffectModel {
+        return effectDb.get(name);
     }
 
     public function getTargetPattern(id:Int):TargetPatternModel {
