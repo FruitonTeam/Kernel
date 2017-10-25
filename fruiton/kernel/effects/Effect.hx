@@ -5,9 +5,12 @@ import fruiton.kernel.actions.EffectActionContext;
 import fruiton.kernel.actions.MoveActionContext;
 import fruiton.kernel.actions.AttackActionContext;
 
-class Effect implements IGameEventHandler  implements IAbstractClass implements IEquitable<Effect> {
+class Effect implements IGameEventHandler  implements IAbstractClass implements IEquitable<Effect> implements IHashable {
+
+    public var name(default, null):String;
 
     function new(){
+        name = Type.getClassName(Type.getClass(this));
     }
 
     public function onBeforeEffectAdded(context: EffectActionContext, state: GameState, result:ActionExecutionResult) {
@@ -57,6 +60,8 @@ class Effect implements IGameEventHandler  implements IAbstractClass implements 
     public function onAfterBeingAttacked(context:AttackActionContext, state:GameState, result:ActionExecutionResult) {
         trace("onAfterAttack Effect: " + name + " " + context);
     }
+
+    public function getHashCode(): Int;
 
     public function equalsTo(other:Effect): Bool;
 }

@@ -249,6 +249,7 @@ class Fruiton implements IHashable implements IGameEventHandler {
         hash = hash * p1 + type;
         hash = hash * p1 + HashHelper.hashString(model);
         hash = hash * p1 + HashHelper.hashIterable(moveGenerators);
+        hash = hash * p1 + HashHelper.hashIterable(effects);
         hash = hash * p1 + HashHelper.hashIterable(attackGenerators);
         hash = hash * p1 + damage;
         return hash;

@@ -43,4 +43,13 @@ class LowerAttackOnAttackEffect extends Effect {
 
         return this.amount == otherEffect.amount;
     }
+
+    override public function getHashCode():Int {
+        var p0 = HashHelper.PRIME_0;
+        var p1 = HashHelper.PRIME_1;
+
+        var hash = p0 * HashHelper.hashString(Type.getClassName(Type.getClass(this)));
+        hash = hash * p1 + amount;
+        return hash;
+    }
 }
