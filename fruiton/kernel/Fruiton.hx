@@ -86,16 +86,16 @@ class Fruiton implements IHashable implements IGameEventHandler {
     public function clone():Fruiton {
         // Player is no cloned to remain the same as in GameState
         return new Fruiton(
-        this.id,
-        this.position.clone(),
-        this.owner,
-        this.hp,
-        this.damage,
-        this.model,
-        this.moveGenerators,
-        this.attackGenerators,
-        this.effects,
-        this.type
+            this.id,
+            this.position.clone(),
+            this.owner,
+            this.hp,
+            this.damage,
+            this.model,
+            this.moveGenerators,
+            this.attackGenerators,
+            this.effects,
+            this.type
         );
     }
 
