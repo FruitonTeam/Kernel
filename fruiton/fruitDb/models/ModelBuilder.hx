@@ -41,6 +41,8 @@ class ModelBuilder {
                         schema.push({
                             name: name, type: arrayStringType
                         });
+                    } else {
+                        Context.error("Array of " + type + " is not supported. Modify ModelBuilder or json schema.", Context.currentPos());
                     }
                 }
             }
