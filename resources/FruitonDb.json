@@ -24,7 +24,7 @@
         },
         {
             "id": 3,
-            "model": "BlackCube",
+            "model": "Pea",
             "type": 3,
             "hp": 4,
             "damage": 2,
