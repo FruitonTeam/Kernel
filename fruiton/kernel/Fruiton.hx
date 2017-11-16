@@ -65,8 +65,8 @@ class Fruiton implements IHashable implements IGameEventHandler {
         this.effects = effects.copy();
         this.model = model;
         this.type = type;
-        this.originalAttributes = originalAttributes;
-        this.currentAttributes = (currentAttributes == null) ? originalAttributes.clone(): currentAttributes;
+        this.originalAttributes = originalAttributes.clone();
+        this.currentAttributes = (currentAttributes == null) ? originalAttributes.clone(): currentAttributes.clone();
     }
 
     public function applyEffectsOnGameStart(state: GameState) {
