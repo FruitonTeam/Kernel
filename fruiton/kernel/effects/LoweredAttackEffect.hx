@@ -15,7 +15,7 @@ class LoweredAttackEffect extends Effect {
         super.onBeforeEffectAdded(context, state, result);
         if (context.effect == this) {
             var target = state.field.get(context.target).fruiton;
-            if (target.damage <= 1) {
+            if (target.currentAttributes.damage <= 1) {
                 result.isValid = false;
             }
         }
@@ -26,7 +26,7 @@ class LoweredAttackEffect extends Effect {
         if (context.effect == this) {
             var target = state.field.get(context.target).fruiton;
             if (target != null) {
-                target.damage = cast Math.max(1, target.damage - amount);
+                target.currentAttributes.damage = cast Math.max(1, target.currentAttributes.damage - amount);
             }
         }
     }
@@ -36,7 +36,7 @@ class LoweredAttackEffect extends Effect {
         if (context.effect == this) {
             var target = state.field.get(context.target).fruiton;
             if (target != null) {
-                target.damage += amount;
+                target.currentAttributes.damage += amount;
             }
         }
     }

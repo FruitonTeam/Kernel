@@ -15,6 +15,7 @@ import fruiton.kernel.AttackGenerator;
 import fruiton.kernel.effects.Effect;
 import fruiton.kernel.effects.LowerAttackOnAttackEffect;
 import fruiton.kernel.exceptions.Exception;
+import fruiton.dataStructures.FruitonAttributes;
 
 enum EffectType {
     lowerAttackOnAttack;
@@ -45,17 +46,18 @@ class FruitonFactory {
             attackGenerators.push(makeAttackGenerator(attackId, db));
         }
 
+        var fruitonAttributes:FruitonAttributes = new FruitonAttributes(entry.hp, entry.damage);
+
         return new Fruiton(
             id,
             Vector2.ZERO,
             null,
-            entry.hp,
-            entry.damage,
             entry.model,
             moveGenerators,
             attackGenerators,
             effects,
-            entry.type);
+            entry.type,
+            fruitonAttributes);
     }
 
     static function makeAttackGenerator(id:Int, db:FruitonDatabase):AttackGenerator {
