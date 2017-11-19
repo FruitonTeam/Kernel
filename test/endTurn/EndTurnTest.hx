@@ -30,7 +30,8 @@ class EndTurnTest {
         var moveGenerators:MoveGenerators = new MoveGenerators();
         moveGenerators.push(new MoveGenerator(new LineTargetPattern(new Vector2(0, 1), -1, 1)));
         moveGenerators.push(new MoveGenerator(new LineTargetPattern(new Vector2(1, 0), -1, 1)));
-		var fruiton:Fruiton = new Fruiton(1, new Vector2(0, 1), p1, 10, 0, "", moveGenerators, [], [], 1);
+        var attributes:FruitonAttributes = new FruitonAttributes(10, 0);
+		var fruiton:Fruiton = new Fruiton(1, new Vector2(0, 1), p1, "", moveGenerators, [], [], 1, attributes);
 		return new Kernel(p1, p2, [fruiton]);
 	}
 

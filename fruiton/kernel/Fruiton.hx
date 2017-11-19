@@ -9,6 +9,7 @@ import fruiton.kernel.effects.Effect;
 import fruiton.dataStructures.Vector2;
 import fruiton.dataStructures.collections.ExtendedArray;
 import fruiton.kernel.actions.Action;
+import fruiton.dataStructures.FruitonAttributes;
 
 typedef MoveGenerators = Array<MoveGenerator>;
 typedef AttackGenerators = Array<AttackGenerator>;
@@ -16,13 +17,13 @@ typedef Effects = Array<Effect>;
 
 class Fruiton implements IHashable implements IGameEventHandler {
 
+    public var originalAttributes:FruitonAttributes;
+    public var currentAttributes:FruitonAttributes;
     public var id(default, null):Int;
     public var position(default, null):Vector2;
     public var owner(default, null):Player;
-    public var hp(default, null):Int;
     public var model(default, null):String;
     public var type(default, null):Int;
-    public var damage(default, default):Int;
     public var effects(default, null):Effects;
 
     public static var KING_TYPE(default, never):Int = 1;
@@ -38,7 +39,7 @@ class Fruiton implements IHashable implements IGameEventHandler {
     public var isAlive(get, never):Bool;
 
     function get_isAlive():Bool {
-        return hp > 0;
+        return currentAttributes.hp > 0;
     }
 
     var moveGenerators:MoveGenerators;
@@ -48,13 +49,13 @@ class Fruiton implements IHashable implements IGameEventHandler {
         id:Int,
         position:Vector2,
         owner:Player,
-        hp:Int,
-        damage:Int,
         model:String,
         moves:MoveGenerators,
         attacks:AttackGenerators,
         effects:Effects,
-        type:Int
+        type:Int,
+        originalAttributes:FruitonAttributes,
+        ?currentAttributes:FruitonAttributes
     ) {
         this.id = id;
         this.position = position;
@@ -62,10 +63,10 @@ class Fruiton implements IHashable implements IGameEventHandler {
         this.moveGenerators = moves.copy();
         this.attackGenerators = attacks.copy();
         this.effects = effects.copy();
-        this.hp = hp;
-        this.damage = damage;
         this.model = model;
         this.type = type;
+        this.originalAttributes = originalAttributes.clone();
+        this.currentAttributes = (currentAttributes == null) ? originalAttributes.clone(): currentAttributes.clone();
     }
 
     public function applyEffectsOnGameStart(state: GameState) {
@@ -89,13 +90,13 @@ class Fruiton implements IHashable implements IGameEventHandler {
             this.id,
             this.position.clone(),
             this.owner,
-            this.hp,
-            this.damage,
             this.model,
             this.moveGenerators,
             this.attackGenerators,
             this.effects,
-            this.type
+            this.type,
+            this.originalAttributes.clone(),
+            this.currentAttributes.clone()
         );
     }
 
@@ -117,14 +118,14 @@ class Fruiton implements IHashable implements IGameEventHandler {
 
         // Attack actions
         for (attackGen in attackGenerators) {
-            allActions.pushAll(attackGen.getAttacks(position, damage));
+            allActions.pushAll(attackGen.getAttacks(position, currentAttributes.damage));
         }
 
         return allActions;
     }
 
     public function takeDamage(dmg:Int) {
-        hp -= dmg;
+        currentAttributes.hp -= dmg;
     }
 
     public function addEffect(effect:Effect) {
@@ -245,13 +246,13 @@ class Fruiton implements IHashable implements IGameEventHandler {
         hash = hash * p1 + id;
         hash = hash * p1 + position.getHashCode();
         hash = hash * p1 + owner.getHashCode();
-        hash = hash * p1 + hp;
+        hash = hash * p1 + currentAttributes.hp;
         hash = hash * p1 + type;
         hash = hash * p1 + HashHelper.hashString(model);
         hash = hash * p1 + HashHelper.hashIterable(moveGenerators);
         hash = hash * p1 + HashHelper.hashIterable(effects);
         hash = hash * p1 + HashHelper.hashIterable(attackGenerators);
-        hash = hash * p1 + damage;
+        hash = hash * p1 + currentAttributes.damage;
         return hash;
     }
 }

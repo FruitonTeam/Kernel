@@ -44,12 +44,13 @@ class EffectsTest {
     public function lowerAttackOnAttack_attackEnemy_createsEventAppliesDebuff() {
         Sys.println("=== running lowerAttackOnAttack_attackEnemy_createsEventAppliesDebuff");
         var targetPos = new Vector2(0, 1);
+        var attributes:FruitonAttributes = new FruitonAttributes(10, 5);
         var k:Kernel = new Kernel(p1, p2,
         [
-            new Fruiton(1, new Vector2(0, 0), p1, 10, 5, "", getMoveGenerators(), getAttackGenerators(),
-            [new LowerAttackOnAttackEffect(2)], 1),
+            new Fruiton(1, new Vector2(0, 0), p1, "", getMoveGenerators(), getAttackGenerators(),
+            [new LowerAttackOnAttackEffect(2)], 1, attributes),
 
-            new Fruiton(2, targetPos, p2, 10, 5, "", getMoveGenerators(), getAttackGenerators(), [], 1)
+            new Fruiton(2, targetPos, p2, "", getMoveGenerators(), getAttackGenerators(), [], 1, attributes)
         ]
         );
 
@@ -74,12 +75,14 @@ class EffectsTest {
     public function lowerAttackOnAttack_attack1DmgEnemy_dontApplyDebuff() {
         Sys.println("=== running lowerAttackOnAttack_attack1DmgEnemy_dontApplyDebuff");
         var targetPos = new Vector2(0, 1);
+                var attributes1:FruitonAttributes = new FruitonAttributes(10, 5);
+        var attributes2:FruitonAttributes = new FruitonAttributes(10, 1);
         var k:Kernel = new Kernel(p1, p2,
         [
-            new Fruiton(1, new Vector2(0, 0), p1, 10, 5, "", getMoveGenerators(), getAttackGenerators(),
-            [new LowerAttackOnAttackEffect(2)], 1),
+            new Fruiton(1, new Vector2(0, 0), p1, "", getMoveGenerators(), getAttackGenerators(),
+            [new LowerAttackOnAttackEffect(2)], 1, attributes1),
 
-            new Fruiton(2, targetPos, p2, 10, 1, "", getMoveGenerators(), getAttackGenerators(), [], 1)
+            new Fruiton(2, targetPos, p2, "", getMoveGenerators(), getAttackGenerators(), [], 1, attributes2)
         ]
         );
 
@@ -97,12 +100,14 @@ class EffectsTest {
     @Test
     public function loweredAttack_attackEnemy_dealLowerDamage() {
         Sys.println("=== loweredAttack_attackEnemy_dealLowerDamage");
+        var attributes1:FruitonAttributes = new FruitonAttributes(10, 5);
+        var attributes2:FruitonAttributes = new FruitonAttributes(10, 1);
         var k:Kernel = new Kernel(p1, p2,
         [
-            new Fruiton(1, new Vector2(0, 0), p1, 10, 5, "", getMoveGenerators(), getAttackGenerators(),
-            [new LoweredAttackEffect(3)], 1),
+            new Fruiton(1, new Vector2(0, 0), p1, "", getMoveGenerators(), getAttackGenerators(),
+            [new LoweredAttackEffect(3)], 1, attributes1),
 
-            new Fruiton(2, new Vector2(0, 1), p2, 10, 5, "", getMoveGenerators(), getAttackGenerators(), [], 1)
+            new Fruiton(2, new Vector2(0, 1), p2, "", getMoveGenerators(), getAttackGenerators(), [], 1, attributes2)
         ]
         );
         var actions:IKernel.Actions = k.getAllValidActions();
