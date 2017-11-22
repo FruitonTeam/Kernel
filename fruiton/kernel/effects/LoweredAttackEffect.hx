@@ -1,6 +1,7 @@
 package fruiton.kernel.effects;
 
 import fruiton.kernel.actions.EffectActionContext;
+import fruiton.kernel.events.ModifyAttackEvent;
 
 class LoweredAttackEffect extends Effect {
 
@@ -11,34 +12,28 @@ class LoweredAttackEffect extends Effect {
         this.amount = amount;
     }
 
-    override public function onBeforeEffectAdded(context: EffectActionContext, state: GameState, result:ActionExecutionResult) {
-        super.onBeforeEffectAdded(context, state, result);
-        if (context.effect == this) {
-            var target = state.field.get(context.target).fruiton;
-            if (target.currentAttributes.damage <= 1) {
-                result.isValid = false;
-            }
+    override public function tryAddEffect(context: EffectActionContext, state: GameState, result:ActionExecutionResult) : Bool {
+        var target = state.field.get(context.target).fruiton;
+        var currentAttack = target.currentAttributes.damage;
+        if (currentAttack <= 1) {
+            return false;
         }
+        if (target != null) {
+            var newAttack = cast Math.max(1, target.currentAttributes.damage - amount);
+            target.currentAttributes.damage = newAttack;
+            result.events.push(new ModifyAttackEvent(1, target.position, newAttack));
+        }
+        return true;
     }
 
-    override public function onAfterEffectAdded(context: EffectActionContext, state: GameState, result:ActionExecutionResult) {
-        super.onAfterEffectAdded(context, state, result);
-        if (context.effect == this) {
-            var target = state.field.get(context.target).fruiton;
-            if (target != null) {
-                target.currentAttributes.damage = cast Math.max(1, target.currentAttributes.damage - amount);
-            }
-        }
-    }
-
-    override public function onBeforeEffectRemoved(context: EffectActionContext, state: GameState, result:ActionExecutionResult) {
-        super.onBeforeEffectRemoved(context, state, result);
+    override public function tryRemoveEffect(context: EffectActionContext, state: GameState, result:ActionExecutionResult) : Bool {
         if (context.effect == this) {
             var target = state.field.get(context.target).fruiton;
             if (target != null) {
                 target.currentAttributes.damage += amount;
             }
         }
+        return true;
     }
 
     override public function equalsTo(other:Effect):Bool {

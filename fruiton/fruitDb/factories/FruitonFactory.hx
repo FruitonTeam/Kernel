@@ -13,12 +13,17 @@ import fruiton.kernel.targetPatterns.TargetPattern;
 import fruiton.kernel.MoveGenerator;
 import fruiton.kernel.AttackGenerator;
 import fruiton.kernel.effects.Effect;
-import fruiton.kernel.effects.LowerAttackOnAttackEffect;
 import fruiton.kernel.exceptions.Exception;
 import fruiton.dataStructures.FruitonAttributes;
+import fruiton.kernel.effects.LoweredAttackEffect;
+import fruiton.kernel.effects.OnAttackTrigger;
+
+enum TriggerType {
+    onAttack;
+}
 
 enum EffectType {
-    lowerAttackOnAttack;
+    lowerAttack;
 }
 
 enum TargetPatternType {
@@ -67,13 +72,23 @@ class FruitonFactory {
 
     static function makeEffect(id:String, db:FruitonDatabase): Effect{
         var entry:EffectModel = db.getEffect(id);
-        var type:EffectType = Type.createEnum(EffectType, entry.className);
-        switch (type) {
-            case EffectType.lowerAttackOnAttack: {
-                return new LowerAttackOnAttackEffect(entry.params[0]);
+        var triggerType:TriggerType = Type.createEnum(TriggerType, entry.trigger);
+        var effectType:EffectType = Type.createEnum(EffectType, entry.effect);
+        var innerEffect:Effect;
+        switch (effectType) {
+            case EffectType.lowerAttack: {
+                innerEffect = new LoweredAttackEffect(entry.params[0]);
             }
             default: {
-                throw new Exception('Unknown effect $type');
+                throw new Exception('Unknown effect $effectType');
+            }
+        }
+        switch (triggerType) {
+            case TriggerType.onAttack: {
+                return new OnAttackTrigger(innerEffect);
+            }
+            default: {
+                throw new Exception('Unknown effect $triggerType');
             }
         }
     }

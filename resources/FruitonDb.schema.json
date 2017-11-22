@@ -80,8 +80,11 @@
                 "id": {
                     "type": "string"
                 },
-                "className": {
+                "trigger" : {
                     "type": "string"
+                },
+                "effect" : {
+                    "type" : "string"
                 },
                 "params": {
                     "type": "array",
@@ -89,7 +92,9 @@
                         "type": "integer"
                     }
                 }
-            }
+            },
+            "additionalProperties": false,
+            "required": ["id", "trigger", "effect", "params"]
         },
         "targetPattern": {
             "type": "object",

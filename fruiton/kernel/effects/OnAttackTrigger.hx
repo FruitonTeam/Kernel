@@ -1,32 +1,27 @@
 package fruiton.kernel.effects;
 
-import fruiton.kernel.actions.AddEffectAction;
 import fruiton.kernel.actions.AttackActionContext;
 import fruiton.kernel.actions.EffectActionContext;
 
-class LowerAttackOnAttackEffect extends Effect {
+class OnAttackTrigger extends Effect {
 
-    var amount: Int;
+    var effect:Effect;
 
-    public function new(amount:Int){
+    public function new(effect:Effect){
         super();
-        this.amount = amount;
+        this.effect = effect;
     }
 
     override function onAfterAttack(context:AttackActionContext, state:GameState, result:ActionExecutionResult) {
         if (context.damage > 0) {
             var target = state.field.get(context.target).fruiton;
             if (target != null) {
-                result.actions.add(
-                    new AddEffectAction(
-                        new EffectActionContext(
-                            new LoweredAttackEffect(amount),
-                            context.source,
-                            context.target
-                        ),
-                        false
-                    )
+                var effectContext = new EffectActionContext(
+                                        effect,
+                                        context.source,
+                                        context.target
                 );
+                target.addEffect(effect, effectContext, state, result);
             }
         }
     }
@@ -35,13 +30,13 @@ class LowerAttackOnAttackEffect extends Effect {
         if (other == null) {
             return false;
         }
-        if (!Std.is(other, LowerAttackOnAttackEffect)) {
+        if (!Std.is(other, OnAttackTrigger)) {
             return false;
         }
 
-        var otherEffect = cast(other, LowerAttackOnAttackEffect);
+        var otherEffect = cast(other, OnAttackTrigger);
 
-        return this.amount == otherEffect.amount;
+        return this.effect.equalsTo(otherEffect.effect);
     }
 
     override public function getHashCode():Int {
@@ -49,7 +44,7 @@ class LowerAttackOnAttackEffect extends Effect {
         var p1 = HashHelper.PRIME_1;
 
         var hash = p0 * HashHelper.hashString(Type.getClassName(Type.getClass(this)));
-        hash = hash * p1 + amount;
+        hash = hash * p1 + effect.getHashCode();
         return hash;
     }
 }

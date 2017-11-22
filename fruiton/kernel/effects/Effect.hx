@@ -64,4 +64,12 @@ class Effect implements IGameEventHandler  implements IAbstractClass implements 
     public function getHashCode(): Int;
 
     public function equalsTo(other:Effect): Bool;
-}
+
+    public function tryAddEffect(context: EffectActionContext, state: GameState, result:ActionExecutionResult) : Bool {
+        return true;
+    }
+
+    public function tryRemoveEffect(context: EffectActionContext, state: GameState, result:ActionExecutionResult) : Bool {
+        return true;
+    }
+ }

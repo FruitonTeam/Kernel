@@ -72,7 +72,7 @@ class Fruiton implements IHashable implements IGameEventHandler {
     public function applyEffectsOnGameStart(state: GameState) {
         // trigger add effect events on effects that are present in the game from the beggining
         for (effect in effects) {
-            onAfterEffectAdded(
+            effect.tryAddEffect (
                 new EffectActionContext(
                     effect,
                     position,
@@ -128,8 +128,14 @@ class Fruiton implements IHashable implements IGameEventHandler {
         currentAttributes.hp -= dmg;
     }
 
-    public function addEffect(effect:Effect) {
-        this.effects.push(effect);
+    public function addEffect(effect:Effect, context:EffectActionContext, state:GameState, result:ActionExecutionResult) {
+        
+        var shouldAddEffect = effect.tryAddEffect(context, state, result);
+        if (shouldAddEffect) {
+            this.onBeforeEffectAdded(context, state, result);
+            this.effects.push(effect);
+            this.onAfterEffectAdded(context, state, result);
+        }
     }
 
     public function removeEffect(effect:Effect) {
