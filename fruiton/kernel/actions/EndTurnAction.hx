@@ -76,6 +76,6 @@ class EndTurnAction extends GenericAction<EndTurnActionContext> {
     }
 
     override public function toUniqueString():String {
-        return "ETA";
+        return Std.string(ID);
     }
 }

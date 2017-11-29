@@ -82,6 +82,6 @@ class MoveAction extends TargetableAction<MoveActionContext> {
     }
 
     override public function toUniqueString():String {
-        return "MA" + Std.string(actionContext.source) + Std.string(actionContext.target);
+        return Std.string(ID) + Std.string(actionContext.source) + Std.string(actionContext.target);
     }
 }

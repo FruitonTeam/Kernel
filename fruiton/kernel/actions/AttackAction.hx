@@ -94,6 +94,6 @@ class AttackAction extends TargetableAction<AttackActionContext> {
     }
 
     override public function toUniqueString():String {
-        return "AA" + Std.string(actionContext.source) + Std.string(actionContext.target) + Std.string(actionContext.damage);
+        return Std.string(ID) + Std.string(actionContext.source) + Std.string(actionContext.target) + Std.string(actionContext.damage);
     }
 }
