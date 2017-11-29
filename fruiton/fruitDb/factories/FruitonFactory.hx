@@ -88,7 +88,7 @@ class FruitonFactory {
                 return new OnAttackTrigger(innerEffect);
             }
             default: {
-                throw new Exception('Unknown effect $triggerType');
+                throw new Exception('Unknown trigger $triggerType');
             }
         }
     }
