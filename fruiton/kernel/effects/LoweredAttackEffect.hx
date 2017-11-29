@@ -18,20 +18,16 @@ class LoweredAttackEffect extends Effect {
         if (currentAttack <= 1) {
             return false;
         }
-        if (target != null) {
-            var newAttack = cast Math.max(1, target.currentAttributes.damage - amount);
-            target.currentAttributes.damage = newAttack;
-            result.events.push(new ModifyAttackEvent(1, target.position, newAttack));
-        }
+        var newAttack = cast Math.max(1, target.currentAttributes.damage - amount);
+        target.currentAttributes.damage = newAttack;
+        result.events.push(new ModifyAttackEvent(1, target.position, newAttack));
         return true;
     }
 
     override public function tryRemoveEffect(context: EffectActionContext, state: GameState, result:ActionExecutionResult) : Bool {
-        if (context.effect == this) {
-            var target = state.field.get(context.target).fruiton;
-            if (target != null) {
-                target.currentAttributes.damage += amount;
-            }
+        var target = state.field.get(context.target).fruiton;
+        if (target != null) {
+            target.currentAttributes.damage += amount;
         }
         return true;
     }

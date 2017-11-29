@@ -76,6 +76,7 @@
             "required": ["id", "targetPatternId"]
         },
         "effect": {
+            "type": "object",
             "properties": {
                 "id": {
                     "type": "string"

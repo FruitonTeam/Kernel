@@ -129,7 +129,6 @@ class Fruiton implements IHashable implements IGameEventHandler {
     }
 
     public function addEffect(effect:Effect, context:EffectActionContext, state:GameState, result:ActionExecutionResult) {
-        
         var shouldAddEffect = effect.tryAddEffect(context, state, result);
         if (shouldAddEffect) {
             this.onBeforeEffectAdded(context, state, result);
