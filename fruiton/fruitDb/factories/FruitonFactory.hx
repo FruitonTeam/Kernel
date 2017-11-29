@@ -16,10 +16,13 @@ import fruiton.kernel.effects.Effect;
 import fruiton.kernel.exceptions.Exception;
 import fruiton.dataStructures.FruitonAttributes;
 import fruiton.kernel.effects.LoweredAttackEffect;
-import fruiton.kernel.effects.OnAttackTrigger;
+import fruiton.kernel.effects.triggers.OnAttackTrigger;
+import fruiton.kernel.effects.triggers.OnDeathTrigger;
+
 
 enum TriggerType {
     onAttack;
+    onDeath;
 }
 
 enum EffectType {
@@ -83,9 +86,14 @@ class FruitonFactory {
                 throw new Exception('Unknown effect $effectType');
             }
         }
+        var targetPatternId = entry.targetPattern;
+        var targetPattern = makeTargetPattern(targetPatternId, db);
         switch (triggerType) {
             case TriggerType.onAttack: {
-                return new OnAttackTrigger(innerEffect);
+                return new OnAttackTrigger(innerEffect, targetPattern);
+            }
+            case TriggerType.onDeath: {
+                return new OnDeathTrigger(innerEffect, targetPattern);
             }
             default: {
                 throw new Exception('Unknown trigger $triggerType');

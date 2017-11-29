@@ -1,6 +1,6 @@
 package fruiton.kernel.effects;
 
-import fruiton.kernel.actions.EffectActionContext;
+import fruiton.kernel.effects.contexts.EffectContext;
 import fruiton.kernel.events.ModifyAttackEvent;
 
 class LoweredAttackEffect extends Effect {
@@ -12,7 +12,7 @@ class LoweredAttackEffect extends Effect {
         this.amount = amount;
     }
 
-    override public function tryAddEffect(context: EffectActionContext, state: GameState, result:ActionExecutionResult) : Bool {
+    override public function tryAddEffect(context: EffectContext, state: GameState, result:ActionExecutionResult) : Bool {
         var target = state.field.get(context.target).fruiton;
         var currentAttack = target.currentAttributes.damage;
         if (currentAttack <= 1) {
@@ -24,7 +24,7 @@ class LoweredAttackEffect extends Effect {
         return true;
     }
 
-    override public function tryRemoveEffect(context: EffectActionContext, state: GameState, result:ActionExecutionResult) : Bool {
+    override public function tryRemoveEffect(context: EffectContext, state: GameState, result:ActionExecutionResult) : Bool {
         var target = state.field.get(context.target).fruiton;
         if (target != null) {
             target.currentAttributes.damage += amount;

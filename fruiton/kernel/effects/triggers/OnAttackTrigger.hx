@@ -1,28 +1,17 @@
-package fruiton.kernel.effects;
+package fruiton.kernel.effects.triggers;
 
 import fruiton.kernel.actions.AttackActionContext;
-import fruiton.kernel.actions.EffectActionContext;
+import fruiton.kernel.targetPatterns.TargetPattern;
 
-class OnAttackTrigger extends Effect {
+class OnAttackTrigger extends TargetableTrigger {
 
-    var effect:Effect;
-
-    public function new(effect:Effect){
-        super();
-        this.effect = effect;
+    public function new(effect:Effect, targetPattern:TargetPattern) {
+        super(effect, targetPattern);
     }
 
     override function onAfterAttack(context:AttackActionContext, state:GameState, result:ActionExecutionResult) {
         if (context.damage > 0) {
-            var target = state.field.get(context.target).fruiton;
-            if (target != null) {
-                var effectContext = new EffectActionContext(
-                                        effect,
-                                        context.source,
-                                        context.target
-                );
-                target.addEffect(effect, effectContext, state, result);
-            }
+            TriggerEffectOnTargets(context.target, state, result);
         }
     }
 
