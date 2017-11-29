@@ -21,10 +21,6 @@
         },
         {
             "props": {},
-            "type": "AvoidInlineConditionals"
-        },
-        {
-            "props": {},
             "type": "AvoidStarImport"
         },
         {

@@ -29,7 +29,7 @@
             "hp": 4,
             "damage": 2,
             "abilities": [],
-            "effects": [],
+            "effects": ["garlicAttack"],
             "movements": [1],
             "attacks": [1]
         },
@@ -62,7 +62,7 @@
             "hp": 4,
             "damage": 2,
             "abilities": [],
-            "effects": ["garlic"],
+            "effects": ["garlicAttack"],
             "movements": [1],
             "attacks": [1]
         }
@@ -81,8 +81,9 @@
     ],
     "effectDb": [
         {
-            "id": "garlic",
-            "className": "lowerAttackOnAttack",
+            "id" : "garlicAttack",
+            "trigger" : "onAttack",
+            "effect" : "lowerAttack",
             "params": [1]
         }
     ],
