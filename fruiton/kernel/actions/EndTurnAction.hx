@@ -74,4 +74,8 @@ class EndTurnAction extends GenericAction<EndTurnActionContext> {
     override public function getId():Int {
         return ID;
     }
+
+    override public function toUniqueString():String {
+        return "ETA";
+    }
 }

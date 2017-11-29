@@ -3,10 +3,10 @@ package fruiton.kernel;
 import fruiton.kernel.exceptions.InvalidActionException;
 import fruiton.kernel.actions.Action;
 import haxe.ds.GenericStack;
-import fruiton.dataStructures.collections.ArrayOfEquitables;
 import fruiton.dataStructures.Vector2;
 import fruiton.kernel.events.GameOverEvent;
 import fruiton.kernel.events.TimeExpiredEvent;
+import haxe.ds.StringMap;
 
 typedef ActionStack = GenericStack<Action>;
 
@@ -45,19 +45,25 @@ class Kernel implements IKernel {
     }
 
     function pruneInvalidActions(allActions:IKernel.Actions):IKernel.Actions {
-        var validActions:ArrayOfEquitables<Action> = new IKernel.Actions();
+        var validActions:Array<Action> = new IKernel.Actions();
+        var actionMap:StringMap<Bool> = new StringMap<Bool>();
 
         for (a in allActions) {
             // Do not return duplicate actions
-            // Until we have a hash set, we go quadratic
-            if (validActions.contains(a)) {
+            var unString = a.toUniqueString();
+            if (actionMap.exists(unString)) {
                 continue;
             }
 
             // Check validity
+            // Early escape to avoid expensive GameState.clone()
+            if (!a.isValid(currentState)) {
+                continue;
+            }
             var newState:GameState = currentState.clone();
             if (a.execute(newState).isValid) {
                 validActions.push(a);
+                actionMap.set(unString, true);
             }
         }
 
