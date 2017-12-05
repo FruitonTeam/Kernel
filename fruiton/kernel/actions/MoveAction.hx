@@ -80,4 +80,8 @@ class MoveAction extends TargetableAction<MoveActionContext> {
     override public function getId():Int {
         return ID;
     }
+
+    override public function toUniqueString():String {
+        return Std.string(ID) + Std.string(actionContext.source) + Std.string(actionContext.target);
+    }
 }

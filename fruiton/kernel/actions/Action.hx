@@ -14,6 +14,8 @@ class Action implements IAbstractClass implements IEquitable<Action> {
 
     public function execute(state:GameState):ActionExecutionResult;
 
+    public function isValid(state:GameState):Bool;
+
     public function toString():String {
         return "Action";
     }
@@ -21,4 +23,6 @@ class Action implements IAbstractClass implements IEquitable<Action> {
     public function equalsTo(other:Action):Bool;
 
     public function getId():Int;
+
+    public function toUniqueString():String;
 }
