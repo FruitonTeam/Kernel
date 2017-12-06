@@ -4,7 +4,6 @@ import fruiton.dataStructures.Vector2;
 import fruiton.kernel.targetPatterns.TargetPattern;
 import fruiton.kernel.effects.contexts.EffectContext;
 
-
 class TargetableTrigger extends Trigger {
 
     var targetPattern:TargetPattern;
@@ -14,7 +13,7 @@ class TargetableTrigger extends Trigger {
         this.targetPattern = targetPattern;
     }
 
-    private function TriggerEffectOnTargets(origin:Vector2, state:GameState, result:ActionExecutionResult) {
+    function triggerEffectOnTargets(origin:Vector2, state:GameState, result:ActionExecutionResult) {
         var targets:Targets = targetPattern.getTargets(origin);
         for (target in targets) {
             var targetFruiton = state.field.get(target).fruiton;
@@ -26,5 +25,13 @@ class TargetableTrigger extends Trigger {
                 targetFruiton.addEffect(effect, effectContext, state, result);
             }
         }
+    }
+
+    override public function equalsTo(other:Effect):Bool {
+        if (!Std.is(other, TargetableTrigger)) {
+            return false;
+        }
+        var otherEffect = cast(other, TargetableTrigger);
+        return otherEffect.targetPattern.equalsTo(targetPattern);
     }
 }

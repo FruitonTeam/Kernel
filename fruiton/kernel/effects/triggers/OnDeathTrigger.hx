@@ -13,12 +13,15 @@ class OnDeathTrigger extends TargetableTrigger {
         var attackedFruiton = state.field.get(context.target).fruiton;
         // Am I dead?
         if (!attackedFruiton.isAlive) {
-            TriggerEffectOnTargets(context.target, state, result);
+            triggerEffectOnTargets(context.target, state, result);
         }
     }
 
     override public function equalsTo(other:Effect):Bool {
-        return true;
+        if (!Std.is(other, OnAttackTrigger)) {
+            return false;
+        }
+        return super.equalsTo(other);
     }
 
     override public function getHashCode():Int {

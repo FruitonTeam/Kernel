@@ -19,7 +19,6 @@ import fruiton.kernel.effects.LoweredAttackEffect;
 import fruiton.kernel.effects.triggers.OnAttackTrigger;
 import fruiton.kernel.effects.triggers.OnDeathTrigger;
 
-
 enum TriggerType {
     onAttack;
     onDeath;

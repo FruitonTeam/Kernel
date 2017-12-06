@@ -11,7 +11,7 @@ class OnAttackTrigger extends TargetableTrigger {
 
     override function onAfterAttack(context:AttackActionContext, state:GameState, result:ActionExecutionResult) {
         if (context.damage > 0) {
-            TriggerEffectOnTargets(context.target, state, result);
+            triggerEffectOnTargets(context.target, state, result);
         }
     }
 
