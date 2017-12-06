@@ -2,15 +2,15 @@ package fruiton.kernel;
 
 import fruiton.kernel.actions.MoveActionContext;
 import fruiton.kernel.actions.EndTurnActionContext;
-import fruiton.kernel.actions.EffectActionContext;
+import fruiton.kernel.effects.contexts.EffectContext;
 import fruiton.kernel.actions.AttackActionContext;
 
 interface IGameEventHandler {
 
-    function onBeforeEffectAdded(context: EffectActionContext, state: GameState, result:ActionExecutionResult): Void;
-    function onAfterEffectAdded(context: EffectActionContext, state: GameState, result:ActionExecutionResult): Void;
-    function onBeforeEffectRemoved(context: EffectActionContext, state: GameState, result:ActionExecutionResult): Void;
-    function onAfterEffectRemoved(context: EffectActionContext, state: GameState, result:ActionExecutionResult): Void;
+    function onBeforeEffectAdded(context: EffectContext, state: GameState, result:ActionExecutionResult): Void;
+    function onAfterEffectAdded(context: EffectContext, state: GameState, result:ActionExecutionResult): Void;
+    function onBeforeEffectRemoved(context: EffectContext, state: GameState, result:ActionExecutionResult): Void;
+    function onAfterEffectRemoved(context: EffectContext, state: GameState, result:ActionExecutionResult): Void;
     function onBeforeTurnEnd(context:EndTurnActionContext, state:GameState, result:ActionExecutionResult):Void;
     function onAfterTurnEnd(context:EndTurnActionContext, state:GameState, result:ActionExecutionResult):Void;
     function onBeforeMove(context:MoveActionContext, state:GameState, result:ActionExecutionResult): Void;

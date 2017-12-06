@@ -87,6 +87,9 @@
                 "effect" : {
                     "type" : "string"
                 },
+                "targetPattern": {
+                    "type": "integer"
+                },
                 "params": {
                     "type": "array",
                     "items": {

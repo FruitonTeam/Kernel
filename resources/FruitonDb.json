@@ -29,7 +29,7 @@
             "hp": 4,
             "damage": 2,
             "abilities": [],
-            "effects": ["garlicAttack"],
+            "effects": ["onionDeath"],
             "movements": [1],
             "attacks": [1]
         },
@@ -84,12 +84,36 @@
             "id" : "garlicAttack",
             "trigger" : "onAttack",
             "effect" : "lowerAttack",
+            "targetPattern" : 2,
+            "params": [1]
+        },
+        {
+            "id" : "onionDeath",
+            "trigger" : "onDeath",
+            "effect" : "lowerAttack",
+            "targetPattern" : 3,
             "params": [1]
         }
     ],
     "targetPatternDb": [
         {
             "id": 1,
+            "type": "range",
+            "x": 0,
+            "y": 0,
+            "min": 1,
+            "max": 2
+        },
+        {
+            "id": 2,
+            "type": "range",
+            "x": 0,
+            "y": 0,
+            "min": 0,
+            "max": 0
+        },
+        {
+            "id": 3,
             "type": "range",
             "x": 0,
             "y": 0,

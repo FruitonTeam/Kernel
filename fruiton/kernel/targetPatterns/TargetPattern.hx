@@ -37,4 +37,10 @@ class TargetPattern implements IAbstractClass implements IHashable {
     public function getHashCode():Int {
         throw new Exception("Generic target pattern class does not have hash function");
     }
+
+    public function equalsTo(other:TargetPattern):Bool {
+        return vector.equalsTo(other.vector) &&
+               min == other.min &&
+               max == other.max;
+    }
 }

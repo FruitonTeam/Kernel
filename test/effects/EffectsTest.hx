@@ -6,6 +6,8 @@ import fruiton.kernel.*;
 import fruiton.kernel.actions.*;
 import fruiton.kernel.events.*;
 import fruiton.kernel.effects.*;
+import fruiton.kernel.effects.contexts.*;
+import fruiton.kernel.effects.triggers.*;
 import fruiton.kernel.Fruiton.MoveGenerators;
 import fruiton.kernel.Fruiton.AttackGenerators;
 import fruiton.kernel.targetPatterns.*;
@@ -15,6 +17,7 @@ class EffectsTest {
 
     static var p1:Player = new Player(0);
     static var p2:Player = new Player(1);
+    static var targetPatternItselfOnly:RangeTargetPattern = new RangeTargetPattern(new Vector2(0, 0), 0, 0);
 
     public function new() {}
 
@@ -46,10 +49,11 @@ class EffectsTest {
         var targetPos = new Vector2(0, 1);
         var attributes:FruitonAttributes = new FruitonAttributes(10, 5);
         var innerEffect = new LoweredAttackEffect(2);
+        
         var k:Kernel = new Kernel(p1, p2,
         [
             new Fruiton(1, new Vector2(0, 0), p1, "", getMoveGenerators(), getAttackGenerators(),
-            [new OnAttackTrigger(innerEffect)], 1, attributes),
+            [new OnAttackTrigger(innerEffect, targetPatternItselfOnly)], 1, attributes),
 
             new Fruiton(2, targetPos, p2, "", getMoveGenerators(), getAttackGenerators(), [], 1, attributes)
         ]
@@ -82,7 +86,7 @@ class EffectsTest {
         var k:Kernel = new Kernel(p1, p2,
         [
             new Fruiton(1, new Vector2(0, 0), p1, "", getMoveGenerators(), getAttackGenerators(),
-            [new OnAttackTrigger(innerEffect)], 1, attributes1),
+            [new OnAttackTrigger(innerEffect, targetPatternItselfOnly)], 1, attributes1),
 
             new Fruiton(2, targetPos, p2, "", getMoveGenerators(), getAttackGenerators(), [], 1, attributes2)
         ]

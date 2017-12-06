@@ -1,7 +1,7 @@
 package fruiton.kernel.effects;
 
 import fruiton.kernel.actions.EndTurnActionContext;
-import fruiton.kernel.actions.EffectActionContext;
+import fruiton.kernel.effects.contexts.EffectContext;
 import fruiton.kernel.actions.MoveActionContext;
 import fruiton.kernel.actions.AttackActionContext;
 
@@ -13,19 +13,19 @@ class Effect implements IGameEventHandler  implements IAbstractClass implements 
         name = Type.getClassName(Type.getClass(this));
     }
 
-    public function onBeforeEffectAdded(context: EffectActionContext, state: GameState, result:ActionExecutionResult) {
+    public function onBeforeEffectAdded(context: EffectContext, state: GameState, result:ActionExecutionResult) {
         trace("onBeforeEffectAdded Effect: " + name + ">" + context.effect.name);
     }
 
-    public function onAfterEffectAdded(context: EffectActionContext, state: GameState, result:ActionExecutionResult) {
+    public function onAfterEffectAdded(context: EffectContext, state: GameState, result:ActionExecutionResult) {
         trace("onAfterEffectAdded Effect: " + name + ">" + context.effect.name);
     }
 
-    public function onBeforeEffectRemoved(context: EffectActionContext, state: GameState, result:ActionExecutionResult) {
+    public function onBeforeEffectRemoved(context: EffectContext, state: GameState, result:ActionExecutionResult) {
         trace("onBeforeEffectRemoved Effect: " + name + ">" + context.effect.name);
     }
 
-    public function onAfterEffectRemoved(context: EffectActionContext, state: GameState, result:ActionExecutionResult) {
+    public function onAfterEffectRemoved(context: EffectContext, state: GameState, result:ActionExecutionResult) {
         trace("onAfterEffectRemoved Effect: " + name + ">" + context.effect.name);
     }
 
@@ -65,11 +65,11 @@ class Effect implements IGameEventHandler  implements IAbstractClass implements 
 
     public function equalsTo(other:Effect): Bool;
 
-    public function tryAddEffect(context: EffectActionContext, state: GameState, result:ActionExecutionResult) : Bool {
+    public function tryAddEffect(context: EffectContext, state: GameState, result:ActionExecutionResult) : Bool {
         return true;
     }
 
-    public function tryRemoveEffect(context: EffectActionContext, state: GameState, result:ActionExecutionResult) : Bool {
+    public function tryRemoveEffect(context: EffectContext, state: GameState, result:ActionExecutionResult) : Bool {
         return true;
     }
  }
