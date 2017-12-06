@@ -1,5 +1,6 @@
 package fruiton.kernel.effects.triggers;
 
+import fruiton.kernel.exceptions.Exception;
 import fruiton.kernel.targetPatterns.TargetPattern;
 import fruiton.kernel.actions.AttackActionContext;
 
@@ -25,6 +26,6 @@ class OnDeathTrigger extends TargetableTrigger {
     }
 
     override public function getHashCode():Int {
-        return 0;
+        throw new Exception("OnDeathTrigger has not implemented hash code yet.");
     }
 }
