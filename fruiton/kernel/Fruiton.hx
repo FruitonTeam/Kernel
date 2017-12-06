@@ -12,6 +12,7 @@ import fruiton.dataStructures.collections.ExtendedArray;
 import fruiton.kernel.actions.Action;
 import fruiton.dataStructures.FruitonAttributes;
 import fruiton.kernel.abilities.Ability;
+import Math;
 
 typedef MoveGenerators = Array<MoveGenerator>;
 typedef AttackGenerators = Array<AttackGenerator>;
@@ -67,7 +68,7 @@ class Fruiton implements IHashable implements IGameEventHandler {
         this.owner = owner;
         this.moveGenerators = moves.copy();
         this.attackGenerators = attacks.copy();
-        this.abilities = abilities;
+        this.abilities = abilities.copy();
         this.effects = effects.copy();
         this.model = model;
         this.type = type;
@@ -139,7 +140,12 @@ class Fruiton implements IHashable implements IGameEventHandler {
     }
 
     public function takeHeal(heal:Int) {
-
+        currentAttributes.hp += heal;
+        var originalHp = originalAttributes.hp;
+        if (currentAttributes.hp > originalHp) {
+            currentAttributes.hp = originalHp;
+        }
+        
     }
 
     public function addEffect(effect:Effect, context:EffectContext, state:GameState, result:ActionExecutionResult) {

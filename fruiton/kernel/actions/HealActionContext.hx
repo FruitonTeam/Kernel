@@ -15,7 +15,7 @@ class HealActionContext extends TargetableActionContext {
         return new HealActionContext(heal, source, target);
     }
 
-        public function toString():String {
+    public function toString():String {
         return " HealActionContext damage: " + Std.string(heal) + " source: " + Std.string(source) + " target: " + Std.string(target);
     }
 

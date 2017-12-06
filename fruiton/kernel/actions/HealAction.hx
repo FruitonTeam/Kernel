@@ -34,14 +34,13 @@ class HealAction extends TargetableAction<HealActionContext> {
             sourceFruiton.owner.equals(state.activePlayer) &&
             targetFruiton != null &&
             targetFruiton.owner != null &&
-            !targetFruiton.owner.equals(state.activePlayer) &&
+            targetFruiton.owner.equals(state.activePlayer) &&
             (state.turnState.actionPerformer == null ||
             sourceFruiton.equalsId(state.turnState.actionPerformer)) &&
             sourceFruiton.currentAttributes.heal == actionContext.heal;
 
         return result;
     }
-    
 
     override function executeImpl(state:GameState, result:ActionExecutionResult) {
         var newContext:HealActionContext = actionContext.clone();
@@ -92,5 +91,9 @@ class HealAction extends TargetableAction<HealActionContext> {
 
     override public function toUniqueString():String {
         return Std.string(ID) + Std.string(actionContext.source) + Std.string(actionContext.target) + Std.string(actionContext.heal);
+    }
+
+    override public function toString():String {
+        return super.toString() + " HealAction:" + Std.string(actionContext);
     }
 }

@@ -37,7 +37,7 @@ class FruitonDatabase {
         load(json.attackDb, attackDb);
         loadStringMap(json.effectDb, effectDb);
         load(json.targetPatternDb, targetPatternDb);
-        loadStringMap(json.abilityDb, abilityDb);
+        loadStringMap(json.abilitiesDb, abilityDb);
     }
 
     function load<T>(defs:Array<Dynamic>, map:IntMap<T>) {
