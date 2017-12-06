@@ -4,15 +4,18 @@ import fruiton.kernel.actions.MoveActionContext;
 import fruiton.kernel.actions.EndTurnActionContext;
 import fruiton.kernel.effects.contexts.EffectContext;
 import fruiton.kernel.actions.AttackActionContext;
+import fruiton.kernel.actions.HealActionContext;
 import fruiton.kernel.events.DeathEvent;
 import fruiton.kernel.effects.Effect;
 import fruiton.dataStructures.Vector2;
 import fruiton.dataStructures.collections.ExtendedArray;
 import fruiton.kernel.actions.Action;
 import fruiton.dataStructures.FruitonAttributes;
+import fruiton.kernel.abilities.Ability;
 
 typedef MoveGenerators = Array<MoveGenerator>;
 typedef AttackGenerators = Array<AttackGenerator>;
+typedef Abilities = Array<Ability>;
 typedef Effects = Array<Effect>;
 
 class Fruiton implements IHashable implements IGameEventHandler {
@@ -44,6 +47,7 @@ class Fruiton implements IHashable implements IGameEventHandler {
 
     var moveGenerators:MoveGenerators;
     var attackGenerators:AttackGenerators;
+    var abilities:Abilities;
 
     public function new(
         id:Int,
@@ -52,6 +56,7 @@ class Fruiton implements IHashable implements IGameEventHandler {
         model:String,
         moves:MoveGenerators,
         attacks:AttackGenerators,
+        abilities:Abilities,
         effects:Effects,
         type:Int,
         originalAttributes:FruitonAttributes,
@@ -62,6 +67,7 @@ class Fruiton implements IHashable implements IGameEventHandler {
         this.owner = owner;
         this.moveGenerators = moves.copy();
         this.attackGenerators = attacks.copy();
+        this.abilities = abilities;
         this.effects = effects.copy();
         this.model = model;
         this.type = type;
@@ -92,6 +98,7 @@ class Fruiton implements IHashable implements IGameEventHandler {
             this.model,
             this.moveGenerators,
             this.attackGenerators,
+            this.abilities,
             this.effects,
             this.type,
             this.originalAttributes.clone(),
@@ -120,11 +127,19 @@ class Fruiton implements IHashable implements IGameEventHandler {
             allActions.pushAll(attackGen.getAttacks(position, currentAttributes.damage));
         }
 
+        for (ability in abilities) {
+            allActions.pushAll(ability.getActions(position, this));
+        }
+
         return allActions;
     }
 
     public function takeDamage(dmg:Int) {
         currentAttributes.hp -= dmg;
+    }
+
+    public function takeHeal(heal:Int) {
+
     }
 
     public function addEffect(effect:Effect, context:EffectContext, state:GameState, result:ActionExecutionResult) {
@@ -235,6 +250,34 @@ class Fruiton implements IHashable implements IGameEventHandler {
             if (isKing) {
                 state.losers.push(owner.id);
             }
+        }
+    }
+
+    public function onBeforeHeal(context:HealActionContext, state:GameState, result:ActionExecutionResult) {
+        trace("onBeforeHeal Fruiton: " + id + " " + context);
+        for (effect in this.effects) {
+            effect.onBeforeHeal(context, state, result);
+        }
+    }
+
+    public function onAfterHeal(context:HealActionContext, state:GameState, result:ActionExecutionResult) {
+        trace("onAfterAttack Fruiton: " + id + " " + context);
+        for (effect in effects) {
+            effect.onAfterHeal(context, state, result);
+        }
+    }
+
+    public function onBeforeBeingHealed(context:HealActionContext, state:GameState, result:ActionExecutionResult) {
+        trace("onBeforeBeingHealed Fruiton: " + id + " " + context);
+        for (effect in effects) {
+            effect.onBeforeBeingHealed(context, state, result);
+        }
+    }
+
+    public function onAfterBeingHealed(context:HealActionContext, state:GameState, result:ActionExecutionResult) {
+        trace("onAfterBeingHealed Fruiton: " + id + " " + context);
+        for (effect in effects) {
+            effect.onAfterBeingHealed(context, state, result);
         }
     }
 

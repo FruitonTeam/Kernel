@@ -69,6 +69,9 @@ class ModelBuilder {
             case ModelTypes.attack: {
                 return jsonSchema.definitions.attack.properties;
             }
+            case ModelTypes.ability: {
+                return jsonSchema.definitions.ability.properties;
+            }
             // Do not specify default so compiler complains about unmatched patterns (if any)
         }
     }

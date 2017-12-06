@@ -5,6 +5,7 @@ import fruiton.fruitDb.models.Models.FruitonModel;
 import fruiton.fruitDb.models.Models.EffectModel;
 import fruiton.fruitDb.models.Models.MovementModel;
 import fruiton.fruitDb.models.Models.TargetPatternModel;
+import fruiton.fruitDb.models.Models.AbilityModel;
 import fruiton.kernel.Fruiton;
 import fruiton.dataStructures.Vector2;
 import fruiton.kernel.targetPatterns.LineTargetPattern;
@@ -18,6 +19,8 @@ import fruiton.dataStructures.FruitonAttributes;
 import fruiton.kernel.effects.LoweredAttackEffect;
 import fruiton.kernel.effects.triggers.OnAttackTrigger;
 import fruiton.kernel.effects.triggers.OnDeathTrigger;
+import fruiton.kernel.abilities.Ability;
+import fruiton.kernel.abilities.HealAbility;
 
 enum TriggerType {
     onAttack;
@@ -31,6 +34,10 @@ enum EffectType {
 enum TargetPatternType {
     line;
     range;
+}
+
+enum AbilityType {
+    heal;
 }
 
 class FruitonFactory {
@@ -53,7 +60,12 @@ class FruitonFactory {
             attackGenerators.push(makeAttackGenerator(attackId, db));
         }
 
-        var fruitonAttributes:FruitonAttributes = new FruitonAttributes(entry.hp, entry.damage);
+        var fruitonAttributes:FruitonAttributes = new FruitonAttributes(entry.hp, entry.damage, entry.heal);
+
+        var abilities:Abilities = new Abilities();
+        for (abilityId in entry.abilities) {
+            abilities.push(makeAbility(abilityId, db));
+        }
 
         return new Fruiton(
             id,
@@ -62,6 +74,7 @@ class FruitonFactory {
             entry.model,
             moveGenerators,
             attackGenerators,
+            abilities,
             effects,
             entry.type,
             fruitonAttributes);
@@ -70,6 +83,20 @@ class FruitonFactory {
     static function makeAttackGenerator(id:Int, db:FruitonDatabase):AttackGenerator {
         var entry:AttackModel = db.getAttack(id);
         return new AttackGenerator(makeTargetPattern(entry.targetPatternId, db));
+    }
+
+    static function makeAbility(id:String, db:FruitonDatabase):Ability {
+        var entry:AbilityModel = db.getAbility(id);
+        var abilityType:AbilityType = Type.createEnum(AbilityType, entry.abilityType);
+        var targetPattern = makeTargetPattern(entry.targetPattern, db);
+        switch (abilityType) {
+            case AbilityType.heal: {
+                return new HealAbility(targetPattern);
+            }
+            default: {
+                throw new Exception('Unknown ability $abilityType');
+            }
+        }
     }
 
     static function makeEffect(id:String, db:FruitonDatabase): Effect{
