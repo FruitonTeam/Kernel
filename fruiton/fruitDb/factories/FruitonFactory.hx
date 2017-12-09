@@ -74,10 +74,10 @@ class FruitonFactory {
             entry.model,
             moveGenerators,
             attackGenerators,
-            abilities,
             effects,
             entry.type,
-            fruitonAttributes);
+            fruitonAttributes,
+            abilities);
     }
 
     static function makeAttackGenerator(id:Int, db:FruitonDatabase):AttackGenerator {

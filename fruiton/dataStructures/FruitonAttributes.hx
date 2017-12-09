@@ -6,7 +6,7 @@ class FruitonAttributes {
     public var damage:Int;
     public var heal:Int;
 
-    public function new(hp:Int, damage:Int, heal:Int) {
+    public function new(hp:Int, damage:Int, heal:Int = 0) {
         this.hp = hp;
         this.damage = damage;
         this.heal = heal;

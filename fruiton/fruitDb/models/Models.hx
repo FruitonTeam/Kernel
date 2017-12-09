@@ -15,5 +15,5 @@ typedef TargetPatternModel =
 typedef EffectModel =
     haxe.macro.MacroType<[fruiton.fruitDb.models.ModelBuilder.buildModel(ModelTypes.effect)]>;
 
-typedef AbilityModel = 
+typedef AbilityModel =
     haxe.macro.MacroType<[fruiton.fruitDb.models.ModelBuilder.buildModel(ModelTypes.ability)]>;

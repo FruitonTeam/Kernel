@@ -76,7 +76,7 @@ class FruitonDatabase {
         return attackDb.get(id);
     }
 
-    public function getAbility(id:String){
+    public function getAbility(id:String):AbilityModel {
         return abilityDb.get(id);
     }
 }

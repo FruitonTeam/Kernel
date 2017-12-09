@@ -15,7 +15,7 @@ class Ability implements IAbstractClass {
     function new(targetPattern:TargetPattern) {
         this.pattern = targetPattern;
     }
-    
+
     public function getActions(origin:Vector2, fruiton:Fruiton):Actions;
 
 }

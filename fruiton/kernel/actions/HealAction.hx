@@ -33,6 +33,7 @@ class HealAction extends TargetableAction<HealActionContext> {
             sourceFruiton.owner != null &&
             sourceFruiton.owner.equals(state.activePlayer) &&
             targetFruiton != null &&
+            targetFruiton.currentAttributes.hp < targetFruiton.originalAttributes.hp &&
             targetFruiton.owner != null &&
             targetFruiton.owner.equals(state.activePlayer) &&
             (state.turnState.actionPerformer == null ||

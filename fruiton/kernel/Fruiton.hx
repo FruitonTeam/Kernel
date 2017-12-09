@@ -12,7 +12,6 @@ import fruiton.dataStructures.collections.ExtendedArray;
 import fruiton.kernel.actions.Action;
 import fruiton.dataStructures.FruitonAttributes;
 import fruiton.kernel.abilities.Ability;
-import Math;
 
 typedef MoveGenerators = Array<MoveGenerator>;
 typedef AttackGenerators = Array<AttackGenerator>;
@@ -57,23 +56,23 @@ class Fruiton implements IHashable implements IGameEventHandler {
         model:String,
         moves:MoveGenerators,
         attacks:AttackGenerators,
-        abilities:Abilities,
         effects:Effects,
         type:Int,
         originalAttributes:FruitonAttributes,
-        ?currentAttributes:FruitonAttributes
+        ?currentAttributes:FruitonAttributes,
+        ?abilities:Abilities
     ) {
         this.id = id;
         this.position = position;
         this.owner = owner;
         this.moveGenerators = moves.copy();
         this.attackGenerators = attacks.copy();
-        this.abilities = abilities.copy();
         this.effects = effects.copy();
         this.model = model;
         this.type = type;
         this.originalAttributes = originalAttributes.clone();
         this.currentAttributes = (currentAttributes == null) ? originalAttributes.clone() : currentAttributes.clone();
+        this.abilities = (abilities == null) ? new Abilities() : abilities.copy();
     }
 
     public function applyEffectsOnGameStart(state: GameState) {
@@ -99,11 +98,11 @@ class Fruiton implements IHashable implements IGameEventHandler {
             this.model,
             this.moveGenerators,
             this.attackGenerators,
-            this.abilities,
             this.effects,
             this.type,
             this.originalAttributes.clone(),
-            this.currentAttributes.clone()
+            this.currentAttributes.clone(),
+            this.abilities
         );
     }
 
@@ -145,7 +144,6 @@ class Fruiton implements IHashable implements IGameEventHandler {
         if (currentAttributes.hp > originalHp) {
             currentAttributes.hp = originalHp;
         }
-        
     }
 
     public function addEffect(effect:Effect, context:EffectContext, state:GameState, result:ActionExecutionResult) {
