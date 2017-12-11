@@ -18,8 +18,8 @@ class AttackAction extends TargetableAction<AttackActionContext> {
             state.field.exists(context.source) &&
             context.target != null &&
             state.field.exists(context.target) &&
-            state.turnState.attackCount > 0 &&
-            !state.turnState.didAttack;
+            state.turnState.abilitiesCount > 0 &&
+            !state.turnState.usedAbility;
 
         if (!result) {
             return false;
@@ -65,8 +65,8 @@ class AttackAction extends TargetableAction<AttackActionContext> {
     }
 
     function attackFruiton(fruiton:Fruiton, context:AttackActionContext, state:GameState, result:ActionExecutionResult) {
-        state.turnState.attackCount--;
-        state.turnState.didAttack = true;
+        state.turnState.abilitiesCount--;
+        state.turnState.usedAbility = true;
         fruiton.takeDamage(context.damage);
         result.events.push(new AttackEvent(1, context.source, context.target, context.damage));
     }

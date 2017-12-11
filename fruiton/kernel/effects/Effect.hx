@@ -59,7 +59,7 @@ class Effect implements IGameEventHandler  implements IAbstractClass implements 
     }
 
     public function onAfterBeingAttacked(context:AttackActionContext, state:GameState, result:ActionExecutionResult) {
-        trace("onAfterBeingAttackes Effect: " + name + " " + context);
+        trace("onAfterBeingAttacked Effect: " + name + " " + context);
     }
 
     public function onBeforeHeal(context:HealActionContext, state:GameState, result:ActionExecutionResult) {

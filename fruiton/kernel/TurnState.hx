@@ -4,15 +4,15 @@ class TurnState {
 
     public var actionPerformer(default, default):Fruiton;
     public var moveCount(default, default):Int;
-    public var attackCount(default, default):Int;
-    public var didAttack(default, default):Bool;
+    public var abilitiesCount(default, default):Int;
+    public var usedAbility(default, default):Bool;
     public var endTime(default, default):Float;
 
     public function new() {
         this.actionPerformer = null;
         this.moveCount = 1;
-        this.attackCount = 1;
-        this.didAttack = false;
+        this.abilitiesCount = 1;
+        this.usedAbility = false;
         this.endTime = Sys.time() + Kernel.turnTimeLimit;
     }
 
@@ -20,8 +20,8 @@ class TurnState {
         var newState:TurnState = new TurnState();
         newState.actionPerformer = this.actionPerformer;
         newState.moveCount = this.moveCount;
-        newState.attackCount = this.attackCount;
-        newState.didAttack = this.didAttack;
+        newState.abilitiesCount = this.abilitiesCount;
+        newState.usedAbility = this.usedAbility;
         newState.endTime = this.endTime;
 
         return newState;
@@ -37,13 +37,13 @@ class TurnState {
         if (actionPerformer != null) {
             hash  = hash * p1 +  actionPerformer.getHashCode();
         }
-        if (didAttack) {
+        if (usedAbility) {
             hash  = hash * p1 +  p2;
         } else {
             hash  = hash * p1 +  p3;
         }
         hash = hash * p1 +  moveCount;
-        hash = hash * p1 +  attackCount;
+        hash = hash * p1 +  abilitiesCount;
         return hash;
     }
 }

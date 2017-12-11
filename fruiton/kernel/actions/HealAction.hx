@@ -18,8 +18,8 @@ class HealAction extends TargetableAction<HealActionContext> {
             state.field.exists(context.source) &&
             context.target != null &&
             state.field.exists(context.target) &&
-            state.turnState.attackCount > 0 &&
-            !state.turnState.didAttack;
+            state.turnState.abilitiesCount > 0 &&
+            !state.turnState.usedAbility;
 
         if (!result) {
             return false;
@@ -66,9 +66,9 @@ class HealAction extends TargetableAction<HealActionContext> {
     }
 
     function healFruiton(fruiton:Fruiton, context:HealActionContext, state:GameState, result:ActionExecutionResult) {
-        state.turnState.attackCount--;
-        state.turnState.didAttack = true;
-        fruiton.takeHeal(context.heal);
+        state.turnState.abilitiesCount--;
+        state.turnState.usedAbility = true;
+        fruiton.receiveHeal(context.heal);
         result.events.push(new HealEvent(1, context.source, context.target, context.heal));
     }
 
@@ -80,10 +80,10 @@ class HealAction extends TargetableAction<HealActionContext> {
             return false;
         }
 
-        var otherAttack = cast(other, HealAction);
+        var otherHeal = cast(other, HealAction);
         return
-            (this.actionContext == otherAttack.actionContext) ||
-            (this.actionContext != null && this.actionContext.equalsTo(otherAttack.actionContext));
+            (this.actionContext == otherHeal.actionContext) ||
+            (this.actionContext != null && this.actionContext.equalsTo(otherHeal.actionContext));
     }
 
     override public function getId():Int {

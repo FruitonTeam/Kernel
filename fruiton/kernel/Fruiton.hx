@@ -138,12 +138,8 @@ class Fruiton implements IHashable implements IGameEventHandler {
         currentAttributes.hp -= dmg;
     }
 
-    public function takeHeal(heal:Int) {
-        currentAttributes.hp += heal;
-        var originalHp = originalAttributes.hp;
-        if (currentAttributes.hp > originalHp) {
-            currentAttributes.hp = originalHp;
-        }
+    public function receiveHeal(heal:Int) {
+        currentAttributes.hp = cast Math.min(currentAttributes.hp + heal, originalAttributes.hp);
     }
 
     public function addEffect(effect:Effect, context:EffectContext, state:GameState, result:ActionExecutionResult) {

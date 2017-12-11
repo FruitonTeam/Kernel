@@ -1,5 +1,6 @@
 package fruiton.kernel;
 
+import fruiton.kernel.actions.HealActionContext;
 import fruiton.kernel.actions.MoveActionContext;
 import fruiton.kernel.actions.EndTurnActionContext;
 import fruiton.kernel.effects.contexts.EffectContext;
@@ -19,4 +20,8 @@ interface IGameEventHandler {
     function onAfterAttack(context:AttackActionContext, state:GameState, result:ActionExecutionResult): Void;
     function onBeforeBeingAttacked(context:AttackActionContext, state:GameState, result:ActionExecutionResult): Void;
     function onAfterBeingAttacked(context:AttackActionContext, state:GameState, result:ActionExecutionResult): Void;
+    function onBeforeHeal(context:HealActionContext, state:GameState, result:ActionExecutionResult): Void;
+    function onAfterHeal(context:HealActionContext, state:GameState, result:ActionExecutionResult): Void;
+    function onBeforeBeingHealed(context:HealActionContext, state:GameState, result:ActionExecutionResult): Void;
+    function onAfterBeingHealed(context:HealActionContext, state:GameState, result:ActionExecutionResult): Void;
 }

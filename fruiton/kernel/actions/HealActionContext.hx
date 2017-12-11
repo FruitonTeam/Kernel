@@ -16,7 +16,7 @@ class HealActionContext extends TargetableActionContext {
     }
 
     public function toString():String {
-        return " HealActionContext damage: " + Std.string(heal) + " source: " + Std.string(source) + " target: " + Std.string(target);
+        return " HealActionContext heal: " + Std.string(heal) + " source: " + Std.string(source) + " target: " + Std.string(target);
     }
 
     override public function equalsTo(other:ActionContext):Bool {
