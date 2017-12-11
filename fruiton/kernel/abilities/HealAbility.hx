@@ -1,7 +1,6 @@
 package fruiton.kernel.abilities;
 
 import fruiton.kernel.targetPatterns.TargetPattern;
-import fruiton.kernel.abilities.Ability;
 import fruiton.dataStructures.Vector2;
 import fruiton.kernel.actions.HealAction;
 import fruiton.kernel.actions.HealActionContext;
@@ -13,8 +12,8 @@ class HealAbility extends Ability {
         super(targetPattern);
     }
 
-    override public function getActions(origin:Vector2, fruiton:Fruiton):Actions {
-        var healActions:Actions = new Actions();
+    override public function getActions(origin:Vector2, fruiton:Fruiton):IKernel.Actions {
+        var healActions = new IKernel.Actions();
         var positions:Targets = pattern.getTargets(origin);
 
         for (pos in positions) {
