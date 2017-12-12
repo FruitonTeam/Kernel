@@ -7,4 +7,5 @@ enum ModelTypes {
     attack;
     effect;
     targetPattern;
+    ability;
 }

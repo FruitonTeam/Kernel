@@ -4,6 +4,7 @@ import fruiton.kernel.actions.EndTurnActionContext;
 import fruiton.kernel.effects.contexts.EffectContext;
 import fruiton.kernel.actions.MoveActionContext;
 import fruiton.kernel.actions.AttackActionContext;
+import fruiton.kernel.actions.HealActionContext;
 
 class Effect implements IGameEventHandler  implements IAbstractClass implements IEquitable<Effect> implements IHashable {
 
@@ -54,11 +55,27 @@ class Effect implements IGameEventHandler  implements IAbstractClass implements 
     }
 
     public function onBeforeBeingAttacked(context:AttackActionContext, state:GameState, result:ActionExecutionResult) {
-        trace("onBeforeAttack Effect: " + name + " " + context);
+        trace("onBeforeBeingAttacked Effect: " + name + " " + context);
     }
 
     public function onAfterBeingAttacked(context:AttackActionContext, state:GameState, result:ActionExecutionResult) {
-        trace("onAfterAttack Effect: " + name + " " + context);
+        trace("onAfterBeingAttacked Effect: " + name + " " + context);
+    }
+
+    public function onBeforeHeal(context:HealActionContext, state:GameState, result:ActionExecutionResult) {
+        trace("onBeforeHeal Effect: " + name + " " + context);
+    }
+
+    public function onAfterHeal(context:HealActionContext, state:GameState, result:ActionExecutionResult) {
+        trace("onAfterHeal Effect: " + name + " " + context);
+    }
+
+    public function onBeforeBeingHealed(context:HealActionContext, state:GameState, result:ActionExecutionResult) {
+        trace("onBeforeBeingHealed Effect: " + name + " " + context);
+    }
+
+    public function onAfterBeingHealed(context:HealActionContext, state:GameState, result:ActionExecutionResult) {
+        trace("onAfterBeingHealed Effect: " + name + " " + context);
     }
 
     public function getHashCode(): Int;

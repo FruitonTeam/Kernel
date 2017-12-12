@@ -1,16 +1,16 @@
 package fruiton.kernel.actions;
 
-import fruiton.kernel.events.AttackEvent;
+import fruiton.kernel.events.HealEvent;
 
-class AttackAction extends TargetableAction<AttackActionContext> {
+class HealAction extends TargetableAction<HealActionContext> {
 
-    public static inline var ID:Int = 0;
+    public static inline var ID:Int = 3;
 
-    public function new(context:AttackActionContext) {
+    public function new(context:HealActionContext) {
         super(context);
     }
 
-    override function validate(state:GameState, context:AttackActionContext):Bool {
+    override function validate(state:GameState, context:HealActionContext):Bool {
         var result:Bool =
             super.validate(state, context) &&
             context != null &&
@@ -33,60 +33,57 @@ class AttackAction extends TargetableAction<AttackActionContext> {
             sourceFruiton.owner != null &&
             sourceFruiton.owner.equals(state.activePlayer) &&
             targetFruiton != null &&
+            targetFruiton.currentAttributes.hp < targetFruiton.originalAttributes.hp &&
             targetFruiton.owner != null &&
-            !targetFruiton.owner.equals(state.activePlayer) &&
+            targetFruiton.owner.equals(state.activePlayer) &&
             (state.turnState.actionPerformer == null ||
             sourceFruiton.equalsId(state.turnState.actionPerformer)) &&
-            sourceFruiton.currentAttributes.damage == actionContext.damage;
+            sourceFruiton.currentAttributes.heal == actionContext.heal;
 
         return result;
     }
 
     override function executeImpl(state:GameState, result:ActionExecutionResult) {
-        var newContext:AttackActionContext = actionContext.clone();
+        var newContext:HealActionContext = actionContext.clone();
         var targetFruiton:Fruiton = state.field.get(newContext.target).fruiton;
         var attackingFruiton:Fruiton = state.field.get(newContext.source).fruiton;
 
         if (result.isValid) {
-            attackingFruiton.onBeforeAttack(newContext, state, result);
+            attackingFruiton.onBeforeHeal(newContext, state, result);
         }
         if (result.isValid) {
-            targetFruiton.onBeforeBeingAttacked(newContext, state, result);
+            targetFruiton.onBeforeBeingHealed(newContext, state, result);
         }
         if (result.isValid) {
-            attackFruiton(targetFruiton, newContext, state, result);
+            healFruiton(targetFruiton, newContext, state, result);
         }
         if (result.isValid) {
-            attackingFruiton.onAfterAttack(newContext, state, result);
+            attackingFruiton.onAfterHeal(newContext, state, result);
         }
         if (result.isValid) {
-            targetFruiton.onAfterBeingAttacked(newContext, state, result);
+            targetFruiton.onAfterBeingHealed(newContext, state, result);
         }
     }
 
-    function attackFruiton(fruiton:Fruiton, context:AttackActionContext, state:GameState, result:ActionExecutionResult) {
+    function healFruiton(fruiton:Fruiton, context:HealActionContext, state:GameState, result:ActionExecutionResult) {
         state.turnState.abilitiesCount--;
         state.turnState.usedAbility = true;
-        fruiton.takeDamage(context.damage);
-        result.events.push(new AttackEvent(1, context.source, context.target, context.damage));
-    }
-
-    override public function toString():String {
-        return super.toString() + " AttackAction:" + Std.string(actionContext);
+        fruiton.receiveHeal(context.heal);
+        result.events.push(new HealEvent(1, context.source, context.target, context.heal));
     }
 
     override public function equalsTo(other:Action):Bool {
         if (other == null) {
             return false;
         }
-        if (!Std.is(other, AttackAction)) {
+        if (!Std.is(other, HealAction)) {
             return false;
         }
 
-        var otherAttack = cast(other, AttackAction);
+        var otherHeal = cast(other, HealAction);
         return
-            (this.actionContext == otherAttack.actionContext) ||
-            (this.actionContext != null && this.actionContext.equalsTo(otherAttack.actionContext));
+            (this.actionContext == otherHeal.actionContext) ||
+            (this.actionContext != null && this.actionContext.equalsTo(otherHeal.actionContext));
     }
 
     override public function getId():Int {
@@ -94,6 +91,10 @@ class AttackAction extends TargetableAction<AttackActionContext> {
     }
 
     override public function toUniqueString():String {
-        return Std.string(ID) + Std.string(actionContext.source) + Std.string(actionContext.target) + Std.string(actionContext.damage);
+        return Std.string(ID) + Std.string(actionContext.source) + Std.string(actionContext.target) + Std.string(actionContext.heal);
+    }
+
+    override public function toString():String {
+        return super.toString() + " HealAction:" + Std.string(actionContext);
     }
 }

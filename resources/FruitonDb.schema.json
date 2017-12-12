@@ -21,10 +21,13 @@
                 "damage": {
                     "type": "integer"
                 },
+                "heal":{
+                    "type":"integer"
+                },
                 "abilities": {
                     "type": "array",
                     "items": {
-                        "type": "integer"
+                        "type": "string"
                     }
                 },
                 "effects": {
@@ -47,7 +50,7 @@
                 }
             },
             "additionalProperties": false,
-            "required": ["id", "model", "type", "hp", "damage", "abilities", "effects", "movements"]
+            "required": ["id", "model", "type", "hp", "damage", "heal", "abilities", "effects", "movements", "attacks"]
         },
         "movement": {
             "type": "object",
@@ -124,6 +127,22 @@
             },
             "additionalProperties": false,
             "required": ["id", "type", "x", "y", "min", "max"]
+        },
+        "ability":{
+        	"type": "object",
+             "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "abilityType": {
+                    "type": "string"
+                },
+                "targetPattern": {
+                    "type": "integer"
+                }
+             },
+             "additionalProperties": false,
+             "required": ["id", "abilityType", "targetPattern"]
         }
     },
 
@@ -158,8 +177,14 @@
             "items": {
                 "$ref": "#/definitions/targetPattern"
             }
+        },
+        "abilitiesDb": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/ability"
+            }
         }
     },
     "additionalProperties": false,
-    "required": ["fruitonDb", "movementDb", "attackDb", "targetPatternDb"]
+    "required": ["fruitonDb", "movementDb", "attackDb", "targetPatternDb", "abilitiesDb"]
 }

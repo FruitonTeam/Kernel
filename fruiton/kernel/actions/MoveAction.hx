@@ -17,7 +17,7 @@ class MoveAction extends TargetableAction<MoveActionContext> {
             context.source != null &&
             state.field.exists(context.source) &&
             state.field.get(context.source).fruiton != null &&
-            !state.turnState.didAttack;
+            !state.turnState.usedAbility;
 
         if (!result) return result;
 
