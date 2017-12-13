@@ -19,10 +19,15 @@ class Kernel implements IKernel {
 
     public var currentState(default, null):GameState;
 
+    var currentId(default, null):Int;
+
     public function new(p1:Player, p2:Player, fruitons:GameState.Fruitons) {
         this.currentState = new GameState([p1, p2], 0, fruitons);
+        currentId = 0;
         for(fruiton in fruitons) {
             fruiton.applyEffectsOnGameStart(currentState);
+            fruiton.id = currentId;
+            currentId++;
         }
     }
 
