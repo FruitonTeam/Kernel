@@ -19,6 +19,7 @@ class Kernel implements IKernel {
 
     public var currentState(default, null):GameState;
 
+    // Current ID that is free to use for fruiton.
     var currentId(default, null):Int;
 
     public function new(p1:Player, p2:Player, fruitons:GameState.Fruitons) {
