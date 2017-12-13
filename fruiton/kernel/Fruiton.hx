@@ -22,7 +22,7 @@ class Fruiton implements IHashable implements IGameEventHandler {
 
     public var originalAttributes:FruitonAttributes;
     public var currentAttributes:FruitonAttributes;
-    public var id(default, null):Int;
+    public var id(default, default):Int;
     public var position(default, null):Vector2;
     public var owner(default, null):Player;
     public var model(default, null):String;
