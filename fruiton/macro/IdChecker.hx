@@ -94,7 +94,7 @@ class IdChecker {
         } else if (!wasError && isError) {
             wasError = true;
             for (id in TAKEN_IDS.keys()) {
-                trace("[ID_LIST] " + formatId(id) + " - " + Std.string(TAKEN_IDS.get(id)));
+                trace(" [ID_LIST] " + formatId(id) + " - " + Std.string(TAKEN_IDS.get(id)));
             }
         } else if (wasError && !isError) {
             trace("[ID_LIST] " + formatId(currentId) + " - " + className);

@@ -4,7 +4,7 @@ import fruiton.kernel.events.HealEvent;
 
 class HealAction extends TargetableAction<HealActionContext> {
 
-    public static inline var ID:Int = 3;
+    public static inline var ID:Int = 1;
 
     public function new(context:HealActionContext) {
         super(context);
