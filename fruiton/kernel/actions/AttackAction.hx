@@ -4,7 +4,7 @@ import fruiton.kernel.events.AttackEvent;
 
 class AttackAction extends TargetableAction<AttackActionContext> {
 
-    public static inline var ID:Int = 1;
+    public static inline var ID:Int = 0;
 
     public function new(context:AttackActionContext) {
         super(context);
