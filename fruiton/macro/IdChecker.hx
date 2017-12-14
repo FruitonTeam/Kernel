@@ -8,7 +8,7 @@ class IdChecker {
 
     static inline var ERROR_REPORT_DEFINE:String = "idCheckAsErrors";
 
-    static var TAKEN_IDS:IntMap<String> = new IntMap<String>();
+    static var takenIds:IntMap<String> = new IntMap<String>();
 
     static var wasError:Bool = false;
 
@@ -46,12 +46,12 @@ class IdChecker {
                                 switch (val) {
                                     case (CInt(intVal)): {
                                         var currentId = Std.parseInt(intVal);
-                                        if (TAKEN_IDS.exists(currentId)) {
+                                        if (takenIds.exists(currentId)) {
                                             handleIdWrite(true, null, null);
-                                            var msg = "Class " + clsName + " has ID which is not unique, collision with " + TAKEN_IDS.get(currentId);
+                                            var msg = "Class " + clsName + " has ID which is not unique, collision with " + takenIds.get(currentId);
                                             compilerHandleFunc(msg, pos);
                                         } else {
-                                            TAKEN_IDS.set(currentId, clsName);
+                                            takenIds.set(currentId, clsName);
                                             handleIdWrite(false, currentId, clsName);
                                         }
                                         break;
@@ -98,8 +98,8 @@ class IdChecker {
             return;
         } else if (!wasError && isError) {
             wasError = true;
-            for (id in TAKEN_IDS.keys()) {
-                trace("[ID_LIST] " + formatId(id) + " - " + Std.string(TAKEN_IDS.get(id)));
+            for (id in takenIds.keys()) {
+                trace("[ID_LIST] " + formatId(id) + " - " + Std.string(takenIds.get(id)));
             }
         } else if (wasError && !isError) {
             trace("[ID_LIST] " + formatId(currentId) + " - " + className);
