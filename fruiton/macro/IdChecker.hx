@@ -89,12 +89,17 @@ class IdChecker {
     }
 
     static function handleIdWrite(isError:Bool, currentId:Int, className:String) {
+        if (getDefine("idCheckAsErrors") != null) {
+            // Do not confuse programmer by showing possibly incomplete id table
+            return;
+        }
+
         if (!wasError && !isError) {
             return;
         } else if (!wasError && isError) {
             wasError = true;
             for (id in TAKEN_IDS.keys()) {
-                trace(" [ID_LIST] " + formatId(id) + " - " + Std.string(TAKEN_IDS.get(id)));
+                trace("[ID_LIST] " + formatId(id) + " - " + Std.string(TAKEN_IDS.get(id)));
             }
         } else if (wasError && !isError) {
             trace("[ID_LIST] " + formatId(currentId) + " - " + className);
