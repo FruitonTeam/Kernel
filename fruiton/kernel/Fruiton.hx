@@ -102,7 +102,7 @@ class Fruiton implements IHashable implements IGameEventHandler {
             this.type,
             this.originalAttributes.clone(),
             this.currentAttributes.clone(),
-            this.abilities
+            this.abilities.copy()
         );
     }
 
@@ -157,6 +157,10 @@ class Fruiton implements IHashable implements IGameEventHandler {
 
     public function moveTo(newPosition:Vector2) {
         position = newPosition;
+    }
+
+    public function isImmuneTo(actionId:Int):Bool {
+        return currentAttributes.immunities.indexOf(actionId) != -1;
     }
 
     // ==============

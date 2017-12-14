@@ -17,6 +17,7 @@ import fruiton.kernel.effects.Effect;
 import fruiton.kernel.exceptions.Exception;
 import fruiton.dataStructures.FruitonAttributes;
 import fruiton.kernel.effects.LoweredAttackEffect;
+import fruiton.kernel.effects.ImmunityEffect;
 import fruiton.kernel.effects.triggers.OnAttackTrigger;
 import fruiton.kernel.effects.triggers.OnDeathTrigger;
 import fruiton.kernel.abilities.Ability;
@@ -29,6 +30,7 @@ enum TriggerType {
 
 enum EffectType {
     lowerAttack;
+    immunity;
 }
 
 enum TargetPatternType {
@@ -107,6 +109,9 @@ class FruitonFactory {
         switch (effectType) {
             case EffectType.lowerAttack: {
                 innerEffect = new LoweredAttackEffect(entry.params[0]);
+            }
+            case EffectType.immunity: {
+                innerEffect = new ImmunityEffect(entry.params[0]);
             }
             default: {
                 throw new Exception('Unknown effect $effectType');
