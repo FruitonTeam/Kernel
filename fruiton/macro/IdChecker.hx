@@ -6,13 +6,22 @@ import haxe.ds.IntMap;
 
 class IdChecker {
 
+    static inline var ERROR_REPORT_DEFINE:String = "idCheckAsErrors";
+
     static var TAKEN_IDS:IntMap<String> = new IntMap<String>();
+
+    static var wasError:Bool = false;
 
     static function check():Array<Field> {
         // Following two lines are here to avoid checkstyle complaining about unused include
         // @SuppressWarnings for UnusedImport does not seem to work (where to put it?)
         var eUnused:Expr;
         eUnused = null;
+
+        var compilerHandleFunc = contextWarning;
+        if (getDefine("idCheckAsErrors") != null) {
+            compilerHandleFunc = contextError;
+        }
 
         var fields:Array<Field> = Context.getBuildFields();
         var pos = Context.currentPos();
@@ -25,12 +34,12 @@ class IdChecker {
             if (f.name == "ID") {
                 found = true;
                 if (!checkAccess(f)) {
-                    Context.error(clsErrorMsg, pos);
+                    compilerHandleFunc(clsErrorMsg, pos);
                 }
                 switch (f.kind) {
                     case (FVar(t, e)): {
                         if (e == null) {
-                            Context.error(clsErrorMsg, pos);
+                            compilerHandleFunc(clsErrorMsg, pos);
                         }
                         switch (e.expr) {
                             case (EConst(val)) : {
@@ -38,30 +47,33 @@ class IdChecker {
                                     case (CInt(intVal)): {
                                         var currentId = Std.parseInt(intVal);
                                         if (TAKEN_IDS.exists(currentId)) {
-                                            Context.error("Class " + clsName + " has ID which is not unique, collision with " + TAKEN_IDS.get(currentId), pos);
+                                            handleIdWrite(true, null, null);
+                                            var msg = "Class " + clsName + " has ID which is not unique, collision with " + TAKEN_IDS.get(currentId);
+                                            compilerHandleFunc(msg, pos);
                                         } else {
                                             TAKEN_IDS.set(currentId, clsName);
+                                            handleIdWrite(false, currentId, clsName);
                                         }
                                         break;
                                     }
                                     default:
-                                        Context.error(clsErrorMsg, pos);
+                                        compilerHandleFunc(clsErrorMsg, pos);
                                 }
                                 break;
                             }
                             default:
-                                Context.error(clsErrorMsg, pos);
+                                compilerHandleFunc(clsErrorMsg, pos);
                         }
                         break;
                     }
                     default:
-                        Context.error(clsErrorMsg, pos);
+                        compilerHandleFunc(clsErrorMsg, pos);
                 }
             }
         }
 
         if (!found) {
-            Context.error(clsErrorMsg, pos);
+            compilerHandleFunc(clsErrorMsg, pos);
         }
 
         return fields;
@@ -74,5 +86,41 @@ class IdChecker {
         }
 
         return true;
+    }
+
+    static function handleIdWrite(isError:Bool, currentId:Int, className:String) {
+        if (!wasError && !isError) {
+            return;
+        } else if (!wasError && isError) {
+            wasError = true;
+            for (id in TAKEN_IDS.keys()) {
+                trace("[ID_LIST] " + formatId(id) + " - " + Std.string(TAKEN_IDS.get(id)));
+            }
+        } else if (wasError && !isError) {
+            trace("[ID_LIST] " + formatId(currentId) + " - " + className);
+        }
+    }
+
+    @SuppressWarnings("checkstyle:MagicNumber") // 10 and 100 are no magic
+    static function formatId(id:Int):String {
+        if (id < 10) {
+            return "  " + Std.string(id);
+        } else if (id < 100) {
+            return " " + Std.string(id);
+        } else {
+            return Std.string(id);
+        }
+    }
+
+    macro static function getDefine(key:String):haxe.macro.Expr {
+        return macro $v{haxe.macro.Context.definedValue(key)};
+    }
+
+    static function contextError(msg:String, pos:Position) {
+        Context.error(msg, pos);
+    }
+
+    static function contextWarning(msg:String, pos:Position) {
+        Context.warning(msg, pos);
     }
 }
