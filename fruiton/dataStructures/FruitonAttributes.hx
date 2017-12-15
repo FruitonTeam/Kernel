@@ -13,8 +13,7 @@ class FruitonAttributes {
         this.heal = heal;
         if (immunities != null) {
             this.immunities = immunities;
-        }
-        else {
+        } else {
             this.immunities = [];
         }
     }
