@@ -12,6 +12,7 @@ import fruiton.kernel.Fruiton.MoveGenerators;
 import fruiton.kernel.Fruiton.AttackGenerators;
 import fruiton.kernel.targetPatterns.*;
 import fruiton.dataStructures.*;
+import fruiton.kernel.abilities.HealAbility;
 
 class EffectsTest {
 
@@ -103,16 +104,39 @@ class EffectsTest {
     }
 
     @Test
+    public function immunityEffect_addAndTest_healingDisabled() {
+        Sys.println("=== immunityEffect_addAndTest_healingDisabled");
+        var attributes1:FruitonAttributes = new FruitonAttributes(10, 5);
+        var attributes2:FruitonAttributes = new FruitonAttributes(10, 1, 3);
+        var k:Kernel = new Kernel(p1, p2,
+        [
+            new Fruiton(1, new Vector2(0, 0), p1, "", getMoveGenerators(), getAttackGenerators(),
+            [new OnAttackTrigger(new ImmunityEffect(3), new RangeTargetPattern(Vector2.ZERO, 0, 0))], 1, attributes1),
+
+            new Fruiton(2, new Vector2(0, 1), p2, "", getMoveGenerators(), getAttackGenerators(), [], 1, attributes2)
+        ]
+        );
+        var actions:IKernel.Actions = k.getAllValidActions();
+        var action:AttackAction = Hlinq.firstOfTypeOrNull(actions, AttackAction);
+        var result:IKernel.Events = k.performAction(action);
+
+        var healAction:HealAction = Hlinq.firstOfTypeOrNull(actions,HealAction);
+        Assert.isNull(healAction);
+    }
+
+        @Test
     public function loweredAttack_attackEnemy_dealLowerDamage() {
         Sys.println("=== loweredAttack_attackEnemy_dealLowerDamage");
         var attributes1:FruitonAttributes = new FruitonAttributes(10, 5);
         var attributes2:FruitonAttributes = new FruitonAttributes(10, 1);
+        var abilities:Fruiton.Abilities = new Fruiton.Abilities();
+        abilities.push(new HealAbility(new RangeTargetPattern(Vector2.ZERO, 0, 10)));
         var k:Kernel = new Kernel(p1, p2,
         [
             new Fruiton(1, new Vector2(0, 0), p1, "", getMoveGenerators(), getAttackGenerators(),
             [new LoweredAttackEffect(3)], 1, attributes1),
 
-            new Fruiton(2, new Vector2(0, 1), p2, "", getMoveGenerators(), getAttackGenerators(), [], 1, attributes2)
+            new Fruiton(2, new Vector2(0, 1), p2, "", getMoveGenerators(), getAttackGenerators(), [], 1, attributes2, abilities)
         ]
         );
         var actions:IKernel.Actions = k.getAllValidActions();

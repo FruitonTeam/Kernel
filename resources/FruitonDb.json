@@ -8,7 +8,7 @@
             "damage": 2,
             "heal": 0,
             "abilities": [],
-            "effects": [],
+            "effects": ["appleAttack"],
             "movements": [1],
             "attacks": [1]
         },
@@ -99,6 +99,13 @@
             "effect" : "lowerAttack",
             "targetPattern" : 3,
             "params": [1]
+        },
+        {
+            "id" : "appleAttack",
+            "trigger" : "onAttack",
+            "effect" : "immunity",
+            "targetPattern" : 2,
+            "params": [3]
         }
     ],
     "targetPatternDb": [
