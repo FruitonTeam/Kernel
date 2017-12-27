@@ -4,8 +4,8 @@ import fruiton.kernel.actions.AttackActionContext;
 
 class LifeStealEffect extends Effect {
 
-    public function new() {
-        super();
+    public function new(fruitonId:Int) {
+        super(fruitonId);
     }
 
     override function onAfterAttack(context:AttackActionContext, state:GameState, result:ActionExecutionResult) {
@@ -26,13 +26,12 @@ class LifeStealEffect extends Effect {
 
     override public function getHashCode():Int {
         var p0 = HashHelper.PRIME_0;
-        var p1 = HashHelper.PRIME_1;
 
         var hash = p0 * HashHelper.hashString(Type.getClassName(Type.getClass(this)));
         return hash;
     }
 
     override function clone():Effect {
-        return new LifeStealEffect();
+        return new LifeStealEffect(fruitonId);
     }
 }

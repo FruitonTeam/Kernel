@@ -3,7 +3,6 @@ package fruiton.kernel.effects.triggers;
 import fruiton.kernel.actions.AttackActionContext;
 import fruiton.kernel.actions.HealActionContext;
 import fruiton.kernel.actions.MoveActionContext;
-import fruiton.kernel.actions.TargetableActionContext;
 import fruiton.kernel.targetPatterns.TargetPattern;
 import fruiton.dataStructures.Vector2;
 
@@ -14,8 +13,8 @@ class GrowthTrigger extends TargetableTrigger {
     // The number of moves, attacks, heals that have to be performed before triggering the effect.
     var triggerMovesNumber:Int;
 
-    public function new(effect:Effect, targetPattern:TargetPattern, triggerMovesNumber:Int, moves:Int = 0) {
-        super(effect, targetPattern);
+    public function new(fruitonId:Int, effect:Effect, targetPattern:TargetPattern, triggerMovesNumber:Int, moves:Int = 0) {
+        super(fruitonId, effect, targetPattern);
         this.triggerMovesNumber = triggerMovesNumber;
         this.moves = moves;
     }
@@ -63,6 +62,6 @@ class GrowthTrigger extends TargetableTrigger {
     }
 
     override function clone():Effect {
-        return new GrowthTrigger(effect, targetPattern, triggerMovesNumber, moves);
+        return new GrowthTrigger(fruitonId, effect, targetPattern, triggerMovesNumber, moves);
     }
 }

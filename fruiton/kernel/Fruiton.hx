@@ -13,6 +13,7 @@ import fruiton.kernel.actions.Action;
 import fruiton.dataStructures.FruitonAttributes;
 import fruiton.kernel.abilities.Ability;
 import fruiton.kernel.events.HealEvent;
+import fruiton.kernel.events.AttackEvent;
 
 typedef MoveGenerators = Array<MoveGenerator>;
 typedef AttackGenerators = Array<AttackGenerator>;
@@ -79,6 +80,7 @@ class Fruiton implements IHashable implements IGameEventHandler {
     public function applyEffectsOnGameStart(state: GameState) {
         // trigger add effect events on effects that are present in the game from the beggining
         for (effect in effects) {
+            effect.fruitonId = id;
             effect.tryAddEffect (
                 new EffectContext(
                     effect,
@@ -135,8 +137,9 @@ class Fruiton implements IHashable implements IGameEventHandler {
         return allActions;
     }
 
-    public function takeDamage(dmg:Int) {
+    public function takeDamage(dmg:Int, source:Vector2, target: Vector2, state:GameState, result:ActionExecutionResult) {
         currentAttributes.hp -= dmg;
+        result.events.push(new AttackEvent(1, source, target, dmg));
     }
 
     public function receiveHeal(heal:Int, source:Vector2, target: Vector2, result:ActionExecutionResult) {
@@ -163,6 +166,17 @@ class Fruiton implements IHashable implements IGameEventHandler {
 
     public function isImmuneTo(actionId:Int):Bool {
         return currentAttributes.immunities.indexOf(actionId) != -1;
+    }
+
+    public function checkForDeath(state:GameState, result:ActionExecutionResult) {
+        if (!isAlive) {
+            state.field.get(position).fruiton = null;
+            state.fruitons.remove(this);
+            result.events.push(new DeathEvent(1, position));
+            if (isKing) {
+                state.losers.push(owner.id);
+            }
+        }
     }
 
     // ==============
@@ -250,13 +264,7 @@ class Fruiton implements IHashable implements IGameEventHandler {
         for (effect in effects) {
             effect.onAfterBeingAttacked(context, state, result);
         }
-        if (!isAlive) {
-            state.field.get(position).fruiton = null;
-            result.events.push(new DeathEvent(1, position));
-            if (isKing) {
-                state.losers.push(owner.id);
-            }
-        }
+        checkForDeath(state, result);
     }
 
     public function onBeforeHeal(context:HealActionContext, state:GameState, result:ActionExecutionResult) {

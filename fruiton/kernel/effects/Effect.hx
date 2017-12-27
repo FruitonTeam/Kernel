@@ -9,9 +9,12 @@ import fruiton.kernel.actions.HealActionContext;
 class Effect implements IGameEventHandler  implements IAbstractClass implements IEquitable<Effect> implements IHashable {
 
     public var name(default, null):String;
+    // Reference to the fruiton on which this effect is applied.
+    public var fruitonId:Int;
 
-    function new(){
+    function new(fruitonId:Int){
         name = Type.getClassName(Type.getClass(this));
+        this.fruitonId = fruitonId;
     }
 
     public function onBeforeEffectAdded(context: EffectContext, state: GameState, result:ActionExecutionResult) {

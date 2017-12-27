@@ -8,12 +8,14 @@ class TargetableTrigger extends Trigger {
 
     var targetPattern:TargetPattern;
 
-    function new(effect:Effect, targetPattern:TargetPattern) {
-        super(effect);
+    function new(fruitonId:Int, effect:Effect, targetPattern:TargetPattern) {
+        super(fruitonId, effect);
         this.targetPattern = targetPattern;
     }
 
     function triggerEffectOnTargets(origin:Vector2, state:GameState, result:ActionExecutionResult) {
+        // Refresh inner effect's id.
+        effect.fruitonId = fruitonId;
         var targets:Targets = targetPattern.getTargets(origin);
         for (target in targets) {
             var targetFruiton = state.field.get(target).fruiton;

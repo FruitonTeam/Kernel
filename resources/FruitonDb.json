@@ -20,7 +20,7 @@
             "damage": 2,
             "heal": 0,
             "abilities": [],
-            "effects": ["bananaGrowth"],
+            "effects": ["bananaGrowth", "bananaDecay"],
             "movements": [1],
             "attacks": [1]
         },
@@ -124,6 +124,14 @@
             "effect" : "lifeSteal",
             "targetPattern" : 2,    
             "triggerParams": [],
+            "effectParams":[]
+        },
+        {
+            "id" : "bananaDecay",
+            "trigger" : "growth",
+            "effect" : "decay",
+            "targetPattern" : 2,    
+            "triggerParams": [6],
             "effectParams":[]
         }
     ],

@@ -9,8 +9,8 @@ class ChangedStatsEffect extends Effect {
     var attackChange:Int;
     var healthChange:Int;
 
-    public function new(attackChange:Int, healthChange:Int){
-        super();
+    public function new(fruitonId:Int, attackChange:Int, healthChange:Int){
+        super(fruitonId);
         this.attackChange = attackChange;
         this.healthChange = healthChange;
     }
@@ -62,6 +62,6 @@ class ChangedStatsEffect extends Effect {
     }
 
     override function clone():Effect {
-        return new ChangedStatsEffect(attackChange, healthChange);
+        return new ChangedStatsEffect(fruitonId, attackChange, healthChange);
     }
 }
