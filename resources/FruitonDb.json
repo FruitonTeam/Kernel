@@ -20,7 +20,7 @@
             "damage": 2,
             "heal": 0,
             "abilities": [],
-            "effects": [],
+            "effects": ["bananaGrowth"],
             "movements": [1],
             "attacks": [1]
         },
@@ -91,21 +91,32 @@
             "trigger" : "onAttack",
             "effect" : "lowerAttack",
             "targetPattern" : 2,
-            "params": [1]
+            "triggerParams": [],
+            "effectParams": [1]
         },
         {
             "id" : "onionDeath",
             "trigger" : "onDeath",
             "effect" : "lowerAttack",
             "targetPattern" : 3,
-            "params": [1]
+            "triggerParams": [],
+            "effectParams": [1]
         },
         {
             "id" : "appleAttack",
             "trigger" : "onAttack",
             "effect" : "immunity",
             "targetPattern" : 2,
-            "params": [3]
+            "triggerParams": [],
+            "effectParams": [3]
+        },
+        {
+            "id" : "bananaGrowth",
+            "trigger" : "growth",
+            "effect" : "changeStats",
+            "targetPattern" : 2,    
+            "triggerParams": [3],
+            "effectParams":[3, 3]
         }
     ],
     "targetPatternDb": [

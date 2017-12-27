@@ -93,7 +93,13 @@
                 "targetPattern": {
                     "type": "integer"
                 },
-                "params": {
+                "effectParams": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "triggerParams": {
                     "type": "array",
                     "items": {
                         "type": "integer"
@@ -101,7 +107,7 @@
                 }
             },
             "additionalProperties": false,
-            "required": ["id", "trigger", "effect", "params"]
+            "required": ["id", "trigger", "effect", "effectParams", "triggerParams"]
         },
         "targetPattern": {
             "type": "object",

@@ -78,9 +78,9 @@ class Effect implements IGameEventHandler  implements IAbstractClass implements 
         trace("onAfterBeingHealed Effect: " + name + " " + context);
     }
 
-    public function getHashCode(): Int;
+    public function getHashCode():Int;
 
-    public function equalsTo(other:Effect): Bool;
+    public function equalsTo(other:Effect):Bool;
 
     public function tryAddEffect(context: EffectContext, state: GameState, result:ActionExecutionResult) : Bool {
         return true;
@@ -89,4 +89,6 @@ class Effect implements IGameEventHandler  implements IAbstractClass implements 
     public function tryRemoveEffect(context: EffectContext, state: GameState, result:ActionExecutionResult) : Bool {
         return true;
     }
+
+    public function clone():Effect;
  }

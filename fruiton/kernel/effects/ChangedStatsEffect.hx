@@ -2,32 +2,37 @@ package fruiton.kernel.effects;
 
 import fruiton.kernel.effects.contexts.EffectContext;
 import fruiton.kernel.events.ModifyAttackEvent;
+import fruiton.kernel.events.ModifyHealthEvent;
 
-class LoweredAttackEffect extends Effect {
+class ChangedStatsEffect extends Effect {
 
-    public var amount(default, null):Int;
+    var attackChange:Int;
+    var healthChange:Int;
 
-    public function new(amount: Int){
+    public function new(attackChange:Int, healthChange:Int){
         super();
-        this.amount = amount;
+        this.attackChange = attackChange;
+        this.healthChange = healthChange;
     }
 
     override public function tryAddEffect(context: EffectContext, state: GameState, result:ActionExecutionResult) : Bool {
         var target = state.field.get(context.target).fruiton;
         var currentAttack = target.currentAttributes.damage;
-        if (currentAttack <= 1) {
-            return false;
-        }
-        var newAttack = cast Math.max(1, target.currentAttributes.damage - amount);
+        var currentHealth = target.currentAttributes.hp;
+        var newAttack = cast Math.max(0, currentAttack + attackChange);
+        var newHealth = currentHealth + healthChange;
         target.currentAttributes.damage = newAttack;
+        target.currentAttributes.hp = newHealth;
         result.events.push(new ModifyAttackEvent(1, target.position, newAttack));
+        result.events.push(new ModifyHealthEvent(2, target.position, newHealth));
         return true;
     }
 
     override public function tryRemoveEffect(context: EffectContext, state: GameState, result:ActionExecutionResult) : Bool {
         var target = state.field.get(context.target).fruiton;
         if (target != null) {
-            target.currentAttributes.damage += amount;
+            target.currentAttributes.damage -= attackChange;
+            target.currentAttributes.hp -= healthChange;
         }
         return true;
     }
@@ -36,13 +41,14 @@ class LoweredAttackEffect extends Effect {
         if (other == null) {
             return false;
         }
-        if (!Std.is(other, LoweredAttackEffect)) {
+        if (!Std.is(other, ChangedStatsEffect)) {
             return false;
         }
 
-        var otherEffect = cast(other, LoweredAttackEffect);
+        var otherEffect = cast(other, ChangedStatsEffect);
 
-        return this.amount == otherEffect.amount;
+        return this.attackChange == otherEffect.attackChange &&
+               this.healthChange == otherEffect.healthChange;
     }
 
     override public function getHashCode():Int {
@@ -50,11 +56,12 @@ class LoweredAttackEffect extends Effect {
         var p1 = HashHelper.PRIME_1;
 
         var hash = p0 * HashHelper.hashString(Type.getClassName(Type.getClass(this)));
-        hash = hash * p1 + amount;
+        hash = hash * p1 + attackChange;
+        hash = hash * p1 + healthChange;
         return hash;
     }
 
     override function clone():Effect {
-        return new LoweredAttackEffect(amount);
+        return new ChangedStatsEffect(attackChange, healthChange);
     }
 }

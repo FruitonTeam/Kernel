@@ -28,4 +28,8 @@ class OnDeathTrigger extends TargetableTrigger {
     override public function getHashCode():Int {
         throw new Exception("OnDeathTrigger has not implemented hash code yet.");
     }
+
+    override function clone():Effect {
+        return new OnDeathTrigger(effect, targetPattern);
+    }
 }
