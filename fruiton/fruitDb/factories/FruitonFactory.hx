@@ -17,20 +17,24 @@ import fruiton.kernel.effects.Effect;
 import fruiton.kernel.exceptions.Exception;
 import fruiton.dataStructures.FruitonAttributes;
 import fruiton.kernel.effects.LoweredAttackEffect;
+import fruiton.kernel.effects.ChangedStatsEffect;
 import fruiton.kernel.effects.ImmunityEffect;
 import fruiton.kernel.effects.triggers.OnAttackTrigger;
 import fruiton.kernel.effects.triggers.OnDeathTrigger;
+import fruiton.kernel.effects.triggers.GrowthTrigger;
 import fruiton.kernel.abilities.Ability;
 import fruiton.kernel.abilities.HealAbility;
 
 enum TriggerType {
     onAttack;
     onDeath;
+    growth;
 }
 
 enum EffectType {
     lowerAttack;
     immunity;
+    changeStats;
 }
 
 enum TargetPatternType {
@@ -108,10 +112,13 @@ class FruitonFactory {
         var innerEffect:Effect;
         switch (effectType) {
             case EffectType.lowerAttack: {
-                innerEffect = new LoweredAttackEffect(entry.params[0]);
+                innerEffect = new LoweredAttackEffect(entry.effectParams[0]);
             }
             case EffectType.immunity: {
-                innerEffect = new ImmunityEffect(entry.params[0]);
+                innerEffect = new ImmunityEffect(entry.effectParams[0]);
+            }
+            case EffectType.changeStats: {
+                innerEffect = new ChangedStatsEffect(entry.effectParams[0], entry.effectParams[1]);
             }
             default: {
                 throw new Exception('Unknown effect $effectType');
@@ -125,6 +132,9 @@ class FruitonFactory {
             }
             case TriggerType.onDeath: {
                 return new OnDeathTrigger(innerEffect, targetPattern);
+            }
+            case TriggerType.growth: {
+                return new GrowthTrigger(innerEffect, targetPattern, entry.triggerParams[0]);
             }
             default: {
                 throw new Exception('Unknown trigger $triggerType');

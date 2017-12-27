@@ -36,4 +36,8 @@ class OnAttackTrigger extends TargetableTrigger {
         hash = hash * p1 + effect.getHashCode();
         return hash;
     }
+
+    override function clone():Effect {
+        return new OnAttackTrigger(effect, targetPattern);
+    }
 }

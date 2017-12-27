@@ -44,4 +44,8 @@ class ImmunityEffect extends Effect {
         hash = hash * p1 + immunityId;
         return hash;
     }
+
+    override function clone():Effect {
+        return new ImmunityEffect(immunityId);
+    }
 }

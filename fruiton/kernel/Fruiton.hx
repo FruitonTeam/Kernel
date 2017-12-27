@@ -98,7 +98,7 @@ class Fruiton implements IHashable implements IGameEventHandler {
             this.model,
             this.moveGenerators,
             this.attackGenerators,
-            this.effects,
+            [for (effect in this.effects) effect.clone()],
             this.type,
             this.originalAttributes.clone(),
             this.currentAttributes.clone(),
