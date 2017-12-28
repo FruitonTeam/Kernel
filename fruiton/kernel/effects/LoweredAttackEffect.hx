@@ -7,8 +7,8 @@ class LoweredAttackEffect extends Effect {
 
     public var amount(default, null):Int;
 
-    public function new(amount: Int){
-        super();
+    public function new(fruitonId:Int, amount:Int){
+        super(fruitonId);
         this.amount = amount;
     }
 
@@ -55,6 +55,6 @@ class LoweredAttackEffect extends Effect {
     }
 
     override function clone():Effect {
-        return new LoweredAttackEffect(amount);
+        return new LoweredAttackEffect(fruitonId, amount);
     }
 }

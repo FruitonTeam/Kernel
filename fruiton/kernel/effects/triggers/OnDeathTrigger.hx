@@ -6,8 +6,8 @@ import fruiton.kernel.actions.AttackActionContext;
 
 class OnDeathTrigger extends TargetableTrigger {
 
-    public function new(effect:Effect, targetPattern:TargetPattern) {
-        super(effect, targetPattern);
+    public function new(fruitonId:Int, effect:Effect, targetPattern:TargetPattern) {
+        super(fruitonId, effect, targetPattern);
     }
 
     override function onAfterBeingAttacked(context:AttackActionContext, state:GameState, result:ActionExecutionResult) {
@@ -30,6 +30,6 @@ class OnDeathTrigger extends TargetableTrigger {
     }
 
     override function clone():Effect {
-        return new OnDeathTrigger(effect, targetPattern);
+        return new OnDeathTrigger(fruitonId, effect, targetPattern);
     }
 }

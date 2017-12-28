@@ -19,6 +19,7 @@ import fruiton.dataStructures.FruitonAttributes;
 import fruiton.kernel.effects.LoweredAttackEffect;
 import fruiton.kernel.effects.ChangedStatsEffect;
 import fruiton.kernel.effects.ImmunityEffect;
+import fruiton.kernel.effects.DecayEffect;
 import fruiton.kernel.effects.LifeStealEffect;
 import fruiton.kernel.effects.triggers.OnAttackTrigger;
 import fruiton.kernel.effects.triggers.OnDeathTrigger;
@@ -38,6 +39,7 @@ enum EffectType {
     immunity;
     changeStats;
     lifeSteal;
+    decay;
 }
 
 enum TargetPatternType {
@@ -61,7 +63,7 @@ class FruitonFactory {
 
         var effects:Effects = new Effects();
         for (effectId in entry.effects) {
-            effects.push(makeEffect(effectId, db));
+            effects.push(makeEffect(effectId, db, id));
         }
 
         var attackGenerators:AttackGenerators = new AttackGenerators();
@@ -108,23 +110,26 @@ class FruitonFactory {
         }
     }
 
-    static function makeEffect(id:String, db:FruitonDatabase): Effect{
+    static function makeEffect(id:String, db:FruitonDatabase, fruitonId:Int): Effect{
         var entry:EffectModel = db.getEffect(id);
         var triggerType:TriggerType = Type.createEnum(TriggerType, entry.trigger);
         var effectType:EffectType = Type.createEnum(EffectType, entry.effect);
         var innerEffect:Effect;
         switch (effectType) {
             case EffectType.lowerAttack: {
-                innerEffect = new LoweredAttackEffect(entry.effectParams[0]);
+                innerEffect = new LoweredAttackEffect(fruitonId, entry.effectParams[0]);
             }
             case EffectType.immunity: {
-                innerEffect = new ImmunityEffect(entry.effectParams[0]);
+                innerEffect = new ImmunityEffect(fruitonId, entry.effectParams[0]);
             }
             case EffectType.changeStats: {
-                innerEffect = new ChangedStatsEffect(entry.effectParams[0], entry.effectParams[1]);
+                innerEffect = new ChangedStatsEffect(fruitonId, entry.effectParams[0], entry.effectParams[1]);
             }
             case EffectType.lifeSteal: {
-                innerEffect = new LifeStealEffect();
+                innerEffect = new LifeStealEffect(fruitonId);
+            }
+            case EffectType.decay: {
+                innerEffect = new DecayEffect(fruitonId);
             }
             default: {
                 throw new Exception('Unknown effect $effectType');
@@ -134,13 +139,13 @@ class FruitonFactory {
         var targetPattern = makeTargetPattern(targetPatternId, db);
         switch (triggerType) {
             case TriggerType.onAttack: {
-                return new OnAttackTrigger(innerEffect, targetPattern);
+                return new OnAttackTrigger(fruitonId, innerEffect, targetPattern);
             }
             case TriggerType.onDeath: {
-                return new OnDeathTrigger(innerEffect, targetPattern);
+                return new OnDeathTrigger(fruitonId, innerEffect, targetPattern);
             }
             case TriggerType.growth: {
-                return new GrowthTrigger(innerEffect, targetPattern, entry.triggerParams[0]);
+                return new GrowthTrigger(fruitonId, innerEffect, targetPattern, entry.triggerParams[0]);
             }
             case TriggerType.permanent: {
                 return innerEffect;

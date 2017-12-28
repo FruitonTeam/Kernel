@@ -143,4 +143,14 @@ class GameState implements IHashable {
         hash = hash * p1 +  HashHelper.hashIterable(fruitons);
         return hash;
     }
+
+    // Find fruiton by id.
+    public function findFruiton(id:Int):Fruiton {
+        for (fruiton in fruitons) {
+            if (fruiton.id == id) {
+                return fruiton;
+            }
+        }
+        return null;
+    }
 }

@@ -1,7 +1,5 @@
 package fruiton.kernel.actions;
 
-import fruiton.kernel.events.AttackEvent;
-
 class AttackAction extends TargetableAction<AttackActionContext> {
 
     public static inline var ID:Int = 0;
@@ -67,8 +65,7 @@ class AttackAction extends TargetableAction<AttackActionContext> {
     function attackFruiton(fruiton:Fruiton, context:AttackActionContext, state:GameState, result:ActionExecutionResult) {
         state.turnState.abilitiesCount--;
         state.turnState.usedAbility = true;
-        fruiton.takeDamage(context.damage);
-        result.events.push(new AttackEvent(1, context.source, context.target, context.damage));
+        fruiton.takeDamage(context.damage, context.source, context.target, state, result);
     }
 
     override public function toString():String {
