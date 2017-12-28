@@ -1,7 +1,5 @@
 package fruiton.kernel.actions;
 
-import fruiton.kernel.events.HealEvent;
-
 class HealAction extends TargetableAction<HealActionContext> {
 
     public static inline var ID:Int = 3;
@@ -69,8 +67,7 @@ class HealAction extends TargetableAction<HealActionContext> {
     function healFruiton(fruiton:Fruiton, context:HealActionContext, state:GameState, result:ActionExecutionResult) {
         state.turnState.abilitiesCount--;
         state.turnState.usedAbility = true;
-        fruiton.receiveHeal(context.heal);
-        result.events.push(new HealEvent(1, context.source, context.target, context.heal));
+        fruiton.receiveHeal(context.heal, context.source, context.target, result);
     }
 
     override public function equalsTo(other:Action):Bool {

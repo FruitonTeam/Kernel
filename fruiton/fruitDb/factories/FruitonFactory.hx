@@ -19,6 +19,7 @@ import fruiton.dataStructures.FruitonAttributes;
 import fruiton.kernel.effects.LoweredAttackEffect;
 import fruiton.kernel.effects.ChangedStatsEffect;
 import fruiton.kernel.effects.ImmunityEffect;
+import fruiton.kernel.effects.LifeStealEffect;
 import fruiton.kernel.effects.triggers.OnAttackTrigger;
 import fruiton.kernel.effects.triggers.OnDeathTrigger;
 import fruiton.kernel.effects.triggers.GrowthTrigger;
@@ -29,12 +30,14 @@ enum TriggerType {
     onAttack;
     onDeath;
     growth;
+    permanent;
 }
 
 enum EffectType {
     lowerAttack;
     immunity;
     changeStats;
+    lifeSteal;
 }
 
 enum TargetPatternType {
@@ -120,6 +123,9 @@ class FruitonFactory {
             case EffectType.changeStats: {
                 innerEffect = new ChangedStatsEffect(entry.effectParams[0], entry.effectParams[1]);
             }
+            case EffectType.lifeSteal: {
+                innerEffect = new LifeStealEffect();
+            }
             default: {
                 throw new Exception('Unknown effect $effectType');
             }
@@ -135,6 +141,9 @@ class FruitonFactory {
             }
             case TriggerType.growth: {
                 return new GrowthTrigger(innerEffect, targetPattern, entry.triggerParams[0]);
+            }
+            case TriggerType.permanent: {
+                return innerEffect;
             }
             default: {
                 throw new Exception('Unknown trigger $triggerType');

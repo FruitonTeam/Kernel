@@ -8,7 +8,7 @@
             "damage": 2,
             "heal": 0,
             "abilities": [],
-            "effects": ["appleAttack"],
+            "effects": ["appleAttack", "lifeSteal"],
             "movements": [1],
             "attacks": [1]
         },
@@ -117,6 +117,14 @@
             "targetPattern" : 2,    
             "triggerParams": [3],
             "effectParams":[3, 3]
+        },
+        {
+            "id" : "lifeSteal",
+            "trigger" : "permanent",
+            "effect" : "lifeSteal",
+            "targetPattern" : 2,    
+            "triggerParams": [],
+            "effectParams":[]
         }
     ],
     "targetPatternDb": [
