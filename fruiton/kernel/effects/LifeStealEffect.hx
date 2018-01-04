@@ -4,8 +4,8 @@ import fruiton.kernel.actions.AttackActionContext;
 
 class LifeStealEffect extends Effect {
 
-    public function new(fruitonId:Int) {
-        super(fruitonId);
+    public function new(fruitonId:Int, text:String = "") {
+        super(fruitonId, text);
     }
 
     override function onAfterAttack(context:AttackActionContext, state:GameState, result:ActionExecutionResult) {
@@ -32,6 +32,6 @@ class LifeStealEffect extends Effect {
     }
 
     override function clone():Effect {
-        return new LifeStealEffect(fruitonId);
+        return new LifeStealEffect(fruitonId, text);
     }
 }

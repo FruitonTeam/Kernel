@@ -92,7 +92,8 @@
             "effect" : "lowerAttack",
             "targetPattern" : 2,
             "triggerParams": [],
-            "effectParams": [1]
+            "effectParams": [1],
+            "text" : "After it attacks, lowers the damage of the attacked fruiton by 1, up to 1."
         },
         {
             "id" : "onionDeath",
@@ -100,7 +101,8 @@
             "effect" : "lowerAttack",
             "targetPattern" : 3,
             "triggerParams": [],
-            "effectParams": [1]
+            "effectParams": [1],
+            "text" : "After it dies, lowers the damage of the adjacent fruitons by 1, up to 1."
         },
         {
             "id" : "appleAttack",
@@ -108,7 +110,8 @@
             "effect" : "immunity",
             "targetPattern" : 2,
             "triggerParams": [],
-            "effectParams": [3]
+            "effectParams": [3],
+            "text" : "After it attacks, the attacked fruiton becomes unhealable."
         },
         {
             "id" : "bananaGrowth",
@@ -116,7 +119,8 @@
             "effect" : "changeStats",
             "targetPattern" : 2,    
             "triggerParams": [3],
-            "effectParams":[3, 3]
+            "effectParams":[3, 3],
+            "text" : "Growth 3: Gain +3/+3."
         },
         {
             "id" : "lifeSteal",
@@ -124,7 +128,8 @@
             "effect" : "lifeSteal",
             "targetPattern" : 2,    
             "triggerParams": [],
-            "effectParams":[]
+            "effectParams":[],
+            "text" : "Lifesteal."
         },
         {
             "id" : "bananaDecay",
@@ -132,7 +137,8 @@
             "effect" : "decay",
             "targetPattern" : 2,    
             "triggerParams": [6],
-            "effectParams":[]
+            "effectParams":[],
+            "text" : "Growth 6: Gain Decay."
         }
     ],
     "targetPatternDb": [
@@ -173,7 +179,20 @@
       {
         "id": "healRanged",
         "abilityType": "heal",
-        "targetPattern": 4
+        "targetPattern": 4,
+        "text": "Restore {0} healths to any friendly minion."
+      },
+      {
+        "id": "healMelee",
+        "abilityType": "heal",
+        "targetPattern": 3,
+        "text": "Restore {0} healths to an adjacent friendly minion."
+      },
+      {
+        "id": "healSelf",
+        "abilityType": "heal",
+        "targetPattern": 2,
+        "text": "Restore {0} healths to itself."
       }
     ]
 }

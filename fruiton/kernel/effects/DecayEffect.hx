@@ -6,8 +6,8 @@ import fruiton.kernel.effects.contexts.EffectContext;
 
 class DecayEffect extends Effect {
 
-    public function new(fruitonId:Int) {
-        super(fruitonId);
+    public function new(fruitonId:Int, text:String = "") {
+        super(fruitonId, text);
     }
 
     override function tryAddEffect(context: EffectContext, state: GameState, result:ActionExecutionResult) : Bool {
@@ -54,6 +54,6 @@ class DecayEffect extends Effect {
     }
 
     override function clone():Effect {
-        return new DecayEffect(fruitonId);
+        return new DecayEffect(fruitonId, text);
     }
 }

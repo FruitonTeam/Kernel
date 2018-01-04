@@ -13,8 +13,8 @@ class GrowthTrigger extends TargetableTrigger {
     // The number of moves, attacks, heals that have to be performed before triggering the effect.
     var triggerMovesNumber:Int;
 
-    public function new(fruitonId:Int, effect:Effect, targetPattern:TargetPattern, triggerMovesNumber:Int, moves:Int = 0) {
-        super(fruitonId, effect, targetPattern);
+    public function new(fruitonId:Int, effect:Effect, targetPattern:TargetPattern, triggerMovesNumber:Int, moves:Int = 0, text:String = "") {
+        super(fruitonId, effect, targetPattern, text);
         this.triggerMovesNumber = triggerMovesNumber;
         this.moves = moves;
     }
@@ -62,6 +62,6 @@ class GrowthTrigger extends TargetableTrigger {
     }
 
     override function clone():Effect {
-        return new GrowthTrigger(fruitonId, effect, targetPattern, triggerMovesNumber, moves);
+        return new GrowthTrigger(fruitonId, effect, targetPattern, triggerMovesNumber, moves, text);
     }
 }

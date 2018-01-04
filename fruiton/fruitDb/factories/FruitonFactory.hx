@@ -102,7 +102,7 @@ class FruitonFactory {
         var targetPattern = makeTargetPattern(entry.targetPattern, db);
         switch (abilityType) {
             case AbilityType.heal: {
-                return new HealAbility(targetPattern);
+                return new HealAbility(targetPattern, entry.text);
             }
             default: {
                 throw new Exception('Unknown ability $abilityType');
@@ -137,23 +137,26 @@ class FruitonFactory {
         }
         var targetPatternId = entry.targetPattern;
         var targetPattern = makeTargetPattern(targetPatternId, db);
+        var result:Effect;
         switch (triggerType) {
             case TriggerType.onAttack: {
-                return new OnAttackTrigger(fruitonId, innerEffect, targetPattern);
+                result = new OnAttackTrigger(fruitonId, innerEffect, targetPattern);
             }
             case TriggerType.onDeath: {
-                return new OnDeathTrigger(fruitonId, innerEffect, targetPattern);
+                result = new OnDeathTrigger(fruitonId, innerEffect, targetPattern);
             }
             case TriggerType.growth: {
-                return new GrowthTrigger(fruitonId, innerEffect, targetPattern, entry.triggerParams[0]);
+                result = new GrowthTrigger(fruitonId, innerEffect, targetPattern, entry.triggerParams[0]);
             }
             case TriggerType.permanent: {
-                return innerEffect;
+                result = innerEffect;
             }
             default: {
                 throw new Exception('Unknown trigger $triggerType');
             }
         }
+        result.text = entry.text;
+        return result;
     }
 
     static function makeMoveGenerator(id:Int, db:FruitonDatabase):MoveGenerator {

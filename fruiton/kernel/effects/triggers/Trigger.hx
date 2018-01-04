@@ -6,8 +6,8 @@ class Trigger extends Effect  {
 
     var effect:Effect;
 
-    function new(fruitonId, effect:Effect) {
-        super(fruitonId);
+    function new(fruitonId, effect:Effect, text:String = "") {
+        super(fruitonId, text);
         this.effect = effect;
     }
 }
