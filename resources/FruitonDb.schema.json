@@ -104,10 +104,13 @@
                     "items": {
                         "type": "integer"
                     }
+                },
+                "text" : {
+                    "type" : "string"
                 }
             },
             "additionalProperties": false,
-            "required": ["id", "trigger", "effect", "effectParams", "triggerParams"]
+            "required": ["id", "trigger", "effect", "effectParams", "triggerParams", "text"]
         },
         "targetPattern": {
             "type": "object",
@@ -145,10 +148,13 @@
                 },
                 "targetPattern": {
                     "type": "integer"
+                },
+                "text": {
+                    "type": "string"
                 }
              },
              "additionalProperties": false,
-             "required": ["id", "abilityType", "targetPattern"]
+             "required": ["id", "abilityType", "targetPattern", "text"]
         }
     },
 

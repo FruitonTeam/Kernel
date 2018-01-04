@@ -11,10 +11,12 @@ class Effect implements IGameEventHandler  implements IAbstractClass implements 
     public var name(default, null):String;
     // Reference to the fruiton on which this effect is applied.
     public var fruitonId:Int;
+    public var text:String;
 
-    function new(fruitonId:Int){
+    function new(fruitonId:Int, text:String = ""){
         name = Type.getClassName(Type.getClass(this));
         this.fruitonId = fruitonId;
+        this.text = text;
     }
 
     public function onBeforeEffectAdded(context: EffectContext, state: GameState, result:ActionExecutionResult) {

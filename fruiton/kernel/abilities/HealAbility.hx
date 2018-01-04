@@ -8,8 +8,8 @@ import fruiton.kernel.Fruiton;
 
 class HealAbility extends Ability {
 
-    public function new(targetPattern:TargetPattern) {
-        super(targetPattern);
+    public function new(targetPattern:TargetPattern, text:String) {
+        super(targetPattern, text);
     }
 
     override public function getActions(origin:Vector2, fruiton:Fruiton):IKernel.Actions {

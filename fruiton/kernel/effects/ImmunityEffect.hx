@@ -6,9 +6,9 @@ class ImmunityEffect extends Effect {
 
     var immunityId : Int;
 
-    public function new(fruitonId:Int, immunityId: Int) {
+    public function new(fruitonId:Int, immunityId: Int, text:String = "") {
         this.immunityId = immunityId;
-        super(fruitonId);
+        super(fruitonId, text);
     }
 
     override public function tryAddEffect(context: EffectContext, state: GameState, result:ActionExecutionResult) : Bool {
@@ -46,6 +46,6 @@ class ImmunityEffect extends Effect {
     }
 
     override function clone():Effect {
-        return new ImmunityEffect(fruitonId, immunityId);
+        return new ImmunityEffect(fruitonId, immunityId, text);
     }
 }

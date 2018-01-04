@@ -8,8 +8,8 @@ class TargetableTrigger extends Trigger {
 
     var targetPattern:TargetPattern;
 
-    function new(fruitonId:Int, effect:Effect, targetPattern:TargetPattern) {
-        super(fruitonId, effect);
+    function new(fruitonId:Int, effect:Effect, targetPattern:TargetPattern, text:String = "") {
+        super(fruitonId, effect, text);
         this.targetPattern = targetPattern;
     }
 

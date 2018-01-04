@@ -9,11 +9,12 @@ import fruiton.kernel.IKernel;
 class Ability implements IAbstractClass {
 
     var pattern:TargetPattern;
+    var text:String;
 
-    function new(targetPattern:TargetPattern) {
+    function new(targetPattern:TargetPattern, text:String) {
         this.pattern = targetPattern;
+        this.text = text;
     }
 
     public function getActions(origin:Vector2, fruiton:Fruiton):IKernel.Actions;
-
 }
