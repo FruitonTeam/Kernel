@@ -11,7 +11,7 @@ class Ability implements IAbstractClass {
     var pattern:TargetPattern;
     var text:String;
 
-    function new(targetPattern:TargetPattern, text:String) {
+    function new(targetPattern:TargetPattern, text:String = "") {
         this.pattern = targetPattern;
         this.text = text;
     }
