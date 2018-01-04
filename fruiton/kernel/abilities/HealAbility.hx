@@ -8,7 +8,7 @@ import fruiton.kernel.Fruiton;
 
 class HealAbility extends Ability {
 
-    public function new(targetPattern:TargetPattern, text:String) {
+    public function new(targetPattern:TargetPattern, text:String = "") {
         super(targetPattern, text);
     }
 
