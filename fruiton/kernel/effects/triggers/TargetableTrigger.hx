@@ -17,9 +17,7 @@ class TargetableTrigger extends Trigger {
         var targets:Targets = targetPattern.getTargets(origin);
         for (target in targets) {
             if (!state.field.exists(target)) continue;
-            var fieldItem = state.field.get(target);
-            if (fieldItem == null) continue;
-            var targetFruiton = fieldItem.fruiton;
+            var targetFruiton = state.field.get(target).fruiton;
             if (targetFruiton == null) continue;
             effect.fruitonId = targetFruiton.id;
             if (targetFruiton != null) {
