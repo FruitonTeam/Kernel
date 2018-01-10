@@ -16,7 +16,11 @@ class TargetableTrigger extends Trigger {
     function triggerEffectOnTargets(origin:Vector2, state:GameState, result:ActionExecutionResult) {
         var targets:Targets = targetPattern.getTargets(origin);
         for (target in targets) {
-            var targetFruiton = state.field.get(target).fruiton;
+            if (!state.field.exists(target)) continue;
+            var fieldItem = state.field.get(target);
+            if (fieldItem == null) continue;
+            var targetFruiton = fieldItem.fruiton;
+            if (targetFruiton == null) continue;
             effect.fruitonId = targetFruiton.id;
             if (targetFruiton != null) {
                 var effectContext = new EffectContext(
