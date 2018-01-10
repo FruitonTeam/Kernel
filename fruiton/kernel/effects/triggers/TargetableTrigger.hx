@@ -14,17 +14,16 @@ class TargetableTrigger extends Trigger {
     }
 
     function triggerEffectOnTargets(origin:Vector2, state:GameState, result:ActionExecutionResult) {
-        // Refresh inner effect's id.
-        effect.fruitonId = fruitonId;
         var targets:Targets = targetPattern.getTargets(origin);
         for (target in targets) {
             var targetFruiton = state.field.get(target).fruiton;
+            effect.fruitonId = targetFruiton.id;
             if (targetFruiton != null) {
                 var effectContext = new EffectContext(
                     effect,
                     target
                 );
-                targetFruiton.addEffect(effect, effectContext, state, result);
+                targetFruiton.addEffect(effect.clone(), effectContext, state, result);
             }
         }
     }
