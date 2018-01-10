@@ -2,31 +2,115 @@
     "fruitonDb": [
         {
             "id": 1,
-            "model": "Apple_red",
+            "model": "Axeman",
           	"type": 1,
-            "hp": 12,
-            "damage": 2,
+            "hp": 50,
+            "damage": 1,
             "heal": 0,
             "abilities": [],
-            "effects": ["appleAttack", "lifeSteal"],
+            "effects": [],
             "movements": [1],
             "attacks": [1]
         },
         {
             "id": 2,
-            "model": "Kiwi",
-          	"type": 2,
-            "hp": 5,
-            "damage": 2,
+            "model": "Badminton",
+          	"type": 1,
+            "hp": 40,
+            "damage": 3,
             "heal": 0,
             "abilities": [],
-            "effects": ["bananaGrowth", "bananaDecay"],
+            "effects": [],
             "movements": [1],
             "attacks": [1]
         },
         {
             "id": 3,
-            "model": "Pea",
+            "model": "Baseball",
+          	"type": 1,
+            "hp": 30,
+            "damage": 5,
+            "heal": 0,
+            "abilities": [],
+            "effects": [],
+            "movements": [1],
+            "attacks": [1]
+        },
+        {
+            "id": 4,
+            "model": "BrokenSieve",
+          	"type": 2,
+            "hp": 20,
+            "damage": 10,
+            "heal": 0,
+            "abilities": [],
+            "effects": [],
+            "movements": [1],
+            "attacks": [1]
+        },
+        {
+            "id": 5,
+            "model": "Broom",
+          	"type": 2,
+            "hp": 10,
+            "damage": 5,
+            "heal": 0,
+            "abilities": [],
+            "effects": [],
+            "movements": [7],
+            "attacks": [1]
+        },
+        {
+            "id": 6,
+            "model": "ClownFist",
+          	"type": 2,
+            "hp": 15,
+            "damage": 4,
+            "heal": 0,
+            "abilities": [],
+            "effects": [],
+            "movements": [1],
+            "attacks": [10]
+        },
+        {
+            "id": 7,
+            "model": "ClownPalm",
+          	"type": 2,
+            "hp": 10,
+            "damage": 1,
+            "heal": 0,
+            "abilities": [],
+            "effects": ["onAttackDecay"],
+            "movements": [1],
+            "attacks": [10]
+        },
+        {
+            "id": 8,
+            "model": "ClownPoint",
+          	"type": 2,
+            "hp": 15,
+            "damage": 1,
+            "heal": 3,
+            "abilities": ["healRanged"],
+            "effects": [],
+            "movements": [1],
+            "attacks": [10]
+        },
+        {
+            "id": 9,
+            "model": "CookFish",
+          	"type": 2,
+            "hp": 7,
+            "damage": 1,
+            "heal": 7,
+            "abilities": ["healRanged"],
+            "effects": [],
+            "movements": [1],
+            "attacks": [10]
+        },
+        {
+            "id": 10,
+            "model": "CurlySword",
             "type": 3,
             "hp": 4,
             "damage": 2,
@@ -36,21 +120,9 @@
             "movements": [1],
             "attacks": [1]
         },
-                {
-            "id": 4,
-            "model": "BlueCube",
-            "type": 3,
-            "hp": 4,
-            "damage": 2,
-            "heal": 0,
-            "abilities": [],
-            "effects": [],
-            "movements": [1],
-            "attacks": [1]
-        },
-                {
-            "id": 5,
-            "model": "GreenCube",
+        {
+            "id": 11,
+            "model": "Elvis",
             "type": 3,
             "hp": 4,
             "damage": 2,
@@ -61,8 +133,20 @@
             "attacks": [1]
         },
         {
-            "id": 6,
-            "model": "CyanCube",
+            "id": 12,
+            "model": "FlyCatcher",
+            "type": 3,
+            "hp": 4,
+            "damage": 2,
+            "heal": 0,
+            "abilities": [],
+            "effects": [],
+            "movements": [1],
+            "attacks": [1]
+        },
+        {
+            "id": 13,
+            "model": "MorningStar",
             "type": 3,
             "hp": 4,
             "damage": 2,
@@ -77,12 +161,84 @@
         {
             "id": 1,
             "targetPatternId": 1
+        },
+        {
+            "id": 2,
+            "targetPatternId": 2
+        },
+        {
+            "id": 3,
+            "targetPatternId": 3
+        },
+        {
+            "id": 4,
+            "targetPatternId": 4
+        },
+        {
+            "id": 5,
+            "targetPatternId": 5
+        },
+        {
+            "id": 6,
+            "targetPatternId": 6
+        },
+        {
+            "id": 7,
+            "targetPatternId": 7
+        },
+        {
+            "id": 8,
+            "targetPatternId": 8
+        },
+        {
+            "id": 9,
+            "targetPatternId": 9
+        },
+        {
+            "id": 10,
+            "targetPatternId": 10
         }
     ],
     "attackDb": [
         {
             "id": 1,
             "targetPatternId": 1
+        },
+        {
+            "id": 2,
+            "targetPatternId": 2
+        },
+        {
+            "id": 3,
+            "targetPatternId": 3
+        },
+        {
+            "id": 4,
+            "targetPatternId": 4
+        },
+        {
+            "id": 5,
+            "targetPatternId": 5
+        },
+        {
+            "id": 6,
+            "targetPatternId": 6
+        },
+        {
+            "id": 7,
+            "targetPatternId": 7
+        },
+        {
+            "id": 8,
+            "targetPatternId": 8
+        },
+        {
+            "id": 9,
+            "targetPatternId": 9
+        },
+        {
+            "id": 10,
+            "targetPatternId": 10
         }
     ],
     "effectDb": [
@@ -139,6 +295,15 @@
             "triggerParams": [6],
             "effectParams":[],
             "text" : "Growth 6: Gain Decay."
+        },
+        {
+            "id" : "onAttackDecay",
+            "trigger" : "onAttack",
+            "effect" : "decay",
+            "targetPattern" : 2,    
+            "triggerParams": [6],
+            "effectParams":[],
+            "text" : "After it attacks a fruiton, the attacked fruiton gains decay."
         }
     ],
     "targetPatternDb": [
@@ -148,7 +313,7 @@
             "x": 0,
             "y": 0,
             "min": 1,
-            "max": 2
+            "max": 1
         },
         {
             "id": 2,
@@ -164,14 +329,62 @@
             "x": 0,
             "y": 0,
             "min": 1,
-            "max": 1
+            "max": 3
         },
         {
             "id": 4,
             "type": "range",
             "x": 0,
             "y": 0,
-            "min": 0,
+            "min": 1,
+            "max": 4
+        },
+        {
+            "id": 5,
+            "type": "range",
+            "x": 0,
+            "y": 0,
+            "min": 1,
+            "max": 5
+        },
+        {
+            "id": 6,
+            "type": "range",
+            "x": 0,
+            "y": 0,
+            "min": 1,
+            "max": 6
+        },
+        {
+            "id": 7,
+            "type": "range",
+            "x": 0,
+            "y": 0,
+            "min": 1,
+            "max": 7
+        },
+        {
+            "id": 8,
+            "type": "range",
+            "x": 0,
+            "y": 0,
+            "min": 1,
+            "max": 8
+        },
+        {
+            "id": 9,
+            "type": "range",
+            "x": 0,
+            "y": 0,
+            "min": 1,
+            "max": 9
+        },
+        {
+            "id": 10,
+            "type": "range",
+            "x": 0,
+            "y": 0,
+            "min": 1,
             "max": 10
         }
     ],
@@ -179,13 +392,13 @@
       {
         "id": "healRanged",
         "abilityType": "heal",
-        "targetPattern": 4,
+        "targetPattern": 10,
         "text": "Restore {0} healths to any friendly minion."
       },
       {
         "id": "healMelee",
         "abilityType": "heal",
-        "targetPattern": 3,
+        "targetPattern": 1,
         "text": "Restore {0} healths to an adjacent friendly minion."
       },
       {
