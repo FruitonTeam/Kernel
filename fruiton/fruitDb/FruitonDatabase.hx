@@ -9,6 +9,7 @@ import fruiton.fruitDb.models.Models.AttackModel;
 import fruiton.fruitDb.models.Models.EffectModel;
 import fruiton.fruitDb.models.Models.TargetPatternModel;
 import fruiton.fruitDb.models.Models.AbilityModel;
+import fruiton.fruitDb.models.Models.MapModel;
 
 class FruitonDatabase {
 
@@ -18,6 +19,7 @@ class FruitonDatabase {
     var effectDb: StringMap<EffectModel>;
     var targetPatternDb:IntMap<TargetPatternModel>;
     var abilityDb:StringMap<AbilityModel>;
+    var mapDb:IntMap<MapModel>;
 
     public function new (dbString:String) {
         fruitonDb = new IntMap<FruitonModel>();
@@ -26,6 +28,7 @@ class FruitonDatabase {
         effectDb = new StringMap<EffectModel>();
         targetPatternDb = new IntMap<TargetPatternModel>();
         abilityDb = new StringMap<AbilityModel>();
+        mapDb = new IntMap<MapModel>();
         loadDb(dbString);
     }
 
@@ -38,6 +41,7 @@ class FruitonDatabase {
         loadStringMap(json.effectDb, effectDb);
         load(json.targetPatternDb, targetPatternDb);
         loadStringMap(json.abilitiesDb, abilityDb);
+        load(json.mapDb, mapDb);
     }
 
     function load<T>(defs:Array<Dynamic>, map:IntMap<T>) {
@@ -78,5 +82,9 @@ class FruitonDatabase {
 
     public function getAbility(id:String):AbilityModel {
         return abilityDb.get(id);
+    }
+
+    public function getMap(id:Int):MapModel {
+        return mapDb.get(id);
     }
 }

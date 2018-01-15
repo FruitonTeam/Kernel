@@ -273,7 +273,7 @@
             "id" : "bananaGrowth",
             "trigger" : "growth",
             "effect" : "changeStats",
-            "targetPattern" : 2,    
+            "targetPattern" : 2,
             "triggerParams": [3],
             "effectParams":[3, 3],
             "text" : "Growth 3: Gain +3/+3."
@@ -282,7 +282,7 @@
             "id" : "lifeSteal",
             "trigger" : "permanent",
             "effect" : "lifeSteal",
-            "targetPattern" : 2,    
+            "targetPattern" : 2,
             "triggerParams": [],
             "effectParams":[],
             "text" : "Lifesteal."
@@ -291,7 +291,7 @@
             "id" : "bananaDecay",
             "trigger" : "growth",
             "effect" : "decay",
-            "targetPattern" : 2,    
+            "targetPattern" : 2,
             "triggerParams": [6],
             "effectParams":[],
             "text" : "Growth 6: Gain Decay."
@@ -300,7 +300,7 @@
             "id" : "onAttackDecay",
             "trigger" : "onAttack",
             "effect" : "decay",
-            "targetPattern" : 2,    
+            "targetPattern" : 2,
             "triggerParams": [6],
             "effectParams":[],
             "text" : "After it attacks a fruiton, the attacked fruiton gains decay."
@@ -407,5 +407,15 @@
         "targetPattern": 2,
         "text": "Restore {0} healths to itself."
       }
+    ],
+    "mapDb": [
+        {
+            "id": 1,
+            "name": "Mountains",
+            "obstacles": [
+                {"x": 2, "y": 2},
+                {"x": 6, "y": 7}
+            ]
+        }
     ]
 }
