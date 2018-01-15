@@ -50,7 +50,7 @@ class EffectsTest {
         var targetPos = new Vector2(0, 1);
         var attributes:FruitonAttributes = new FruitonAttributes(10, 5);
         var innerEffect = new LoweredAttackEffect(1, 2);
-        
+
         var k:Kernel = new Kernel(p1, p2,
         [
             new Fruiton(1, new Vector2(0, 0), p1, "", getMoveGenerators(), getAttackGenerators(),
@@ -58,6 +58,7 @@ class EffectsTest {
 
             new Fruiton(2, targetPos, p2, "", getMoveGenerators(), getAttackGenerators(), [], 1, attributes)
         ]
+        , GameSettings.createDefault()
         );
 
         var actions:IKernel.Actions = k.getAllValidActions();
@@ -91,6 +92,7 @@ class EffectsTest {
 
             new Fruiton(2, targetPos, p2, "", getMoveGenerators(), getAttackGenerators(), [], 1, attributes2)
         ]
+        , GameSettings.createDefault()
         );
         var actions:IKernel.Actions = k.getAllValidActions();
 
@@ -115,6 +117,7 @@ class EffectsTest {
 
             new Fruiton(2, new Vector2(0, 1), p2, "", getMoveGenerators(), getAttackGenerators(), [], 1, attributes2)
         ]
+        , GameSettings.createDefault()
         );
         var actions:IKernel.Actions = k.getAllValidActions();
         var action:AttackAction = Hlinq.firstOfTypeOrNull(actions, AttackAction);
@@ -138,6 +141,7 @@ class EffectsTest {
 
             new Fruiton(2, new Vector2(0, 1), p2, "", getMoveGenerators(), getAttackGenerators(), [], 1, attributes2, abilities)
         ]
+        , GameSettings.createDefault()
         );
         var actions:IKernel.Actions = k.getAllValidActions();
         var action:AttackAction = Hlinq.firstOfTypeOrNull(actions, AttackAction);

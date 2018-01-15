@@ -46,7 +46,7 @@ class GameRulesTest {
         var fruiton1:Fruiton = new Fruiton(2, new Vector2(1, 1), p1, "", moveGenerators, attackGenerators, [], Fruiton.MINOR_TYPE, attributes);
         var fruiton2:Fruiton = new Fruiton(3, new Vector2(0, 1), p2, "", moveGenerators, attackGenerators, [], Fruiton.KING_TYPE, attributes);
         Kernel.turnTimeLimit = timeLimit;
-		return new Kernel(p1, p2, [fruiton, fruiton1, fruiton2]);
+		return new Kernel(p1, p2, [fruiton, fruiton1, fruiton2], GameSettings.createDefault());
 	}
 
     @Test
