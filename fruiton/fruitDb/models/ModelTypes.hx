@@ -8,4 +8,6 @@ enum ModelTypes {
     effect;
     targetPattern;
     ability;
+    point;
+    map;
 }

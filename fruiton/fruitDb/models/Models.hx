@@ -17,3 +17,9 @@ typedef EffectModel =
 
 typedef AbilityModel =
     haxe.macro.MacroType<[fruiton.fruitDb.models.ModelBuilder.buildModel(ModelTypes.ability)]>;
+
+typedef PointModel =
+    haxe.macro.MacroType<[fruiton.fruitDb.models.ModelBuilder.buildModel(ModelTypes.point)]>;
+
+typedef MapModel =
+    haxe.macro.MacroType<[fruiton.fruitDb.models.ModelBuilder.buildModel(ModelTypes.map)]>;
