@@ -27,7 +27,7 @@ class MoveAction extends TargetableAction<MoveActionContext> {
             sourceFruiton.owner.equals(state.activePlayer) &&
             context.target != null &&
             state.field.exists(context.target) &&
-            state.field.get(context.target).fruiton == null &&
+            state.field.get(context.target).isEmpty &&
             state.turnState.moveCount > 0;
 
         return result;
