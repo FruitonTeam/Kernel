@@ -50,7 +50,7 @@ class HealTest {
 		var fruiton:Fruiton = new Fruiton(1, new Vector2(0, 0), p1, "", moveGenerators, attackGenerators, [], 1, originalAttributes, currentAttributes, abilities);
 		var fruiton2:Fruiton = new Fruiton(2, new Vector2(0, 1), p1, "", moveGenerators, attackGenerators, [], 1, originalAttributes, currentAttributes);
         var fruiton3:Fruiton = new Fruiton(2, new Vector2(0, 2), p2, "", moveGenerators, attackGenerators, [], 1, originalAttributes, currentAttributes);
-		return new Kernel(p1, p2, [fruiton, fruiton2]);
+		return new Kernel(p1, p2, [fruiton, fruiton2], GameSettings.createDefault());
 	}
 
 	@Test
@@ -59,7 +59,7 @@ class HealTest {
 
 		var k:Kernel = makeKernel(6);
 		var actions:IKernel.Actions = k.getAllValidActions();
-         
+
 		var action:HealAction = Hlinq.firstOfTypeOrNull(actions, HealAction);
 		var result:IKernel.Events = k.performAction(action);
 		var event:HealEvent = Hlinq.firstOfTypeOrNull(result, HealEvent);
@@ -76,7 +76,7 @@ class HealTest {
 
 		var k:Kernel = makeKernel(1);
 		var actions:IKernel.Actions = k.getAllValidActions();
-         
+
 		var action:HealAction = Hlinq.firstOfTypeOrNull(actions, HealAction);
 		var result:IKernel.Events = k.performAction(action);
 		var event:HealEvent = Hlinq.firstOfTypeOrNull(result, HealEvent);
@@ -86,5 +86,5 @@ class HealTest {
         Assert.isTrue(healedFruiton.currentAttributes.hp == 10);
         Assert.isTrue(healedFruiton.owner == healingFruiton.owner);
 	}
-	
+
 }

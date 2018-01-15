@@ -10,6 +10,7 @@ import fruiton.kernel.events.*;
 import fruiton.kernel.targetPatterns.*;
 import fruiton.kernel.exceptions.InvalidActionException;
 import fruiton.dataStructures.*;
+import fruiton.kernel.Tile.TileType;
 
 class BasicMoveTest {
 
@@ -34,7 +35,7 @@ class BasicMoveTest {
     @After
     public function tearDown() {}
 
-    function makeKernel():Kernel {
+    function makeKernel(?withObstacles:Bool = false):Kernel {
         var p1:Player = new Player(1);
         var p2:Player = new Player(2);
         var moveGenerators:MoveGenerators = new MoveGenerators();
@@ -42,7 +43,14 @@ class BasicMoveTest {
         moveGenerators.push(new MoveGenerator(new LineTargetPattern(new Vector2(1, 0), -1, 1)));
         var attributes:FruitonAttributes = new FruitonAttributes(10, 0);
         var fruiton:Fruiton = new Fruiton(1, new Vector2(0, 1), p1, "Apple_red", moveGenerators, [], [], 1, attributes);
-        return new Kernel(p1, p2, [fruiton]);
+
+        var settings:GameSettings = GameSettings.createDefault();
+        if (withObstacles) {
+            settings.map[0][2] = TileType.impassable;
+            settings.map[0][0] = TileType.impassable;
+        }
+
+        return new Kernel(p1, p2, [fruiton], settings);
     }
 
     function makeKernelWithOverlappingMovement():Kernel {
@@ -54,7 +62,7 @@ class BasicMoveTest {
         moveGenerators.push(new MoveGenerator(new RangeTargetPattern(Vector2.ZERO, 0, 2)));
         var attributes:FruitonAttributes = new FruitonAttributes(10, 0);
         var fruiton:Fruiton = new Fruiton(1, new Vector2(0, 1), p1, "Apple_red", moveGenerators, [], [], 1, attributes);
-        return new Kernel(p1, p2, [fruiton]);
+        return new Kernel(p1, p2, [fruiton], GameSettings.createDefault());
     }
 
     @Test
@@ -136,6 +144,32 @@ class BasicMoveTest {
         var allActionsFrom:IKernel.Actions = k.getAllValidActionsFrom(k.currentState.fruitons[0].position);
 
         Assert.isTrue(allActions.length == allActionsFrom.length);
+    }
+
+    @Test
+    public function getAllActions_mapWithObstacles_doesNotReturnBlocked() {
+        Sys.println("=== running getAllActions_mapWithObstacles_doesNotReturnBlocked");
+
+        var k:Kernel = makeKernel(true);
+        var allActions:IKernel.Actions = k.getAllValidActions();
+        var action:MoveAction = Hlinq.singleOfTypeOrNull(allActions, MoveAction);
+
+        Assert.isTrue(action.actionContext.target.x == 1 && action.actionContext.target.y == 1);
+    }
+
+    @Test
+    public function performAction_toBlockedPosition_throwsInvalidActionException() {
+        Sys.println("=== running performAction_toBlockedPosition_throwsInvalidActionException");
+        try {
+            var kernel:Kernel = makeKernel(true);
+            var a:Action = new MoveAction(new MoveActionContext(kernel.currentState.fruitons[0].position, new Vector2(0, 0)));
+            kernel.performAction(a);
+        } catch (e : InvalidActionException) {
+            // Expected behavior
+            return;
+        }
+
+        Assert.isTrue(false);
     }
 
     function printField(field:Field) {

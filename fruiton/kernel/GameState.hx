@@ -35,22 +35,26 @@ class GameState implements IHashable {
 
     var actionCache:Array<Array<IKernel.Actions>>;
 
-    public function new(players:Players, activePlayerIdx:Int, fruitons:Fruitons) {
-        this.fruitons = fruitons;
-        this.field = new Field([for (x in 0...WIDTH) [for (y in 0...HEIGHT) new Tile(new Vector2(x, y))]]);
-        for (f in this.fruitons) {
-            field.get(f.position).fruiton = f;
+    /**
+     * @param isClone True if constructor is called from clone method to avoid double initialization
+     */
+    public function new(players:Players, activePlayerIdx:Int, fruitons:Fruitons, settings:GameSettings, ?isClone:Bool = false) {
+        if (!isClone) {
+            this.fruitons = fruitons;
+            this.field = new Field([for (x in 0...WIDTH) [for (y in 0...HEIGHT) new Tile(new Vector2(x, y), settings.map[x][y])]]);
+            for (f in this.fruitons) {
+                field.get(f.position).fruiton = f;
+            }
+            this.players = players;
+            this.activePlayerIdx = activePlayerIdx;
+            this.losers = [];
+            this.turnState = new TurnState();
         }
-        this.players = players;
-        this.activePlayerIdx = activePlayerIdx;
-        this.losers = [];
-        this.turnState = new TurnState();
         this.actionCache = [for (x in 0...WIDTH) [for (y in 0...HEIGHT) null]];
     }
 
     public function clone():GameState {
-        // TODO use different constructor in clone to avoid double initialization
-        var newState:GameState = new GameState([], 0, []);
+        var newState:GameState = new GameState([], 0, [], null, true);
         // Clone all fields
         newState.field = field.clone();
         newState.fruitons = [for (f in this.fruitons) f.clone()];

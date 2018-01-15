@@ -44,7 +44,7 @@ class AttackTest {
 		var attributes:FruitonAttributes = new FruitonAttributes(hp, dmg);
 		var fruiton:Fruiton = new Fruiton(1, new Vector2(0, 0), p1, "", moveGenerators, attackGenerators, [], 1, attributes);
 		var fruiton2:Fruiton = new Fruiton(2, new Vector2(0, 1), p2, "", moveGenerators, attackGenerators, [], 1, attributes);
-		return new Kernel(p1, p2, [fruiton, fruiton2]);
+		return new Kernel(p1, p2, [fruiton, fruiton2], GameSettings.createDefault());
 	}
 
 	@Test
