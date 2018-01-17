@@ -13,8 +13,12 @@ class GameSettings {
         this.map = [for (c in map) c.copy()];
     }
 
+    public static function createDefaultTileMap():TileMap {
+        return [for (x in 0...GameState.WIDTH) [for (y in 0...GameState.HEIGHT) Tile.TileType.passable]];
+    }
+
     public static function createDefault():GameSettings {
-        var mapDefault:TileMap = [for (x in 0...GameState.WIDTH) [for (y in 0...GameState.HEIGHT) Tile.TileType.passable]];
+        var mapDefault:TileMap = createDefaultTileMap();
         return new GameSettings(mapDefault);
     }
 

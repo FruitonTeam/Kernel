@@ -87,4 +87,8 @@ class FruitonDatabase {
     public function getMap(id:Int):MapModel {
         return mapDb.get(id);
     }
+
+    public function getMapsIds():Array<Int> {
+        return [for (k in mapDb.keys()) k];
+    }
 }
