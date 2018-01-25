@@ -1,16 +1,20 @@
 package fruiton.kernel;
 
 import fruiton.kernel.exceptions.InvalidArgumentException;
+import fruiton.kernel.gameModes.GameMode;
+import fruiton.kernel.gameModes.StandardGameMode;
 
 typedef TileMap = Array<Array<Tile.TileType>>;
 
 class GameSettings {
 
-    public var map(default, null):TileMap;
+    public var map(default, default):TileMap;
+    public var gameMode(default, default):GameMode;
 
-    public function new(map:TileMap) {
+    public function new(map:TileMap, gameMode:GameMode) {
         checkDimensions(map);
         this.map = [for (c in map) c.copy()];
+        this.gameMode = gameMode;
     }
 
     public static function createDefaultTileMap():TileMap {
@@ -19,7 +23,7 @@ class GameSettings {
 
     public static function createDefault():GameSettings {
         var mapDefault:TileMap = createDefaultTileMap();
-        return new GameSettings(mapDefault);
+        return new GameSettings(mapDefault, new StandardGameMode());
     }
 
     @SuppressWarnings("checkstyle:MultipleStringLiterals") // ", " is used multiple times
