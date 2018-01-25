@@ -7,6 +7,7 @@ import fruiton.dataStructures.Vector2;
 import fruiton.kernel.events.GameOverEvent;
 import fruiton.kernel.events.TimeExpiredEvent;
 import haxe.ds.StringMap;
+import fruiton.kernel.gameModes.GameMode;
 
 typedef ActionStack = GenericStack<Action>;
 
@@ -18,11 +19,13 @@ class Kernel implements IKernel {
     public static var turnTimeLimit(default, default):Float = 90; // TODO change to non static variable loaded from db
 
     public var currentState(default, null):GameState;
+    var gameMode:GameMode;
 
     // Current ID that is free to use for fruiton.
     var currentId(default, null):Int;
 
     public function new(p1:Player, p2:Player, fruitons:GameState.Fruitons, settings:GameSettings) {
+        gameMode = settings.gameMode;
         this.currentState = new GameState([p1, p2], 0, fruitons, settings);
         currentId = 0;
         for(fruiton in fruitons) {
@@ -111,7 +114,7 @@ class Kernel implements IKernel {
             }
 
             // Is game over?
-            if (currentState.losers.length > 0) {
+            if (gameMode.checkGameOver(currentState)) {
                 eventBuffer = eventBuffer.concat(finishGame());
                 break;
             }

@@ -17,7 +17,7 @@ class GameState implements IHashable {
     public var field(default, null):Field;
     public var fruitons(default, null):Fruitons;
 
-    var players:Players;
+    public var players(default, null):Players;
     var activePlayerIdx:Int;
 
     /**
