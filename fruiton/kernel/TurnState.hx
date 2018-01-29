@@ -2,6 +2,8 @@ package fruiton.kernel;
 
 class TurnState {
 
+    public static var turnTimeDelta(default, default):Float = 2;
+
     public var actionPerformer(default, default):Fruiton;
     public var moveCount(default, default):Int;
     public var abilitiesCount(default, default):Int;
@@ -14,6 +16,10 @@ class TurnState {
         this.abilitiesCount = 1;
         this.usedAbility = false;
         this.endTime = Sys.time() + Kernel.turnTimeLimit;
+    }
+
+    public function isTimeout():Bool {
+        return Sys.time() > (endTime + turnTimeDelta);
     }
 
     public function clone():TurnState {
