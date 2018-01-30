@@ -80,6 +80,7 @@ class FruitonFactory {
 
         return new Fruiton(
             id,
+            entry.name,
             Vector2.ZERO,
             null,
             entry.model,

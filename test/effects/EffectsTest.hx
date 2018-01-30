@@ -53,10 +53,10 @@ class EffectsTest {
 
         var k:Kernel = new Kernel(p1, p2,
         [
-            new Fruiton(1, new Vector2(0, 0), p1, "", getMoveGenerators(), getAttackGenerators(),
+            new Fruiton(1, "", new Vector2(0, 0), p1, "", getMoveGenerators(), getAttackGenerators(),
             [new OnAttackTrigger(1, innerEffect, targetPatternItselfOnly)], 1, attributes),
 
-            new Fruiton(2, targetPos, p2, "", getMoveGenerators(), getAttackGenerators(), [], 1, attributes)
+            new Fruiton(2, "", targetPos, p2, "", getMoveGenerators(), getAttackGenerators(), [], 1, attributes)
         ]
         , GameSettings.createDefault()
         );
@@ -87,10 +87,10 @@ class EffectsTest {
         var innerEffect = new LoweredAttackEffect(1, 2);
         var k:Kernel = new Kernel(p1, p2,
         [
-            new Fruiton(1, new Vector2(0, 0), p1, "", getMoveGenerators(), getAttackGenerators(),
+            new Fruiton(1, "", new Vector2(0, 0), p1, "", getMoveGenerators(), getAttackGenerators(),
             [new OnAttackTrigger(1, innerEffect, targetPatternItselfOnly)], 1, attributes1),
 
-            new Fruiton(2, targetPos, p2, "", getMoveGenerators(), getAttackGenerators(), [], 1, attributes2)
+            new Fruiton(2, "", targetPos, p2, "", getMoveGenerators(), getAttackGenerators(), [], 1, attributes2)
         ]
         , GameSettings.createDefault()
         );
@@ -112,10 +112,10 @@ class EffectsTest {
         var attributes2:FruitonAttributes = new FruitonAttributes(10, 1, 3);
         var k:Kernel = new Kernel(p1, p2,
         [
-            new Fruiton(1, new Vector2(0, 0), p1, "", getMoveGenerators(), getAttackGenerators(),
+            new Fruiton(1, "", new Vector2(0, 0), p1, "", getMoveGenerators(), getAttackGenerators(),
             [new OnAttackTrigger(1, new ImmunityEffect(1, 3), new RangeTargetPattern(Vector2.ZERO, 0, 0))], 1, attributes1),
 
-            new Fruiton(2, new Vector2(0, 1), p2, "", getMoveGenerators(), getAttackGenerators(), [], 1, attributes2)
+            new Fruiton(2, "", new Vector2(0, 1), p2, "", getMoveGenerators(), getAttackGenerators(), [], 1, attributes2)
         ]
         , GameSettings.createDefault()
         );
@@ -136,10 +136,10 @@ class EffectsTest {
         abilities.push(new HealAbility(new RangeTargetPattern(Vector2.ZERO, 0, 10)));
         var k:Kernel = new Kernel(p1, p2,
         [
-            new Fruiton(1, new Vector2(0, 0), p1, "", getMoveGenerators(), getAttackGenerators(),
+            new Fruiton(1, "", new Vector2(0, 0), p1, "", getMoveGenerators(), getAttackGenerators(),
             [new LoweredAttackEffect(1, 3)], 1, attributes1),
 
-            new Fruiton(2, new Vector2(0, 1), p2, "", getMoveGenerators(), getAttackGenerators(), [], 1, attributes2, abilities)
+            new Fruiton(2, "", new Vector2(0, 1), p2, "", getMoveGenerators(), getAttackGenerators(), [], 1, attributes2, abilities)
         ]
         , GameSettings.createDefault()
         );
