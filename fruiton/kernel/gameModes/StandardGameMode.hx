@@ -19,4 +19,8 @@ class StandardGameMode extends GameMode {
 
         return losers.length > 0;
     }
+
+    override public function clone():GameMode {
+        return new StandardGameMode();
+    }
 }

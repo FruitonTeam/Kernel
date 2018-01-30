@@ -21,18 +21,24 @@ class Kernel implements IKernel {
     public var currentState(default, null):GameState;
     var gameMode:GameMode;
 
-    // Current ID that is free to use for fruiton.
-    var currentId(default, null):Int;
-
-    public function new(p1:Player, p2:Player, fruitons:GameState.Fruitons, settings:GameSettings) {
-        gameMode = settings.gameMode;
-        this.currentState = new GameState([p1, p2], 0, fruitons, settings);
-        currentId = 0;
-        for(fruiton in fruitons) {
-            fruiton.id = currentId;
-            fruiton.applyEffectsOnGameStart(currentState);
-            currentId++;
+    public function new(p1:Player, p2:Player, fruitons:GameState.Fruitons, settings:GameSettings, ?isClone:Bool) {
+        if (!isClone) {
+            gameMode = settings.gameMode;
+            this.currentState = new GameState([p1, p2], 0, fruitons, settings);
+            var currentId:Int = 0;
+            for(fruiton in fruitons) {
+                fruiton.id = currentId;
+                fruiton.applyEffectsOnGameStart(currentState);
+                currentId++;
+            }
         }
+    }
+
+    public function clone():Kernel {
+        var newKernel:Kernel = new Kernel(null, null, null, null, true);
+        newKernel.currentState = this.currentState.clone();
+        newKernel.gameMode = this.gameMode.clone();
+        return newKernel;
     }
 
     /**
