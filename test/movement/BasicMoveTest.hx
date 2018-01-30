@@ -42,7 +42,7 @@ class BasicMoveTest {
         moveGenerators.push(new MoveGenerator(new LineTargetPattern(new Vector2(0, 1), -1, 1)));
         moveGenerators.push(new MoveGenerator(new LineTargetPattern(new Vector2(1, 0), -1, 1)));
         var attributes:FruitonAttributes = new FruitonAttributes(10, 0);
-        var fruiton:Fruiton = new Fruiton(1, new Vector2(0, 1), p1, "Apple_red", moveGenerators, [], [], 1, attributes);
+        var fruiton:Fruiton = new Fruiton(1, "", new Vector2(0, 1), p1, "Apple_red", moveGenerators, [], [], 1, attributes);
 
         var settings:GameSettings = GameSettings.createDefault();
         if (withObstacles) {
@@ -61,7 +61,7 @@ class BasicMoveTest {
         moveGenerators.push(new MoveGenerator(new LineTargetPattern(new Vector2(1, 0), -1, 1)));
         moveGenerators.push(new MoveGenerator(new RangeTargetPattern(Vector2.ZERO, 0, 2)));
         var attributes:FruitonAttributes = new FruitonAttributes(10, 0);
-        var fruiton:Fruiton = new Fruiton(1, new Vector2(0, 1), p1, "Apple_red", moveGenerators, [], [], 1, attributes);
+        var fruiton:Fruiton = new Fruiton(1, "", new Vector2(0, 1), p1, "Apple_red", moveGenerators, [], [], 1, attributes);
         return new Kernel(p1, p2, [fruiton], GameSettings.createDefault());
     }
 

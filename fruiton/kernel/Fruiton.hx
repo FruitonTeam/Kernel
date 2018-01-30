@@ -25,6 +25,7 @@ class Fruiton implements IHashable implements IGameEventHandler {
     public var originalAttributes:FruitonAttributes;
     public var currentAttributes:FruitonAttributes;
     public var id(default, default):Int;
+    public var name(default, null):String;
     public var position(default, null):Vector2;
     public var owner(default, null):Player;
     public var model(default, null):String;
@@ -53,6 +54,7 @@ class Fruiton implements IHashable implements IGameEventHandler {
 
     public function new(
         id:Int,
+        name:String,
         position:Vector2,
         owner:Player,
         model:String,
@@ -65,6 +67,7 @@ class Fruiton implements IHashable implements IGameEventHandler {
         ?abilities:Abilities
     ) {
         this.id = id;
+        this.name = name;
         this.position = position;
         this.owner = owner;
         this.moveGenerators = moves.copy();
@@ -96,6 +99,7 @@ class Fruiton implements IHashable implements IGameEventHandler {
         // Player is no cloned to remain the same as in GameState
         return new Fruiton(
             this.id,
+            this.name,
             this.position.clone(),
             this.owner,
             this.model,
