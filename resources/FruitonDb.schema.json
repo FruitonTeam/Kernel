@@ -9,6 +9,9 @@
                 "id": {
                     "type": "integer"
                 },
+                "name": {
+                    "type": "string"
+                },
                 "model": {
                     "type": "string"
                 },
@@ -50,7 +53,7 @@
                 }
             },
             "additionalProperties": false,
-            "required": ["id", "model", "type", "hp", "damage", "heal", "abilities", "effects", "movements", "attacks"]
+            "required": ["id", "name", "model", "type", "hp", "damage", "heal", "abilities", "effects", "movements", "attacks"]
         },
         "movement": {
             "type": "object",
