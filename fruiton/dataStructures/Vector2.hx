@@ -54,6 +54,22 @@ to Point {
         return new Vector2(-this.x, -this.y);
     }
 
+    public function magnitude():Float {
+        return Math.sqrt(magnitudeSqr());
+    }
+
+    public function magnitudeSqr():Float {
+        return this.x * this.x + this.y * this.y;
+    }
+
+    public static function distance(from:Vector2, to:Vector2):Float {
+        return (from - to).magnitude();
+    }
+
+    public static function distaceSqr(from:Vector2, to:Vector2):Float {
+        return (from - to).magnitudeSqr();
+    }
+
     public function toString():String {
         // Null check mandatory because abstract will try to access
         // its fields even if `this` is null e.g. in Std.string(...)
