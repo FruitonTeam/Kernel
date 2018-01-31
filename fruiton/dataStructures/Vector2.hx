@@ -66,7 +66,7 @@ to Point {
         return (from - to).magnitude();
     }
 
-    public static function distaceSqr(from:Vector2, to:Vector2):Float {
+    public static function distanceSqr(from:Vector2, to:Vector2):Float {
         return (from - to).magnitudeSqr();
     }
 
