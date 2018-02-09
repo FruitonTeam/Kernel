@@ -19,12 +19,14 @@ class Kernel implements IKernel {
     public static var turnTimeLimit(default, default):Float = 90; // TODO change to non static variable loaded from db
 
     public var currentState(default, null):GameState;
+    public var infiniteTurnTime(default, null):Bool;
     var gameMode:GameMode;
 
-    public function new(p1:Player, p2:Player, fruitons:GameState.Fruitons, settings:GameSettings, ?isClone:Bool) {
+    public function new(p1:Player, p2:Player, fruitons:GameState.Fruitons, settings:GameSettings, ?isClone:Bool, ?infiniteTurnTime:Bool = false) {
+        this.infiniteTurnTime = infiniteTurnTime;
         if (!isClone) {
             gameMode = settings.gameMode;
-            this.currentState = new GameState([p1, p2], 0, fruitons, settings);
+            this.currentState = new GameState([p1, p2], 0, fruitons, settings, false, infiniteTurnTime);
             var currentId:Int = 0;
             for(fruiton in fruitons) {
                 fruiton.id = currentId;
@@ -35,7 +37,7 @@ class Kernel implements IKernel {
     }
 
     public function clone():Kernel {
-        var newKernel:Kernel = new Kernel(null, null, null, null, true);
+        var newKernel:Kernel = new Kernel(null, null, null, null, true, this.infiniteTurnTime);
         newKernel.currentState = this.currentState.clone();
         newKernel.gameMode = this.gameMode.clone();
         return newKernel;
@@ -92,7 +94,7 @@ class Kernel implements IKernel {
 
         var eventBuffer:IKernel.Events = new IKernel.Events();
 
-        if (userAction.dependsOnTurnTime &&
+        if (!this.infiniteTurnTime && userAction.dependsOnTurnTime &&
         currentState.turnState.endTime < Sys.time()) {
             eventBuffer = eventBuffer.concat(timeExpired());
             return eventBuffer;
