@@ -20,6 +20,8 @@ class GameState implements IHashable {
     public var players(default, null):Players;
     var activePlayerIdx:Int;
 
+    public var infiniteTurnTime(default, default):Bool;
+
     /**
      * Player whose turn it is
      */
@@ -38,7 +40,8 @@ class GameState implements IHashable {
     /**
      * @param isClone True if constructor is called from clone method to avoid double initialization
      */
-    public function new(players:Players, activePlayerIdx:Int, fruitons:Fruitons, settings:GameSettings, ?isClone:Bool = false) {
+    public function new(players:Players, activePlayerIdx:Int, fruitons:Fruitons, settings:GameSettings, ?isClone:Bool = false, ?infiniteTurnTime:Bool = false) {
+        this.infiniteTurnTime = infiniteTurnTime;
         if (!isClone) {
             this.fruitons = fruitons;
             this.field = new Field([for (x in 0...WIDTH) [for (y in 0...HEIGHT) new Tile(new Vector2(x, y), settings.map[x][y])]]);
@@ -48,13 +51,13 @@ class GameState implements IHashable {
             this.players = players;
             this.activePlayerIdx = activePlayerIdx;
             this.losers = [];
-            this.turnState = new TurnState();
+            this.turnState = new TurnState(this.infiniteTurnTime);
         }
         this.actionCache = [for (x in 0...WIDTH) [for (y in 0...HEIGHT) null]];
     }
 
     public function clone():GameState {
-        var newState:GameState = new GameState([], 0, [], null, true);
+        var newState:GameState = new GameState([], 0, [], null, true, this.infiniteTurnTime);
         // Clone all fields
         newState.field = field.clone();
         newState.fruitons = [for (f in this.fruitons) f.clone()];
@@ -76,7 +79,7 @@ class GameState implements IHashable {
      * Ends current turn and initializes game state to next turn.
      */
     public function nextTurn() {
-        turnState = new TurnState();
+        turnState = new TurnState(this.infiniteTurnTime);
         activePlayerIdx = 1 - activePlayerIdx;
     }
 
@@ -133,7 +136,7 @@ class GameState implements IHashable {
     }
 
     public function resetTurn() {
-        turnState = new TurnState();
+        turnState = new TurnState(this.infiniteTurnTime);
     }
 
     public function getHashCode():Int {

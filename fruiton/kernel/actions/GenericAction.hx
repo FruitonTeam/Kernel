@@ -30,7 +30,7 @@ class GenericAction<TContext:(ActionContext)> extends Action {
     }
 
     function validate(state:GameState, context:TContext):Bool {
-        return !dependsOnTurnTime ||
+        return state.infiniteTurnTime || !dependsOnTurnTime ||
             state.turnState.endTime >= Sys.time();
     }
 

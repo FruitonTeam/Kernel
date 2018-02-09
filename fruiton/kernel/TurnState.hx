@@ -9,21 +9,23 @@ class TurnState {
     public var abilitiesCount(default, default):Int;
     public var usedAbility(default, default):Bool;
     public var endTime(default, default):Float;
+    public var infiniteTime(default, default):Bool;
 
-    public function new() {
+    public function new(?infiniteTime:Bool = false) {
         this.actionPerformer = null;
         this.moveCount = 1;
         this.abilitiesCount = 1;
         this.usedAbility = false;
         this.endTime = Sys.time() + Kernel.turnTimeLimit;
+        this.infiniteTime = infiniteTime;
     }
 
     public function isTimeout():Bool {
-        return Sys.time() > (endTime + turnTimeDelta);
+        return !this.infiniteTime && Sys.time() > (endTime + turnTimeDelta);
     }
 
     public function clone():TurnState {
-        var newState:TurnState = new TurnState();
+        var newState:TurnState = new TurnState(this.infiniteTime);
         newState.actionPerformer = this.actionPerformer;
         newState.moveCount = this.moveCount;
         newState.abilitiesCount = this.abilitiesCount;
