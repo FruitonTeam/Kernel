@@ -39,6 +39,6 @@ class LineTargetPattern extends TargetPattern {
     }
 
     override public function toString():String {
-        return "Line target pattern: min = " + min + " max = " + max + " vector = " + vector;
+        return "Line target pattern: min = " + min + ", max = " + max + ", vector = " + vector;
     }
 }
