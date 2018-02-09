@@ -37,4 +37,8 @@ class LineTargetPattern extends TargetPattern {
         hash = hash * p1 +  max;
         return hash;
     }
+
+    override public function toString():String {
+        return "Line target pattern: min = " + min + " max = " + max + " vector = " + vector;
+    }
 }

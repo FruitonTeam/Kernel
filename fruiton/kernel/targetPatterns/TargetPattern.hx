@@ -43,4 +43,6 @@ class TargetPattern implements IAbstractClass implements IHashable {
                min == other.min &&
                max == other.max;
     }
+
+    public function toString():String;
 }
