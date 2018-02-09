@@ -43,4 +43,8 @@ class MoveGenerator implements IHashable {
         hash = hash * p1 +  pattern.getHashCode();
         return hash;
     }
+
+    public function toString():String {
+        return pattern.toString();
+    }
 }
