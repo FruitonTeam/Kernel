@@ -39,6 +39,9 @@ class RangeTargetPattern extends TargetPattern {
     }
 
     override public function toString():String {
+        if (min == max) {
+            return "Range: " + min;
+        }
         return "Range: " + min + "-" + max;
     }
 }
