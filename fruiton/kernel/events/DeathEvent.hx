@@ -4,14 +4,14 @@ import fruiton.dataStructures.Vector2;
 
 class DeathEvent extends Event {
 
-    public var target(default, null):Vector2;
+    public var fruiton(default, null):Fruiton;
 
-    public function new(id:Int, target:Vector2) {
+    public function new(id:Int, fruiton:Fruiton) {
         super(id);
-        this.target = target;
+        this.fruiton = fruiton;
     }
 
     override public function toString():String {
-        return super.toString() + " DeathEvent Target: " + Std.string(target);
+        return super.toString() + " DeathEvent Fruiton: " + fruiton.toString();
     }
 }

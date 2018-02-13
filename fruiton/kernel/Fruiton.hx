@@ -176,7 +176,7 @@ class Fruiton implements IHashable implements IGameEventHandler {
         if (!isAlive) {
             state.field.get(position).fruiton = null;
             state.fruitons.remove(this);
-            result.events.push(new DeathEvent(1, position));
+            result.events.push(new DeathEvent(1, this));
         }
     }
 

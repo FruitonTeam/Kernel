@@ -87,7 +87,7 @@ class AttackTest {
 		var event:DeathEvent = Hlinq.firstOfTypeOrNull(result, DeathEvent);
 
 		Assert.isTrue(event != null);
-		Assert.isTrue(action.actionContext.target == event.target);
+		Assert.isTrue(action.actionContext.target == event.fruiton.position);
 	}
 
 	@Test
