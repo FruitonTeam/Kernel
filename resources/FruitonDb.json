@@ -517,8 +517,8 @@
             "heal": 0,
             "abilities": [],
             "effects": [],
-            "movements": [],
-            "attacks": [9]
+            "movements": [1],
+            "attacks": [1]
         },
         {
             "id": 1011,
