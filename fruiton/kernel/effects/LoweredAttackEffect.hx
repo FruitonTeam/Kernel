@@ -16,8 +16,8 @@ class LoweredAttackEffect extends Effect {
     }
 
     @:keep
-    override function hxUnerialize(u:Unserializer) {
-        super.hxUnerialize(u);
+    override function hxUnserialize(u:Unserializer) {
+        super.hxUnserialize(u);
         amount = u.unserialize();
     }
 

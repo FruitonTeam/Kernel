@@ -23,7 +23,7 @@ class Effect implements IGameEventHandler  implements IAbstractClass implements 
     }
 
     @:keep
-    function hxUnerialize(u:Unserializer) {
+    function hxUnserialize(u:Unserializer) {
         name = u.unserialize();
         fruitonId = u.unserialize();
         text = u.unserialize();

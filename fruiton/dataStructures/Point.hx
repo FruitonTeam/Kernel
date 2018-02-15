@@ -16,7 +16,6 @@ class Point implements IEquitable<Point> {
 
     @:keep
     function hxSerialize(s:Serializer) {
-        Serializer.USE_CACHE = true;
         s.serialize(x);
         s.serialize(y);
     }

@@ -19,8 +19,8 @@ class ChangedStatsEffect extends Effect {
     }
 
     @:keep
-    override function hxUnerialize(u:Unserializer) {
-        super.hxUnerialize(u);
+    override function hxUnserialize(u:Unserializer) {
+        super.hxUnserialize(u);
         attackChange = u.unserialize();
         healthChange = u.unserialize();
     }

@@ -12,7 +12,6 @@ class Field {
 
     @:keep
     function hxSerialize(s:Serializer) {
-        Serializer.USE_CACHE = true;
         s.serialize(field);
     }
 

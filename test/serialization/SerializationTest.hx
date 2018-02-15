@@ -30,7 +30,7 @@ class SerializationTest {
 
         var state = k.currentState;
         var serialized = state.serializeToString();
-        Sys.println(serialized);
+        //Sys.println(serialized);
 
         // Do action once
         performAction(k);

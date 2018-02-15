@@ -17,7 +17,6 @@ class Tile {
 
     @:keep
     function hxSerialize(s:Serializer) {
-        Serializer.USE_CACHE = true;
         s.serialize(fruiton);
         s.serialize(type);
         s.serialize(position);
