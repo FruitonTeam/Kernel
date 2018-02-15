@@ -58,6 +58,7 @@ class Fruiton implements IHashable implements IGameEventHandler {
     @:keep
     function hxSerialize(s:Serializer) {
         Serializer.USE_CACHE = true;
+        s.serialize(dbId);
         s.serialize(originalAttributes);
         s.serialize(currentAttributes);
         s.serialize(id);
@@ -74,6 +75,7 @@ class Fruiton implements IHashable implements IGameEventHandler {
 
     @:keep
     function hxUnserialize(u:Unserializer) {
+        dbId = u.unserialize();
         originalAttributes = u.unserialize();
         currentAttributes = u.unserialize();
         id = u.unserialize();
