@@ -47,9 +47,9 @@ class HealTest {
         var currentAttributes:FruitonAttributes = new FruitonAttributes(hp - damage, attack, heal);
         var abilities:Fruiton.Abilities = new Fruiton.Abilities();
         abilities.push(new HealAbility(new RangeTargetPattern(Vector2.ZERO, 0, 10)));
-		var fruiton:Fruiton = new Fruiton(1, "", new Vector2(0, 0), p1, "", moveGenerators, attackGenerators, [], 1, originalAttributes, currentAttributes, abilities);
-		var fruiton2:Fruiton = new Fruiton(2, "", new Vector2(0, 1), p1, "", moveGenerators, attackGenerators, [], 1, originalAttributes, currentAttributes);
-        var fruiton3:Fruiton = new Fruiton(2, "", new Vector2(0, 2), p2, "", moveGenerators, attackGenerators, [], 1, originalAttributes, currentAttributes);
+		var fruiton:Fruiton = new Fruiton(1, 1, "", new Vector2(0, 0), p1, "", moveGenerators, attackGenerators, [], 1, originalAttributes, currentAttributes, abilities);
+		var fruiton2:Fruiton = new Fruiton(2, 2, "", new Vector2(0, 1), p1, "", moveGenerators, attackGenerators, [], 1, originalAttributes, currentAttributes);
+        var fruiton3:Fruiton = new Fruiton(2, 2, "", new Vector2(0, 2), p2, "", moveGenerators, attackGenerators, [], 1, originalAttributes, currentAttributes);
 		return new Kernel(p1, p2, [fruiton, fruiton2], GameSettings.createDefault());
 	}
 

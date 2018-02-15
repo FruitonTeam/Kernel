@@ -24,6 +24,7 @@ typedef Effects = Array<Effect>;
 
 class Fruiton implements IHashable implements IGameEventHandler {
 
+    public var dbId(default, null):Int;
     public var originalAttributes:FruitonAttributes;
     public var currentAttributes:FruitonAttributes;
     public var id(default, default):Int;
@@ -88,6 +89,7 @@ class Fruiton implements IHashable implements IGameEventHandler {
     }
 
     public function new(
+        dbId:Int,
         id:Int,
         name:String,
         position:Vector2,
@@ -133,6 +135,7 @@ class Fruiton implements IHashable implements IGameEventHandler {
     public function clone():Fruiton {
         // Player is no cloned to remain the same as in GameState
         return new Fruiton(
+            this.dbId,
             this.id,
             this.name,
             this.position.clone(),
