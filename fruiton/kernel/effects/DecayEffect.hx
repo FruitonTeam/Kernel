@@ -22,7 +22,9 @@ class DecayEffect extends Effect {
 
     override function onAfterTurnEnd(context:EndTurnActionContext, state:GameState, result:ActionExecutionResult) {
         var fruiton = state.findFruiton(fruitonId);
-        fruiton.checkForDeath(state, result);
+        if (fruiton != null) {
+            fruiton.checkForDeath(state, result);
+        }
     }
 
     override function onAfterAttack(context:AttackActionContext, state:GameState, result:ActionExecutionResult) {
