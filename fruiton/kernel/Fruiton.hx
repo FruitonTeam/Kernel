@@ -105,6 +105,7 @@ class Fruiton implements IHashable implements IGameEventHandler {
         ?currentAttributes:FruitonAttributes,
         ?abilities:Abilities
     ) {
+        this.dbId = dbId;
         this.id = id;
         this.name = name;
         this.position = position;
