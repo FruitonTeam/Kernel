@@ -1,10 +1,24 @@
 package fruiton.kernel.effects;
 
 import fruiton.kernel.effects.contexts.EffectContext;
+import haxe.Serializer;
+import haxe.Unserializer;
 
 class ImmunityEffect extends Effect {
 
     var immunityId : Int;
+
+    @:keep
+    override function hxSerialize(s:Serializer) {
+        super.hxSerialize(s);
+        s.serialize(immunityId);
+    }
+
+    @:keep
+    override function hxUnserialize(u:Unserializer) {
+        super.hxUnserialize(u);
+        immunityId = u.unserialize();
+    }
 
     public function new(fruitonId:Int, immunityId: Int, text:String = "") {
         this.immunityId = immunityId;

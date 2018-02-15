@@ -3,11 +3,27 @@ package fruiton.kernel.effects;
 import fruiton.kernel.effects.contexts.EffectContext;
 import fruiton.kernel.events.ModifyAttackEvent;
 import fruiton.kernel.events.ModifyHealthEvent;
+import haxe.Serializer;
+import haxe.Unserializer;
 
 class ChangedStatsEffect extends Effect {
 
     var attackChange:Int;
     var healthChange:Int;
+
+    @:keep
+    override function hxSerialize(s:Serializer) {
+        super.hxSerialize(s);
+        s.serialize(attackChange);
+        s.serialize(healthChange);
+    }
+
+    @:keep
+    override function hxUnserialize(u:Unserializer) {
+        super.hxUnserialize(u);
+        attackChange = u.unserialize();
+        healthChange = u.unserialize();
+    }
 
     public function new(fruitonId:Int, attackChange:Int, healthChange:Int, text:String = ""){
         super(fruitonId, text);

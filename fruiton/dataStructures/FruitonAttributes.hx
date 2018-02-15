@@ -1,11 +1,30 @@
 package fruiton.dataStructures;
 
+import haxe.Serializer;
+import haxe.Unserializer;
+
 class FruitonAttributes {
 
     public var hp:Int;
     public var damage:Int;
     public var heal:Int;
     public var immunities:Array<Int>;
+
+    @:keep
+    function hxSerialize(s:Serializer) {
+        s.serialize(hp);
+        s.serialize(damage);
+        s.serialize(heal);
+        s.serialize(immunities);
+    }
+
+    @:keep
+    function hxUnserialize(u:Unserializer) {
+        hp = u.unserialize();
+        damage = u.unserialize();
+        heal = u.unserialize();
+        immunities = u.unserialize();
+    }
 
     public function new(hp:Int, damage:Int, heal:Int = 0, ?immunities:Array<Int>) {
         this.hp = hp;

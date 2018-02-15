@@ -1,8 +1,21 @@
 package fruiton.kernel;
 
+import haxe.Serializer;
+import haxe.Unserializer;
+
 class Player implements IHashable{
 
     public var id(default, null):Int;
+
+    @:keep
+    function hxSerialize(s:Serializer) {
+        s.serialize(id);
+    }
+
+    @:keep
+    function hxUnserialize(u:Unserializer) {
+        id = u.unserialize();
+    }
 
     public function new(id:Int) {
         this.id = id;

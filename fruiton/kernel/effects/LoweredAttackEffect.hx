@@ -2,10 +2,24 @@ package fruiton.kernel.effects;
 
 import fruiton.kernel.effects.contexts.EffectContext;
 import fruiton.kernel.events.ModifyAttackEvent;
+import haxe.Serializer;
+import haxe.Unserializer;
 
 class LoweredAttackEffect extends Effect {
 
     public var amount(default, null):Int;
+
+    @:keep
+    override function hxSerialize(s:Serializer) {
+        super.hxSerialize(s);
+        s.serialize(amount);
+    }
+
+    @:keep
+    override function hxUnserialize(u:Unserializer) {
+        super.hxUnserialize(u);
+        amount = u.unserialize();
+    }
 
     public function new(fruitonId:Int, amount:Int, text:String = ""){
         super(fruitonId, text);

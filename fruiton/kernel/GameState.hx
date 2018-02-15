@@ -2,6 +2,8 @@ package fruiton.kernel;
 
 import fruiton.kernel.actions.EndTurnAction;
 import fruiton.dataStructures.Vector2;
+import haxe.Serializer;
+import haxe.Unserializer;
 
 typedef Fruitons = Array<Fruiton>;
 typedef Players = Array<Player>;
@@ -36,6 +38,29 @@ class GameState implements IHashable {
     public var losers(default, null):Array<Int>;
 
     var actionCache:Array<Array<IKernel.Actions>>;
+
+    @:keep
+    function hxSerialize(s:Serializer) {
+        Serializer.USE_CACHE = true;
+        s.serialize(field);
+        s.serialize(fruitons);
+        s.serialize(players);
+        s.serialize(activePlayerIdx);
+        s.serialize(infiniteTurnTime);
+        s.serialize(turnState);
+        s.serialize(losers);
+    }
+
+    @:keep
+    function hxUnserialize(u:Unserializer) {
+        field = u.unserialize();
+        fruitons = u.unserialize();
+        players = u.unserialize();
+        activePlayerIdx = u.unserialize();
+        infiniteTurnTime = u.unserialize();
+        turnState = u.unserialize();
+        losers = u.unserialize();
+    }
 
     /**
      * @param isClone True if constructor is called from clone method to avoid double initialization
@@ -159,5 +184,19 @@ class GameState implements IHashable {
             }
         }
         return null;
+    }
+
+    public function serializeToString():String {
+        var serializer = new Serializer();
+
+        serializer.serialize(this);
+
+        return serializer.toString();
+    }
+
+    public static function unserialize(serialized:String):GameState {
+        var u = new Unserializer(serialized);
+
+        return u.unserialize();
     }
 }

@@ -11,6 +11,7 @@ import fruitonTeam.FruitonTeamTest;
 import gameRules.GameRulesTest;
 import hashFunctions.HashFunctionsTest;
 import movement.BasicMoveTest;
+import serialization.SerializationTest;
 import targetPatterns.LineTargetPatternTest;
 import targetPatterns.RangeTargetPatternTest;
 
@@ -37,6 +38,7 @@ class TestSuite extends massive.munit.TestSuite
 		add(gameRules.GameRulesTest);
 		add(hashFunctions.HashFunctionsTest);
 		add(movement.BasicMoveTest);
+		add(serialization.SerializationTest);
 		add(targetPatterns.LineTargetPatternTest);
 		add(targetPatterns.RangeTargetPatternTest);
 	}

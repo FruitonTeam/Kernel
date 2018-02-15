@@ -1,5 +1,8 @@
 package fruiton.kernel;
 
+import haxe.Serializer;
+import haxe.Unserializer;
+
 class TurnState {
 
     public static var turnTimeDelta(default, default):Float = 2;
@@ -10,6 +13,26 @@ class TurnState {
     public var usedAbility(default, default):Bool;
     public var endTime(default, default):Float;
     public var infiniteTime(default, default):Bool;
+
+    @:keep
+    function hxSerialize(s:Serializer) {
+        s.serialize(actionPerformer);
+        s.serialize(moveCount);
+        s.serialize(abilitiesCount);
+        s.serialize(usedAbility);
+        s.serialize(endTime);
+        s.serialize(infiniteTime);
+    }
+
+    @:keep
+    function hxUnserialize(u:Unserializer) {
+        actionPerformer = u.unserialize();
+        moveCount = u.unserialize();
+        abilitiesCount = u.unserialize();
+        usedAbility = u.unserialize();
+        endTime = u.unserialize();
+        infiniteTime = u.unserialize();
+    }
 
     public function new(?infiniteTime:Bool = false) {
         this.actionPerformer = null;
