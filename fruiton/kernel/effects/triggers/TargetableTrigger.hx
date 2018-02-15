@@ -3,10 +3,24 @@ package fruiton.kernel.effects.triggers;
 import fruiton.dataStructures.Vector2;
 import fruiton.kernel.targetPatterns.TargetPattern;
 import fruiton.kernel.effects.contexts.EffectContext;
+import haxe.Serializer;
+import haxe.Unserializer;
 
 class TargetableTrigger extends Trigger {
 
     var targetPattern:TargetPattern;
+
+    @:keep
+    override function hxSerialize(s:Serializer) {
+        super.hxSerialize(s);
+        s.serialize(targetPattern);
+    }
+
+    @:keep
+    override function hxUnerialize(u:Unserializer) {
+        super.hxUnerialize(u);
+        targetPattern = u.unserialize();
+    }
 
     function new(fruitonId:Int, effect:Effect, targetPattern:TargetPattern, text:String = "") {
         super(fruitonId, effect, text);

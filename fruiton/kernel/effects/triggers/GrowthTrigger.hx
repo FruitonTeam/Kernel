@@ -5,6 +5,8 @@ import fruiton.kernel.actions.HealActionContext;
 import fruiton.kernel.actions.MoveActionContext;
 import fruiton.kernel.targetPatterns.TargetPattern;
 import fruiton.dataStructures.Vector2;
+import haxe.Serializer;
+import haxe.Unserializer;
 
 class GrowthTrigger extends TargetableTrigger {
 
@@ -12,6 +14,20 @@ class GrowthTrigger extends TargetableTrigger {
     var moves:Int;
     // The number of moves, attacks, heals that have to be performed before triggering the effect.
     var triggerMovesNumber:Int;
+
+    @:keep
+    override function hxSerialize(s:Serializer) {
+        super.hxSerialize(s);
+        s.serialize(moves);
+        s.serialize(triggerMovesNumber);
+    }
+
+    @:keep
+    override function hxUnerialize(u:Unserializer) {
+        super.hxUnerialize(u);
+        moves = u.unserialize();
+        triggerMovesNumber = u.unserialize();
+    }
 
     public function new(fruitonId:Int, effect:Effect, targetPattern:TargetPattern, triggerMovesNumber:Int, moves:Int = 0, text:String = "") {
         super(fruitonId, effect, targetPattern, text);

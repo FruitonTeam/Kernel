@@ -1,6 +1,8 @@
 package fruiton.kernel;
 
 import fruiton.dataStructures.Vector2;
+import haxe.Serializer;
+import haxe.Unserializer;
 
 enum TileType {
     passable;
@@ -12,6 +14,21 @@ class Tile {
     public var fruiton(default, default):Fruiton;
     public var type(default, null):TileType;
     public var position(default, null):Vector2;
+
+    @:keep
+    function hxSerialize(s:Serializer) {
+        Serializer.USE_CACHE = true;
+        s.serialize(fruiton);
+        s.serialize(type);
+        s.serialize(position);
+    }
+
+    @:keep
+    function hxUnserialize(u:Unserializer) {
+        fruiton = u.unserialize();
+        type = u.unserialize();
+        position = u.unserialize();
+    }
 
     public var isEmpty(get, null):Bool;
     function get_isEmpty():Bool {

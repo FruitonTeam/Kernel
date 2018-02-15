@@ -1,12 +1,25 @@
 package fruiton.kernel;
 
 import fruiton.dataStructures.Vector2;
+import haxe.Serializer;
+import haxe.Unserializer;
 
 typedef FieldArray = Array<Array<Tile>>;
 
 class Field {
 
     var field:FieldArray;
+
+    @:keep
+    function hxSerialize(s:Serializer) {
+        Serializer.USE_CACHE = true;
+        s.serialize(field);
+    }
+
+    @:keep
+    function hxUnserialize(u:Unserializer) {
+        field = u.unserialize();
+    }
 
     public function new(field:FieldArray) {
         this.field = field;

@@ -4,6 +4,8 @@ import fruiton.dataStructures.Vector2;
 import fruiton.IAbstractClass;
 import fruiton.kernel.exceptions.InvalidArgumentException;
 import fruiton.kernel.exceptions.Exception;
+import haxe.Serializer;
+import haxe.Unserializer;
 
 typedef Targets = Array<Vector2>;
 
@@ -15,6 +17,20 @@ class TargetPattern implements IAbstractClass implements IHashable {
     var vector:Vector2;
     var min:Int;
     var max:Int;
+
+    @:keep
+    function hxSerialize(s:Serializer) {
+        s.serialize(vector);
+        s.serialize(min);
+        s.serialize(max);
+    }
+
+    @:keep
+    function hxUnserialize(u:Unserializer) {
+        vector = u.unserialize();
+        min = u.unserialize();
+        max = u.unserialize();
+    }
 
     function new (vector:Vector2, min:Int, max:Int) {
         this.vector = vector;

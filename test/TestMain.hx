@@ -17,7 +17,7 @@ class TestMain {
 	public function new() {
 		var suites:Array<Class<massive.munit.TestSuite>> = [];
 
-		suites.push(test.movement.MoveTestSuite);
+		/*suites.push(test.movement.MoveTestSuite);
 		suites.push(test.endTurn.EndTurnTestSuite);
 		suites.push(test.targetPatterns.TargetPatternsTestSuite);
 		suites.push(test.abilities.AbilitiesTestSuite);
@@ -25,7 +25,8 @@ class TestMain {
 		suites.push(test.fruitonDb.FruitonDbTestSuite);
 		suites.push(test.fruitonTeam.FruitonTeamTestSuite);
 		suites.push(test.gameRules.GameRulesTestSuite);
-		suites.push(test.hashFunctions.HashFunctionsTestSuite);
+		suites.push(test.hashFunctions.HashFunctionsTestSuite);*/
+		suites.push(test.serialization.SerializationTestSuite);
 
 		var client = new HTTPClient(new JUnitReportClient());
 

@@ -14,6 +14,8 @@ import fruiton.dataStructures.FruitonAttributes;
 import fruiton.kernel.abilities.Ability;
 import fruiton.kernel.events.HealEvent;
 import fruiton.kernel.events.AttackEvent;
+import haxe.Serializer;
+import haxe.Unserializer;
 
 typedef MoveGenerators = Array<MoveGenerator>;
 typedef AttackGenerators = Array<AttackGenerator>;
@@ -51,6 +53,39 @@ class Fruiton implements IHashable implements IGameEventHandler {
     var moveGenerators:MoveGenerators;
     var attackGenerators:AttackGenerators;
     var abilities:Abilities;
+
+    @:keep
+    function hxSerialize(s:Serializer) {
+        Serializer.USE_CACHE = true;
+        s.serialize(originalAttributes);
+        s.serialize(currentAttributes);
+        s.serialize(id);
+        s.serialize(name);
+        s.serialize(position);
+        s.serialize(owner);
+        s.serialize(model);
+        s.serialize(type);
+        s.serialize(effects);
+        s.serialize(moveGenerators);
+        s.serialize(attackGenerators);
+        s.serialize(abilities);
+    }
+
+    @:keep
+    function hxUnserialize(u:Unserializer) {
+        originalAttributes = u.unserialize();
+        currentAttributes = u.unserialize();
+        id = u.unserialize();
+        name = u.unserialize();
+        position = u.unserialize();
+        owner = u.unserialize();
+        model = u.unserialize();
+        type = u.unserialize();
+        effects = u.unserialize();
+        moveGenerators = u.unserialize();
+        attackGenerators = u.unserialize();
+        abilities = u.unserialize();
+    }
 
     public function new(
         id:Int,

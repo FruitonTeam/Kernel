@@ -5,6 +5,8 @@ import fruiton.kernel.effects.contexts.EffectContext;
 import fruiton.kernel.actions.MoveActionContext;
 import fruiton.kernel.actions.AttackActionContext;
 import fruiton.kernel.actions.HealActionContext;
+import haxe.Serializer;
+import haxe.Unserializer;
 
 class Effect implements IGameEventHandler  implements IAbstractClass implements IEquitable<Effect> implements IHashable {
 
@@ -12,6 +14,20 @@ class Effect implements IGameEventHandler  implements IAbstractClass implements 
     // Reference to the fruiton on which this effect is applied.
     public var fruitonId:Int;
     public var text:String;
+
+    @:keep
+    function hxSerialize(s:Serializer) {
+        s.serialize(name);
+        s.serialize(fruitonId);
+        s.serialize(text);
+    }
+
+    @:keep
+    function hxUnerialize(u:Unserializer) {
+        name = u.unserialize();
+        fruitonId = u.unserialize();
+        text = u.unserialize();
+    }
 
     function new(fruitonId:Int, text:String = ""){
         name = Type.getClassName(Type.getClass(this));
