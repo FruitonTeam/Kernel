@@ -24,7 +24,7 @@ typedef Effects = Array<Effect>;
 
 class Fruiton implements IHashable implements IGameEventHandler {
 
-    public var dbId:Int;
+    public var dbId(default, null):Int;
     public var originalAttributes:FruitonAttributes;
     public var currentAttributes:FruitonAttributes;
     public var id(default, default):Int;
