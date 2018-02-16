@@ -7,6 +7,7 @@ import haxe.Unserializer;
 
 typedef Fruitons = Array<Fruiton>;
 typedef Players = Array<Player>;
+typedef ActionCache = Array<Array<IKernel.Actions>>;
 
 /**
  * State of a single game
@@ -37,7 +38,7 @@ class GameState implements IHashable {
     public var turnState(default, null):TurnState;
     public var losers(default, null):Array<Int>;
 
-    var actionCache:Array<Array<IKernel.Actions>>;
+    var actionCache:ActionCache;
 
     @:keep
     function hxSerialize(s:Serializer) {
@@ -60,6 +61,7 @@ class GameState implements IHashable {
         infiniteTurnTime = u.unserialize();
         turnState = u.unserialize();
         losers = u.unserialize();
+        actionCache = createActionCache();
     }
 
     /**
@@ -78,7 +80,11 @@ class GameState implements IHashable {
             this.losers = [];
             this.turnState = new TurnState(this.infiniteTurnTime);
         }
-        this.actionCache = [for (x in 0...WIDTH) [for (y in 0...HEIGHT) null]];
+        this.actionCache = createActionCache();
+    }
+
+    static function createActionCache():ActionCache {
+        return [for (x in 0...WIDTH) [for (y in 0...HEIGHT) null]];
     }
 
     public function clone():GameState {
