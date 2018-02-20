@@ -76,9 +76,6 @@ class ImmunityEffect extends Effect {
             default:
                 throw new Exception('Unknown immunity id $immunityId');
         }
-        if (immunityId == AttackAction.ID) {
-            immunityName = "attack";
-        }
         return 'Immune to $immunityName.';
     }
 }
