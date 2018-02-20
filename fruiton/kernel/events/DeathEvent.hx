@@ -1,7 +1,5 @@
 package fruiton.kernel.events;
 
-import fruiton.dataStructures.Vector2;
-
 class DeathEvent extends Event {
 
     public var fruiton(default, null):Fruiton;
