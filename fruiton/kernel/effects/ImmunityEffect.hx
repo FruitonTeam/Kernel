@@ -1,5 +1,8 @@
 package fruiton.kernel.effects;
 
+import fruiton.kernel.exceptions.Exception;
+import fruiton.kernel.actions.AttackAction;
+import fruiton.kernel.actions.HealAction;
 import fruiton.kernel.effects.contexts.EffectContext;
 import haxe.Serializer;
 import haxe.Unserializer;
@@ -61,5 +64,18 @@ class ImmunityEffect extends Effect {
 
     override function clone():Effect {
         return new ImmunityEffect(fruitonId, immunityId, text);
+    }
+
+    override function getDescription():String {
+        var immunityName:String;
+        switch (immunityId) {
+            case AttackAction.ID:
+                immunityName = "attack";
+            case HealAction.ID:
+                immunityName = "heal";
+            default:
+                throw new Exception('Unknown immunity id $immunityId');
+        }
+        return 'Immune to $immunityName.';
     }
 }

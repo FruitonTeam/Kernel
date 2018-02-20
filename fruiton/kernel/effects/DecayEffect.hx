@@ -58,4 +58,8 @@ class DecayEffect extends Effect {
     override function clone():Effect {
         return new DecayEffect(fruitonId, text);
     }
+
+    override function getDescription():String {
+        return "Decay.";
+    }
 }

@@ -71,4 +71,8 @@ class LoweredAttackEffect extends Effect {
     override function clone():Effect {
         return new LoweredAttackEffect(fruitonId, amount, text);
     }
+
+    override function getDescription():String {
+        return "Lowered attack by " + this.amount + ".";
+    }
 }
