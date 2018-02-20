@@ -24,4 +24,8 @@ class Trigger extends Effect  {
         super(fruitonId, text);
         this.effect = effect;
     }
+
+    override function getDescription():String {
+        return text;
+    }
 }

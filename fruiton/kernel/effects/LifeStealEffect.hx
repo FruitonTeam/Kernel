@@ -34,4 +34,8 @@ class LifeStealEffect extends Effect {
     override function clone():Effect {
         return new LifeStealEffect(fruitonId, text);
     }
+
+    override function getDescription():String {
+        return "Lifesteal.";
+    }
 }

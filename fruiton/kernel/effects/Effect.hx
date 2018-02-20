@@ -112,4 +112,6 @@ class Effect implements IGameEventHandler  implements IAbstractClass implements 
     }
 
     public function clone():Effect;
+
+    public function getDescription():String;
  }
