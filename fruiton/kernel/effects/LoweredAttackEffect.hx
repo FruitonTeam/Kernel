@@ -73,6 +73,6 @@ class LoweredAttackEffect extends Effect {
     }
 
     override function getDescription():String {
-        return "Lowered attack by " + this.amount + ".";
+        return "";
     }
 }
