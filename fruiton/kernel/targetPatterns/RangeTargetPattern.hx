@@ -40,8 +40,8 @@ class RangeTargetPattern extends TargetPattern {
 
     override public function toString():String {
         if (min == max) {
-            return "Range: " + min;
+            return Std.string(min);
         }
-        return "Range: " + min + "-" + max;
+        return min + "-" + max;
     }
 }

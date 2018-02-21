@@ -82,12 +82,6 @@ class ChangedStatsEffect extends Effect {
     }
 
     override function getDescription():String {
-        var attackIncreased:String = getIncreasedDecreasedString(attackChange);
-        var healthIncreased:String = getIncreasedDecreasedString(healthChange);
-        return 'Attack $attackIncreased by $attackChange. Health $healthIncreased by $healthChange';
-    }
-
-    function getIncreasedDecreasedString(value:Int):String {
-        return if (value > 0) "increased" else "decreased";
+        return "";
     }
 }
