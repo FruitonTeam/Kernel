@@ -2,9 +2,12 @@ package fruiton.kernel;
 
 import fruiton.kernel.actions.EndTurnAction;
 import fruiton.dataStructures.Vector2;
+import haxe.Serializer;
+import haxe.Unserializer;
 
 typedef Fruitons = Array<Fruiton>;
 typedef Players = Array<Player>;
+typedef ActionCache = Array<Array<IKernel.Actions>>;
 
 /**
  * State of a single game
@@ -17,8 +20,10 @@ class GameState implements IHashable {
     public var field(default, null):Field;
     public var fruitons(default, null):Fruitons;
 
-    var players:Players;
+    public var players(default, null):Players;
     var activePlayerIdx:Int;
+
+    public var infiniteTurnTime(default, default):Bool;
 
     /**
      * Player whose turn it is
@@ -33,24 +38,57 @@ class GameState implements IHashable {
     public var turnState(default, null):TurnState;
     public var losers(default, null):Array<Int>;
 
-    var actionCache:Array<Array<IKernel.Actions>>;
+    var actionCache:ActionCache;
 
-    public function new(players:Players, activePlayerIdx:Int, fruitons:Fruitons) {
-        this.fruitons = fruitons;
-        this.field = new Field([for (x in 0...WIDTH) [for (y in 0...HEIGHT) new Tile(new Vector2(x, y))]]);
-        for (f in this.fruitons) {
-            field.get(f.position).fruiton = f;
+    @:keep
+    function hxSerialize(s:Serializer) {
+        Serializer.USE_CACHE = true;
+        s.serialize(field);
+        s.serialize(fruitons);
+        s.serialize(players);
+        s.serialize(activePlayerIdx);
+        s.serialize(infiniteTurnTime);
+        s.serialize(turnState);
+        s.serialize(losers);
+    }
+
+    @:keep
+    function hxUnserialize(u:Unserializer) {
+        field = u.unserialize();
+        fruitons = u.unserialize();
+        players = u.unserialize();
+        activePlayerIdx = u.unserialize();
+        infiniteTurnTime = u.unserialize();
+        turnState = u.unserialize();
+        losers = u.unserialize();
+        actionCache = createActionCache();
+    }
+
+    /**
+     * @param isClone True if constructor is called from clone method to avoid double initialization
+     */
+    public function new(players:Players, activePlayerIdx:Int, fruitons:Fruitons, settings:GameSettings, ?isClone:Bool = false, ?infiniteTurnTime:Bool = false) {
+        this.infiniteTurnTime = infiniteTurnTime;
+        if (!isClone) {
+            this.fruitons = fruitons;
+            this.field = new Field([for (x in 0...WIDTH) [for (y in 0...HEIGHT) new Tile(new Vector2(x, y), settings.map[x][y])]]);
+            for (f in this.fruitons) {
+                field.get(f.position).fruiton = f;
+            }
+            this.players = players;
+            this.activePlayerIdx = activePlayerIdx;
+            this.losers = [];
+            this.turnState = new TurnState(this.infiniteTurnTime);
         }
-        this.players = players;
-        this.activePlayerIdx = activePlayerIdx;
-        this.losers = [];
-        this.turnState = new TurnState();
-        this.actionCache = [for (x in 0...WIDTH) [for (y in 0...HEIGHT) null]];
+        this.actionCache = createActionCache();
+    }
+
+    static function createActionCache():ActionCache {
+        return [for (x in 0...WIDTH) [for (y in 0...HEIGHT) null]];
     }
 
     public function clone():GameState {
-        // TODO use different constructor in clone to avoid double initialization
-        var newState:GameState = new GameState([], 0, []);
+        var newState:GameState = new GameState([], 0, [], null, true, this.infiniteTurnTime);
         // Clone all fields
         newState.field = field.clone();
         newState.fruitons = [for (f in this.fruitons) f.clone()];
@@ -72,7 +110,7 @@ class GameState implements IHashable {
      * Ends current turn and initializes game state to next turn.
      */
     public function nextTurn() {
-        turnState = new TurnState();
+        turnState = new TurnState(this.infiniteTurnTime);
         activePlayerIdx = 1 - activePlayerIdx;
     }
 
@@ -129,7 +167,7 @@ class GameState implements IHashable {
     }
 
     public function resetTurn() {
-        turnState = new TurnState();
+        turnState = new TurnState(this.infiniteTurnTime);
     }
 
     public function getHashCode():Int {
@@ -142,5 +180,29 @@ class GameState implements IHashable {
         hash = hash * p1 +  HashHelper.hashIterable(players);
         hash = hash * p1 +  HashHelper.hashIterable(fruitons);
         return hash;
+    }
+
+    // Find fruiton by id.
+    public function findFruiton(id:Int):Fruiton {
+        for (fruiton in fruitons) {
+            if (fruiton.id == id) {
+                return fruiton;
+            }
+        }
+        return null;
+    }
+
+    public function serializeToString():String {
+        var serializer = new Serializer();
+
+        serializer.serialize(this);
+
+        return serializer.toString();
+    }
+
+    public static function unserialize(serialized:String):GameState {
+        var u = new Unserializer(serialized);
+
+        return u.unserialize();
     }
 }

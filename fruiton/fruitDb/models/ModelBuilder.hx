@@ -15,15 +15,18 @@ class ModelBuilder {
 
     static var stringType(default, never):String = "string";
     static var intType(default, never):String = "integer";
+    static var pointType(default, never):String = "#/definitions/point";
     static var arrayType(default, never):String = "array";
     static var arrayIntType(default, never):String = "arrayInt";
     static var arrayStringType(default, never):String = "arrayString";
+    static var arrayPointType(default, never):String = "arrayPoint";
 
     static function getSchemaFromFile(filePath:String, type:ModelTypes):Array<NameTypePair> {
         try {
             var schema:Array<NameTypePair> = [];
             var jsonString:String = File.getContent(filePath);
             var jsonSchema:Dynamic = Json.parse(jsonString);
+            var reference:Dynamic;
 
             var props:Dynamic = getPropsForType(jsonSchema, type);
             for (name in Reflect.fields(props)) {
@@ -41,10 +44,17 @@ class ModelBuilder {
                         schema.push({
                             name: name, type: arrayStringType
                         });
+                    } else if ((reference = Reflect.field(field.items, "$ref")) != null) {
+                        if (reference == pointType) {
+                            schema.push({
+                                name: name, type: arrayPointType
+                            });
+                        }
+                    } else {
+                        Context.error("Array of " + type + " is not supported. Modify ModelBuilder or json schema.", Context.currentPos());
                     }
                 }
             }
-
             return schema;
         } catch(e:Dynamic) {
             return haxe.macro.Context.error('File reading error $filePath: $e', Context.currentPos());
@@ -62,8 +72,20 @@ class ModelBuilder {
             case ModelTypes.targetPattern: {
                 return jsonSchema.definitions.targetPattern.properties;
             }
+            case ModelTypes.effect: {
+                return jsonSchema.definitions.effect.properties;
+            }
             case ModelTypes.attack: {
                 return jsonSchema.definitions.attack.properties;
+            }
+            case ModelTypes.ability: {
+                return jsonSchema.definitions.ability.properties;
+            }
+            case ModelTypes.point: {
+                return jsonSchema.definitions.point.properties;
+            }
+            case ModelTypes.map: {
+                return jsonSchema.definitions.map.properties;
             }
             // Do not specify default so compiler complains about unmatched patterns (if any)
         }
@@ -78,10 +100,14 @@ class ModelBuilder {
                 type = macro:Int;
             } else if (item.type == stringType) {
                 type = macro:String;
+            } else if (item.type == pointType) {
+                type = macro:PointModel;
             } else if (item.type == arrayIntType) {
                 type = macro:Array<Int>;
             } else if (item.type == arrayStringType) {
                 type = macro:Array<String>;
+            } else if (item.type == arrayPointType) {
+                type = macro:Array<PointModel>;
             } else {
                 Context.error("Unknown type in schema: " + item.type, Context.currentPos());
             }

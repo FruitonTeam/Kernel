@@ -5,6 +5,8 @@ import fruiton.kernel.actions.AttackActionContext;
 import fruiton.kernel.targetPatterns.TargetPattern;
 import fruiton.kernel.targetPatterns.TargetPattern.Targets;
 import fruiton.dataStructures.Vector2;
+import haxe.Serializer;
+import haxe.Unserializer;
 
 typedef Attacks = Array<AttackAction>;
 
@@ -14,6 +16,16 @@ typedef Attacks = Array<AttackAction>;
 class AttackGenerator implements IHashable {
 
     var pattern:TargetPattern;
+
+    @:keep
+    function hxSerialize(s:Serializer) {
+        s.serialize(pattern);
+    }
+
+    @:keep
+    function hxUnserialize(u:Unserializer) {
+        pattern = u.unserialize();
+    }
 
     public function new(targetPattern:TargetPattern) {
         this.pattern = targetPattern;
@@ -42,5 +54,9 @@ class AttackGenerator implements IHashable {
         var hash = p0 * HashHelper.hashString(Type.getClassName(Type.getClass(this)));
         hash = hash * p1 + pattern.getHashCode();
         return hash;
+    }
+
+    public function toString():String {
+        return pattern.toString();
     }
 }

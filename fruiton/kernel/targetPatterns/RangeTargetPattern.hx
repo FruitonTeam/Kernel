@@ -37,4 +37,11 @@ class RangeTargetPattern extends TargetPattern {
         hash = hash * p1 +  max;
         return hash;
     }
+
+    override public function toString():String {
+        if (min == max) {
+            return Std.string(min);
+        }
+        return min + "-" + max;
+    }
 }

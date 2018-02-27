@@ -1,7 +1,5 @@
 package fruiton.kernel.actions;
 
-import fruiton.kernel.events.AttackEvent;
-
 class AttackAction extends TargetableAction<AttackActionContext> {
 
     public static inline var ID:Int = 0;
@@ -18,8 +16,8 @@ class AttackAction extends TargetableAction<AttackActionContext> {
             state.field.exists(context.source) &&
             context.target != null &&
             state.field.exists(context.target) &&
-            state.turnState.attackCount > 0 &&
-            !state.turnState.didAttack;
+            state.turnState.abilitiesCount > 0 &&
+            !state.turnState.usedAbility;
 
         if (!result) {
             return false;
@@ -37,31 +35,37 @@ class AttackAction extends TargetableAction<AttackActionContext> {
             !targetFruiton.owner.equals(state.activePlayer) &&
             (state.turnState.actionPerformer == null ||
             sourceFruiton.equalsId(state.turnState.actionPerformer)) &&
-            sourceFruiton.damage == actionContext.damage;
+            sourceFruiton.currentAttributes.damage == actionContext.damage;
 
         return result;
     }
 
     override function executeImpl(state:GameState, result:ActionExecutionResult) {
         var newContext:AttackActionContext = actionContext.clone();
-        var targetFruion:Fruiton = state.field.get(newContext.target).fruiton;
+        var targetFruiton:Fruiton = state.field.get(newContext.target).fruiton;
+        var attackingFruiton:Fruiton = state.field.get(newContext.source).fruiton;
 
         if (result.isValid) {
-            targetFruion.onBeforeAttack(newContext, state, result);
+            attackingFruiton.onBeforeAttack(newContext, state, result);
         }
         if (result.isValid) {
-            attackFruiton(targetFruion, newContext, state, result);
+            targetFruiton.onBeforeBeingAttacked(newContext, state, result);
         }
         if (result.isValid) {
-            targetFruion.onAfterAttack(newContext, state, result);
+            attackFruiton(targetFruiton, newContext, state, result);
+        }
+        if (result.isValid) {
+            attackingFruiton.onAfterAttack(newContext, state, result);
+        }
+        if (result.isValid) {
+            targetFruiton.onAfterBeingAttacked(newContext, state, result);
         }
     }
 
     function attackFruiton(fruiton:Fruiton, context:AttackActionContext, state:GameState, result:ActionExecutionResult) {
-        state.turnState.attackCount--;
-        state.turnState.didAttack = true;
-        fruiton.takeDamage(context.damage);
-        result.events.push(new AttackEvent(1, context.source, context.target, context.damage));
+        state.turnState.abilitiesCount--;
+        state.turnState.usedAbility = true;
+        fruiton.takeDamage(context.damage, context.source, context.target, state, result);
     }
 
     override public function toString():String {
@@ -84,5 +88,9 @@ class AttackAction extends TargetableAction<AttackActionContext> {
 
     override public function getId():Int {
         return ID;
+    }
+
+    override public function toUniqueString():String {
+        return Std.string(ID) + Std.string(actionContext.source) + Std.string(actionContext.target) + Std.string(actionContext.damage);
     }
 }

@@ -20,11 +20,13 @@ class TestMain {
 		suites.push(test.movement.MoveTestSuite);
 		suites.push(test.endTurn.EndTurnTestSuite);
 		suites.push(test.targetPatterns.TargetPatternsTestSuite);
-		suites.push(test.attack.AttackTestSuite);
+		suites.push(test.abilities.AbilitiesTestSuite);
+		suites.push(test.effects.EffectsTestSuite);
 		suites.push(test.fruitonDb.FruitonDbTestSuite);
 		suites.push(test.fruitonTeam.FruitonTeamTestSuite);
 		suites.push(test.gameRules.GameRulesTestSuite);
 		suites.push(test.hashFunctions.HashFunctionsTestSuite);
+		suites.push(test.serialization.SerializationTestSuite);
 
 		var client = new HTTPClient(new JUnitReportClient());
 

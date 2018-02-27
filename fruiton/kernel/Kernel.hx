@@ -3,10 +3,11 @@ package fruiton.kernel;
 import fruiton.kernel.exceptions.InvalidActionException;
 import fruiton.kernel.actions.Action;
 import haxe.ds.GenericStack;
-import fruiton.dataStructures.collections.ArrayOfEquitables;
 import fruiton.dataStructures.Vector2;
 import fruiton.kernel.events.GameOverEvent;
 import fruiton.kernel.events.TimeExpiredEvent;
+import haxe.ds.StringMap;
+import fruiton.kernel.gameModes.GameMode;
 
 typedef ActionStack = GenericStack<Action>;
 
@@ -17,10 +18,29 @@ class Kernel implements IKernel {
      */
     public static var turnTimeLimit(default, default):Float = 90; // TODO change to non static variable loaded from db
 
-    public var currentState(default, null):GameState;
+    public var currentState(default, default):GameState;
+    public var infiniteTurnTime(default, null):Bool;
+    var gameMode:GameMode;
 
-    public function new(p1:Player, p2:Player, fruitons:GameState.Fruitons) {
-        this.currentState = new GameState([p1, p2], 0, fruitons);
+    public function new(p1:Player, p2:Player, fruitons:GameState.Fruitons, settings:GameSettings, ?isClone:Bool, ?infiniteTurnTime:Bool = false) {
+        this.infiniteTurnTime = infiniteTurnTime;
+        if (!isClone) {
+            gameMode = settings.gameMode;
+            this.currentState = new GameState([p1, p2], 0, fruitons, settings, false, infiniteTurnTime);
+            var currentId:Int = 0;
+            for(fruiton in fruitons) {
+                fruiton.id = currentId;
+                fruiton.applyEffectsOnGameStart(currentState);
+                currentId++;
+            }
+        }
+    }
+
+    public function clone():Kernel {
+        var newKernel:Kernel = new Kernel(null, null, null, null, true, this.infiniteTurnTime);
+        newKernel.currentState = this.currentState.clone();
+        newKernel.gameMode = this.gameMode.clone();
+        return newKernel;
     }
 
     /**
@@ -42,19 +62,25 @@ class Kernel implements IKernel {
     }
 
     function pruneInvalidActions(allActions:IKernel.Actions):IKernel.Actions {
-        var validActions:ArrayOfEquitables<Action> = new IKernel.Actions();
+        var validActions:Array<Action> = new IKernel.Actions();
+        var actionMap:StringMap<Bool> = new StringMap<Bool>();
 
         for (a in allActions) {
             // Do not return duplicate actions
-            // Until we have a hash set, we go quadratic
-            if (validActions.contains(a)) {
+            var unString = a.toUniqueString();
+            if (actionMap.exists(unString)) {
                 continue;
             }
 
             // Check validity
+            // Early escape to avoid expensive GameState.clone()
+            if (!a.isValid(currentState)) {
+                continue;
+            }
             var newState:GameState = currentState.clone();
             if (a.execute(newState).isValid) {
                 validActions.push(a);
+                actionMap.set(unString, true);
             }
         }
 
@@ -68,7 +94,7 @@ class Kernel implements IKernel {
 
         var eventBuffer:IKernel.Events = new IKernel.Events();
 
-        if (userAction.dependsOnTurnTime &&
+        if (!this.infiniteTurnTime && userAction.dependsOnTurnTime &&
         currentState.turnState.endTime < Sys.time()) {
             eventBuffer = eventBuffer.concat(timeExpired());
             return eventBuffer;
@@ -96,7 +122,7 @@ class Kernel implements IKernel {
             }
 
             // Is game over?
-            if (currentState.losers.length > 0) {
+            if (gameMode.checkGameOver(currentState)) {
                 eventBuffer = eventBuffer.concat(finishGame());
                 break;
             }

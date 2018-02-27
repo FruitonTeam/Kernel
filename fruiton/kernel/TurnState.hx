@@ -1,27 +1,58 @@
 package fruiton.kernel;
 
+import haxe.Serializer;
+import haxe.Unserializer;
+
 class TurnState {
+
+    public static var turnTimeDelta(default, default):Float = 2;
 
     public var actionPerformer(default, default):Fruiton;
     public var moveCount(default, default):Int;
-    public var attackCount(default, default):Int;
-    public var didAttack(default, default):Bool;
+    public var abilitiesCount(default, default):Int;
+    public var usedAbility(default, default):Bool;
     public var endTime(default, default):Float;
+    public var infiniteTime(default, default):Bool;
 
-    public function new() {
+    @:keep
+    function hxSerialize(s:Serializer) {
+        s.serialize(actionPerformer);
+        s.serialize(moveCount);
+        s.serialize(abilitiesCount);
+        s.serialize(usedAbility);
+        s.serialize(endTime);
+        s.serialize(infiniteTime);
+    }
+
+    @:keep
+    function hxUnserialize(u:Unserializer) {
+        actionPerformer = u.unserialize();
+        moveCount = u.unserialize();
+        abilitiesCount = u.unserialize();
+        usedAbility = u.unserialize();
+        endTime = u.unserialize();
+        infiniteTime = u.unserialize();
+    }
+
+    public function new(?infiniteTime:Bool = false) {
         this.actionPerformer = null;
         this.moveCount = 1;
-        this.attackCount = 1;
-        this.didAttack = false;
+        this.abilitiesCount = 1;
+        this.usedAbility = false;
         this.endTime = Sys.time() + Kernel.turnTimeLimit;
+        this.infiniteTime = infiniteTime;
+    }
+
+    public function isTimeout():Bool {
+        return !this.infiniteTime && Sys.time() > (endTime + turnTimeDelta);
     }
 
     public function clone():TurnState {
-        var newState:TurnState = new TurnState();
+        var newState:TurnState = new TurnState(this.infiniteTime);
         newState.actionPerformer = this.actionPerformer;
         newState.moveCount = this.moveCount;
-        newState.attackCount = this.attackCount;
-        newState.didAttack = this.didAttack;
+        newState.abilitiesCount = this.abilitiesCount;
+        newState.usedAbility = this.usedAbility;
         newState.endTime = this.endTime;
 
         return newState;
@@ -37,13 +68,13 @@ class TurnState {
         if (actionPerformer != null) {
             hash  = hash * p1 +  actionPerformer.getHashCode();
         }
-        if (didAttack) {
+        if (usedAbility) {
             hash  = hash * p1 +  p2;
         } else {
             hash  = hash * p1 +  p3;
         }
         hash = hash * p1 +  moveCount;
-        hash = hash * p1 +  attackCount;
+        hash = hash * p1 +  abilitiesCount;
         return hash;
     }
 }

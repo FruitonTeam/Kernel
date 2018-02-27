@@ -1,4 +1,4 @@
-package test.attack;
+package test.abilities;
 
 import massive.munit.Assert;
 import fruiton.kernel.Kernel;

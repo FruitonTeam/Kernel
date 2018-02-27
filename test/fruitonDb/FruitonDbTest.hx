@@ -44,4 +44,13 @@ class FruitonDbTest {
 
         Assert.isTrue(fruiton != null);
     }
+
+    @Test
+    public function fruitonDatabase_getMap1_returnsMap() {
+        Sys.println("=== running fruitonDatabase_getMap1_returnsMap");
+
+        var map:MapModel = db.getMap(1);
+
+        Assert.isTrue(map != null);
+    }
 }

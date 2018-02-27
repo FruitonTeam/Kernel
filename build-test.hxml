@@ -3,6 +3,7 @@
 -lib munit
 -lib hamcrest
 -cp src
-
 -cp test
+-D idCheckAsErrors
+--no-traces
 -neko build/neko_test.n

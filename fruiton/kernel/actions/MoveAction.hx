@@ -17,7 +17,7 @@ class MoveAction extends TargetableAction<MoveActionContext> {
             context.source != null &&
             state.field.exists(context.source) &&
             state.field.get(context.source).fruiton != null &&
-            !state.turnState.didAttack;
+            !state.turnState.usedAbility;
 
         if (!result) return result;
 
@@ -27,7 +27,7 @@ class MoveAction extends TargetableAction<MoveActionContext> {
             sourceFruiton.owner.equals(state.activePlayer) &&
             context.target != null &&
             state.field.exists(context.target) &&
-            state.field.get(context.target).fruiton == null &&
+            state.field.get(context.target).isEmpty &&
             state.turnState.moveCount > 0;
 
         return result;
@@ -79,5 +79,9 @@ class MoveAction extends TargetableAction<MoveActionContext> {
 
     override public function getId():Int {
         return ID;
+    }
+
+    override public function toUniqueString():String {
+        return Std.string(ID) + Std.string(actionContext.source) + Std.string(actionContext.target);
     }
 }

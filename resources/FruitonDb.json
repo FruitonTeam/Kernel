@@ -2,62 +2,561 @@
     "fruitonDb": [
         {
             "id": 1,
-            "model": "Apple_red",
+            "name": "Axeman",
+            "model": "Axeman",
           	"type": 1,
-            "hp": 12,
-            "damage": 2,
+            "hp": 90,
+            "damage": 1,
+            "heal": 0,
             "abilities": [],
+            "effects": [],
             "movements": [1],
             "attacks": [1]
         },
         {
             "id": 2,
-            "model": "Kiwi",
-          	"type": 2,
-            "hp": 5,
+            "name": "Lee",
+            "model": "Badminton",
+          	"type": 1,
+            "hp": 85,
             "damage": 2,
+            "heal": 0,
             "abilities": [],
+            "effects": [],
             "movements": [1],
             "attacks": [1]
         },
         {
             "id": 3,
-            "model": "BlackCube",
-            "type": 3,
-            "hp": 4,
-            "damage": 2,
+            "name": "Derek the Quick Stop",
+            "model": "Baseball",
+          	"type": 1,
+            "hp": 80,
+            "damage": 3,
+            "heal": 0,
             "abilities": [],
+            "effects": [],
             "movements": [1],
             "attacks": [1]
         },
-                {
+        {
             "id": 4,
-            "model": "BlueCube",
-            "type": 3,
-            "hp": 4,
-            "damage": 2,
+            "name": "Broken Sieve",
+            "model": "BrokenSieve",
+          	"type": 2,
+            "hp": 20,
+            "damage": 12,
+            "heal": 0,
             "abilities": [],
+            "effects": [],
             "movements": [1],
             "attacks": [1]
         },
-                {
+        {
             "id": 5,
-            "model": "GreenCube",
-            "type": 3,
-            "hp": 4,
-            "damage": 2,
+            "name": "Broom",
+            "model": "Broom",
+          	"type": 2,
+            "hp": 10,
+            "damage": 10,
+            "heal": 0,
             "abilities": [],
+            "effects": [],
+            "movements": [7],
+            "attacks": [1]
+        },
+        {
+            "id": 6,
+            "name": "Clown Fist",
+            "model": "ClownFist",
+          	"type": 2,
+            "hp": 15,
+            "damage": 3,
+            "heal": 0,
+            "abilities": [],
+            "effects": [],
+            "movements": [1],
+            "attacks": [9]
+        },
+        {
+            "id": 7,
+            "name": "Clown Palm",
+            "model": "ClownPalm",
+          	"type": 2,
+            "hp": 5,
+            "damage": 1,
+            "heal": 0,
+            "abilities": [],
+            "effects": ["onAttackDecay"],
+            "movements": [1],
+            "attacks": [10]
+        },
+        {
+            "id": 8,
+            "name": "Clown Point",
+            "model": "ClownPoint",
+          	"type": 2,
+            "hp": 15,
+            "damage": 1,
+            "heal": 5,
+            "abilities": ["healRanged"],
+            "effects": [],
             "movements": [1],
             "attacks": [1]
         },
-                {
-            "id": 6,
-            "model": "CyanCube",
+        {
+            "id": 9,
+            "name": "Cook Fish",
+            "model": "CookFish",
+          	"type": 2,
+            "hp": 10,
+            "damage": 1,
+            "heal": 7,
+            "abilities": ["healRanged"],
+            "effects": [],
+            "movements": [1],
+            "attacks": [10]
+        },
+        {
+            "id": 10,
+            "name": "Curly Sword",
+            "model": "CurlySword",
+            "type": 2,
+            "hp": 10,
+            "damage": 2,
+            "heal": 5,
+            "abilities": ["healRanged"] ,
+            "effects": ["onionDeath"],
+            "movements": [1],
+            "attacks": [1]
+        },
+        {
+            "id": 11,
+            "name": "Elvis",
+            "model": "Elvis",
+            "type": 2,
+            "hp": 5,
+            "damage": 15,
+            "heal": 0,
+            "abilities": [],
+            "effects": [],
+            "movements": [5],
+            "attacks": [1]
+        },
+        {
+            "id": 12,
+            "name": "Fly Catcher",
+            "model": "FlyCatcher",
+            "type": 2,
+            "hp": 25,
+            "damage": 3,
+            "heal": 0,
+            "abilities": [],
+            "effects": ["bananaGrowth", "bananaDecay"],
+            "movements": [1],
+            "attacks": [1]
+        },
+        {
+            "id": 13,
+            "name": "Morning Star",
+            "model": "MorningStar",
+            "type": 2,
+            "hp": 13,
+            "damage": 10,
+            "heal": 0,
+            "abilities": [],
+            "effects": ["garlicAttack"],
+            "movements": [1],
+            "attacks": [1]
+        },
+        {
+            "id": 14,
+            "name": "Miner",
+            "model": "Pickaxe",
+            "type": 2,
+            "hp": 12,
+            "damage": 3,
+            "heal": 0,
+            "abilities": [],
+            "effects": ["lifeSteal"],
+            "movements": [5],
+            "attacks": [1]
+        },
+        {
+            "id": 15,
+            "name": "Pink Wizard",
+            "model": "PinkWizard",
+            "type": 2,
+            "hp": 18,
+            "damage": 10,
+            "heal": 0,
+            "abilities": [],
+            "effects": ["appleAttack"],
+            "movements": [1],
+            "attacks": [1]
+        },
+        {
+            "id":16,
+            "name": "Plumber",
+            "model": "Plumber",
             "type": 3,
             "hp": 4,
             "damage": 2,
+            "heal": 0,
             "abilities": [],
+            "effects": ["garlicAttack"],
             "movements": [1],
+            "attacks": [1]
+        },
+        {
+            "id": 17,
+            "name": "Rescue Worker",
+            "model": "RescueWorker",
+            "type": 3,
+            "hp": 4,
+            "damage": 2,
+            "heal": 0,
+            "abilities": [],
+            "effects": ["onionDeath"],
+            "movements": [1],
+            "attacks": [1]
+        },
+        {
+            "id": 18,
+            "name": "Rocker",
+            "model": "Rocker",
+            "type": 3,
+            "hp": 5,
+            "damage": 1,
+            "heal": 0,
+            "abilities": [],
+            "effects": ["garlicAttack"],
+            "movements": [1],
+            "attacks": [1]
+        },
+        {
+            "id": 19,
+            "name": "Russian Worker",
+            "model": "RussianWorker",
+            "type": 3,
+            "hp": 1,
+            "damage": 5,
+            "heal": 0,
+            "abilities": [],
+            "effects": ["onionDeath"],
+            "movements": [1],
+            "attacks": [1]
+        },
+        {
+            "id": 20,
+            "name": "Santa Stronghammer",
+            "model": "SantaMace",
+            "type": 3,
+            "hp": 4,
+            "damage": 2,
+            "heal": 0,
+            "abilities": [],
+            "effects": [],
+            "movements": [1],
+            "attacks": [1]
+        },
+        {
+            "id": 21,
+            "name": "Santa Farmer",
+            "model": "SantaShovel",
+            "type": 3,
+            "hp": 9,
+            "damage": 0,
+            "heal": 3,
+            "abilities": ["healRanged"],
+            "effects": [],
+            "movements": [1],
+            "attacks": [1]
+        },
+        {
+            "id": 22,
+            "name": "Santa Wizard",
+            "model": "SantaWand",
+            "type": 3,
+            "hp": 6,
+            "damage": 1,
+            "heal": 3,
+            "abilities": ["healMelee"],
+            "effects": [],
+            "movements": [1],
+            "attacks": [1]
+        },
+        {
+            "id": 23,
+            "name": "Ink Schoolkid",
+            "model": "SchoolkidPen",
+            "type": 3,
+            "hp": 7,
+            "damage": 1,
+            "heal": 5,
+            "abilities": ["healSelf"],
+            "effects": [],
+            "movements": [1],
+            "attacks": [1]
+        },
+        {
+            "id": 24,
+            "name": "Green Pencil",
+            "model": "SchoolkidPencil",
+            "type": 3,
+            "hp": 5,
+            "damage": 2,
+            "heal": 0,
+            "abilities": [],
+            "effects": [],
+            "movements": [4],
+            "attacks": [1]
+        },
+        {
+            "id": 25,
+            "name": "Purple Schoolkid",
+            "model": "SchoolkidPencil2",
+            "type": 3,
+            "hp": 5,
+            "damage": 1,
+            "heal": 0,
+            "abilities": [],
+            "effects": [],
+            "movements": [1],
+            "attacks": [9]
+        },
+        {
+            "id": 26,
+            "name": "Spatula the Cook",
+            "model": "Spatula",
+            "type": 3,
+            "hp": 1,
+            "damage": 9,
+            "heal": 0,
+            "abilities": [],
+            "effects": [],
+            "movements": [1],
+            "attacks": [1]
+        },
+        {
+            "id": 27,
+            "name": "Sweet Tooth",
+            "model": "SpoonHoney",
+            "type": 3,
+            "hp": 2,
+            "damage": 8,
+            "heal": 0,
+            "abilities": [],
+            "effects": [],
+            "movements": [1],
+            "attacks": [1]
+        },
+        {
+            "id": 28,
+            "name": "Roger",
+            "model": "Tenis",
+            "type": 3,
+            "hp": 4,
+            "damage": 4,
+            "heal": 0,
+            "abilities": [],
+            "effects": [],
+            "movements": [1],
+            "attacks": [1]
+        },
+        {
+            "id": 29,
+            "name": "Neanderthal",
+            "model": "Twig",
+            "type": 3,
+            "hp": 6,
+            "damage": 2,
+            "heal": 0,
+            "abilities": [],
+            "effects": ["garlicAttack"],
+            "movements": [1],
+            "attacks": [1]
+        },
+        {
+            "id": 30,
+            "name": "Whisker",
+            "model": "WhiskBroom",
+            "type": 3,
+            "hp": 9,
+            "damage": 1,
+            "heal": 0,
+            "abilities": [],
+            "effects": [],
+            "movements": [1],
+            "attacks": [1]
+        },
+        {
+            "id": 1001,
+            "name": "Tutorial King",
+            "model": "MorningStar",
+            "type": 1,
+            "hp": 30,
+            "damage": 2,
+            "heal": 0,
+            "abilities": [],
+            "effects": [],
+            "movements": [1],
+            "attacks": [1]
+        },
+        {
+            "id": 1002,
+            "name": "Tutorial Dummy",
+            "model": "Twig",
+            "type": 2,
+            "hp": 1,
+            "damage": 1,
+            "heal": 0,
+            "abilities": [],
+            "effects": [],
+            "movements": [1],
+            "attacks": [1]
+        },
+        {
+            "id": 1003,
+            "name": "Tutorial Dummy",
+            "model": "Twig",
+            "type": 3,
+            "hp": 4,
+            "damage": 2,
+            "heal": 0,
+            "abilities": [],
+            "effects": [],
+            "movements": [1],
+            "attacks": [1]
+        },
+        {
+            "id": 1004,
+            "name": "Morning Star",
+            "model": "MorningStar",
+            "type": 3,
+            "hp": 4,
+            "damage": 2,
+            "heal": 0,
+            "abilities": [],
+            "effects": [],
+            "movements": [1],
+            "attacks": [1]
+        },
+        {
+            "id": 1005,
+            "name": "Rafaelo",
+            "model": "Tenis",
+            "type": 1,
+            "hp": 80,
+            "damage": 1,
+            "heal": 0,
+            "abilities": [],
+            "effects": [],
+            "movements": [1],
+            "attacks": [1]
+        },
+        {
+            "id": 1006,
+            "name": "Rafaelo's Gorilla",
+            "model": "Baseball",
+            "type": 2,
+            "hp": 10,
+            "damage": 6,
+            "heal": 0,
+            "abilities": [],
+            "effects": [],
+            "movements": [],
+            "attacks": [9]
+        },
+        {
+            "id": 1007,
+            "name": "Rafaelo's Trainee",
+            "model": "Badminton",
+            "type": 3,
+            "hp": 4,
+            "damage": 7,
+            "heal": 0,
+            "abilities": [],
+            "effects": [],
+            "movements": [1],
+            "attacks": [9]
+        },
+        {
+            "id": 1008,
+            "name": "Santa King",
+            "model": "SantaMace",
+            "type": 1,
+            "hp": 80,
+            "damage": 1,
+            "heal": 0,
+            "abilities": [],
+            "effects": [],
+            "movements": [1],
+            "attacks": [1]
+        },
+        {
+            "id": 1009,
+            "name": "Santa Healer",
+            "model": "SantaWand",
+            "type": 2,
+            "hp": 30,
+            "damage": 0,
+            "heal": 5,
+            "abilities": ["healRanged"],
+            "effects": [],
+            "movements": [],
+            "attacks": [1]
+        },
+        {
+            "id": 1010,
+            "name": "Santa Farmer",
+            "model": "SantaShovel",
+            "type": 3,
+            "hp": 10,
+            "damage": 10,
+            "heal": 0,
+            "abilities": [],
+            "effects": [],
+            "movements": [1],
+            "attacks": [1]
+        },
+        {
+            "id": 1011,
+            "name": "Joker",
+            "model": "ClownPoint",
+            "type": 1,
+            "hp": 99,
+            "damage": 3,
+            "heal": 0,
+            "abilities": [],
+            "effects": [],
+            "movements": [1],
+            "attacks": [1]
+        },
+        {
+            "id": 1012,
+            "name": "Cloyne",
+            "model": "ClownPalm",
+            "type": 2,
+            "hp": 12,
+            "damage": 5,
+            "heal": 0,
+            "abilities": [],
+            "effects": [],
+            "movements": [1],
+            "attacks": [9]
+        },
+        {
+            "id": 1013,
+            "name": "Clownee",
+            "model": "ClownFist",
+            "type": 3,
+            "hp": 5,
+            "damage": 3,
+            "heal": 0,
+            "abilities": [],
+            "effects": [],
+            "movements": [7],
             "attacks": [1]
         }
     ],
@@ -65,15 +564,160 @@
         {
             "id": 1,
             "targetPatternId": 1
+        },
+        {
+            "id": 2,
+            "targetPatternId": 2
+        },
+        {
+            "id": 3,
+            "targetPatternId": 3
+        },
+        {
+            "id": 4,
+            "targetPatternId": 4
+        },
+        {
+            "id": 5,
+            "targetPatternId": 5
+        },
+        {
+            "id": 6,
+            "targetPatternId": 6
+        },
+        {
+            "id": 7,
+            "targetPatternId": 7
+        },
+        {
+            "id": 8,
+            "targetPatternId": 8
+        },
+        {
+            "id": 9,
+            "targetPatternId": 9
+        },
+        {
+            "id": 10,
+            "targetPatternId": 10
         }
     ],
     "attackDb": [
         {
             "id": 1,
             "targetPatternId": 1
+        },
+        {
+            "id": 2,
+            "targetPatternId": 2
+        },
+        {
+            "id": 3,
+            "targetPatternId": 3
+        },
+        {
+            "id": 4,
+            "targetPatternId": 4
+        },
+        {
+            "id": 5,
+            "targetPatternId": 5
+        },
+        {
+            "id": 6,
+            "targetPatternId": 6
+        },
+        {
+            "id": 7,
+            "targetPatternId": 7
+        },
+        {
+            "id": 8,
+            "targetPatternId": 8
+        },
+        {
+            "id": 9,
+            "targetPatternId": 9
+        },
+        {
+            "id": 10,
+            "targetPatternId": 10
+        }
+    ],
+    "effectDb": [
+        {
+            "id" : "garlicAttack",
+            "trigger" : "onAttack",
+            "effect" : "lowerAttack",
+            "targetPattern" : 0,
+            "triggerParams": [],
+            "effectParams": [1],
+            "text" : "After it attacks, lowers the damage of the attacked fruiton by 1, up to 1."
+        },
+        {
+            "id" : "onionDeath",
+            "trigger" : "onDeath",
+            "effect" : "lowerAttack",
+            "targetPattern" : 2,
+            "triggerParams": [],
+            "effectParams": [1],
+            "text" : "After it dies, lowers the damage of the adjacent fruitons by 1, up to 1."
+        },
+        {
+            "id" : "appleAttack",
+            "trigger" : "onAttack",
+            "effect" : "immunity",
+            "targetPattern" : 0,
+            "triggerParams": [],
+            "effectParams": [3],
+            "text" : "After it attacks, the attacked fruiton becomes unhealable."
+        },
+        {
+            "id" : "bananaGrowth",
+            "trigger" : "growth",
+            "effect" : "changeStats",
+            "targetPattern" : 0,
+            "triggerParams": [3],
+            "effectParams":[6, 6],
+            "text" : "Growth 3: Gain +6/+6."
+        },
+        {
+            "id" : "lifeSteal",
+            "trigger" : "permanent",
+            "effect" : "lifeSteal",
+            "targetPattern" : 0,
+            "triggerParams": [],
+            "effectParams":[],
+            "text" : "Lifesteal."
+        },
+        {
+            "id" : "bananaDecay",
+            "trigger" : "growth",
+            "effect" : "decay",
+            "targetPattern" : 0,
+            "triggerParams": [6],
+            "effectParams":[],
+            "text" : "Growth 6: Gain Decay."
+        },
+        {
+            "id" : "onAttackDecay",
+            "trigger" : "onAttack",
+            "effect" : "decay",
+            "targetPattern" : 0,
+            "triggerParams": [6],
+            "effectParams":[],
+            "text" : "After it attacks a fruiton, the attacked fruiton gains decay."
         }
     ],
     "targetPatternDb": [
+        {
+            "id": 0,
+            "type": "range",
+            "x": 0,
+            "y": 0,
+            "min": 0,
+            "max": 0
+        },
         {
             "id": 1,
             "type": "range",
@@ -81,6 +725,108 @@
             "y": 0,
             "min": 1,
             "max": 1
+        },
+        {
+            "id": 2,
+            "type": "range",
+            "x": 0,
+            "y": 0,
+            "min": 1,
+            "max": 2
+        },
+        {
+            "id": 3,
+            "type": "range",
+            "x": 0,
+            "y": 0,
+            "min": 1,
+            "max": 3
+        },
+        {
+            "id": 4,
+            "type": "range",
+            "x": 0,
+            "y": 0,
+            "min": 1,
+            "max": 4
+        },
+        {
+            "id": 5,
+            "type": "range",
+            "x": 0,
+            "y": 0,
+            "min": 1,
+            "max": 5
+        },
+        {
+            "id": 6,
+            "type": "range",
+            "x": 0,
+            "y": 0,
+            "min": 1,
+            "max": 6
+        },
+        {
+            "id": 7,
+            "type": "range",
+            "x": 0,
+            "y": 0,
+            "min": 1,
+            "max": 7
+        },
+        {
+            "id": 8,
+            "type": "range",
+            "x": 0,
+            "y": 0,
+            "min": 1,
+            "max": 8
+        },
+        {
+            "id": 9,
+            "type": "range",
+            "x": 0,
+            "y": 0,
+            "min": 1,
+            "max": 9
+        },
+        {
+            "id": 10,
+            "type": "range",
+            "x": 0,
+            "y": 0,
+            "min": 1,
+            "max": 10
+        }
+    ],
+    "abilitiesDb": [
+      {
+        "id": "healRanged",
+        "abilityType": "heal",
+        "targetPattern": 10,
+        "text": "Restore {0} healths to any friendly minion."
+      },
+      {
+        "id": "healMelee",
+        "abilityType": "heal",
+        "targetPattern": 1,
+        "text": "Restore {0} healths to an adjacent friendly minion."
+      },
+      {
+        "id": "healSelf",
+        "abilityType": "heal",
+        "targetPattern": 0,
+        "text": "Restore {0} healths to itself."
+      }
+    ],
+    "mapDb": [
+        {
+            "id": 1,
+            "name": "Mountains",
+            "obstacles": [
+                {"x": 2, "y": 2},
+                {"x": 6, "y": 7}
+            ]
         }
     ]
 }

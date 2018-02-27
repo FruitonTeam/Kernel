@@ -1,7 +1,9 @@
 import massive.munit.TestSuite;
 
-import attack.AttackRulesTest;
-import attack.AttackTest;
+import abilities.AttackRulesTest;
+import abilities.AttackTest;
+import abilities.HealTest;
+import effects.EffectsTest;
 import endTurn.EndTurnTest;
 import fruitonDb.FruitonDbTest;
 import fruitonDb.FruitonFactoryTest;
@@ -9,6 +11,7 @@ import fruitonTeam.FruitonTeamTest;
 import gameRules.GameRulesTest;
 import hashFunctions.HashFunctionsTest;
 import movement.BasicMoveTest;
+import serialization.SerializationTest;
 import targetPatterns.LineTargetPatternTest;
 import targetPatterns.RangeTargetPatternTest;
 
@@ -24,8 +27,10 @@ class TestSuite extends massive.munit.TestSuite
 	{
 		super();
 
-		add(attack.AttackRulesTest);
-		add(attack.AttackTest);
+		add(abilities.AttackRulesTest);
+		add(abilities.AttackTest);
+		add(abilities.HealTest);
+		add(effects.EffectsTest);
 		add(endTurn.EndTurnTest);
 		add(fruitonDb.FruitonDbTest);
 		add(fruitonDb.FruitonFactoryTest);
@@ -33,6 +38,7 @@ class TestSuite extends massive.munit.TestSuite
 		add(gameRules.GameRulesTest);
 		add(hashFunctions.HashFunctionsTest);
 		add(movement.BasicMoveTest);
+		add(serialization.SerializationTest);
 		add(targetPatterns.LineTargetPatternTest);
 		add(targetPatterns.RangeTargetPatternTest);
 	}

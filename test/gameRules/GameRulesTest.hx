@@ -9,6 +9,7 @@ import fruiton.kernel.Fruiton.MoveGenerators;
 import fruiton.kernel.Fruiton.AttackGenerators;
 import fruiton.kernel.targetPatterns.*;
 import fruiton.dataStructures.*;
+import fruiton.kernel.gameModes.*;
 
 class GameRulesTest {
 
@@ -26,7 +27,7 @@ class GameRulesTest {
      * Factory method for unified and simple kernel creation
      * @return Kernel which is initialized
      */
-    function makeKernel(kill:Bool, ?timeLimit:Float = 999):Kernel {
+    function makeKernel(kill:Bool, ?timeLimit:Float = 999, ?gameMode:GameMode):Kernel {
 		var p1:Player = new Player(0);
 		var p2:Player = new Player(1);
 
@@ -38,15 +39,34 @@ class GameRulesTest {
         moveGenerators.push(new MoveGenerator(new LineTargetPattern(new Vector2(1, 0), -1, 1)));
 
         var attackGenerators:AttackGenerators = new AttackGenerators();
-        attackGenerators.push(new AttackGenerator(new RangeTargetPattern(Vector2.ZERO, 0, 1)));
+        attackGenerators.push(new AttackGenerator(new RangeTargetPattern(Vector2.ZERO, 0, 2)));
         attackGenerators.push(new AttackGenerator(new LineTargetPattern(new Vector2(1, 0), -1, 1)));
 
-        var fruiton:Fruiton = new Fruiton(1, new Vector2(0, 0), p1, hp, dmg, "", moveGenerators, attackGenerators, Fruiton.KING_TYPE);
-        var fruiton1:Fruiton = new Fruiton(2, new Vector2(1, 1), p1, hp, dmg, "", moveGenerators, attackGenerators, Fruiton.MINOR_TYPE);
-        var fruiton2:Fruiton = new Fruiton(3, new Vector2(0, 1), p2, hp, dmg, "", moveGenerators, attackGenerators, Fruiton.KING_TYPE);
+        var attributes:FruitonAttributes = new FruitonAttributes(hp, dmg);
+        var fruiton:Fruiton = new Fruiton(1, 1, "", new Vector2(0, 0), p1, "", moveGenerators, attackGenerators, [], Fruiton.KING_TYPE, attributes);
+        var fruiton1:Fruiton = new Fruiton(2, 2, "", new Vector2(1, 1), p1, "", moveGenerators, attackGenerators, [], Fruiton.MINOR_TYPE, attributes);
+        var fruiton2:Fruiton = new Fruiton(3, 3, "", new Vector2(0, 1), p2, "", moveGenerators, attackGenerators, [], Fruiton.KING_TYPE, attributes);
+        var fruiton3:Fruiton = new Fruiton(4, 4, "", new Vector2(2, 2), p2, "", moveGenerators, attackGenerators, [], Fruiton.MINOR_TYPE, attributes);
         Kernel.turnTimeLimit = timeLimit;
-		return new Kernel(p1, p2, [fruiton, fruiton1, fruiton2]);
+
+        var gameSettings = GameSettings.createDefault();
+        if (gameMode != null) {
+            gameSettings.gameMode = gameMode;
+        }
+
+		return new Kernel(p1, p2, [fruiton, fruiton1, fruiton2, fruiton3], gameSettings);
 	}
+
+    function getAttackKingAction(actions:IKernel.Actions):AttackAction {
+        var attacks:Array<AttackAction> = Hlinq.ofType(actions, AttackAction);
+        for (a in attacks) {
+            if (a.actionContext.target.x == 0 && a.actionContext.target.y == 1) {
+                return a;
+            }
+        }
+
+        return null;
+    }
 
     @Test
     function performAction_killKingFruiton_returnsGameOver() {
@@ -54,7 +74,7 @@ class GameRulesTest {
 
         var k:Kernel = makeKernel(true);
 		var actions:IKernel.Actions = k.getAllValidActions();
-		var attackAction:AttackAction = Hlinq.firstOfTypeOrNull(actions, AttackAction);
+		var attackAction:AttackAction = getAttackKingAction(actions);
         var events = k.performAction(attackAction);
 
         var gameOver = Hlinq.singleOfTypeOrNull(events, GameOverEvent);
@@ -67,7 +87,7 @@ class GameRulesTest {
 
         var k:Kernel = makeKernel(true);
 		var actions:IKernel.Actions = k.getAllValidActions();
-		var attackAction:AttackAction = Hlinq.firstOfTypeOrNull(actions, AttackAction);
+		var attackAction:AttackAction = getAttackKingAction(actions);
         var events = k.performAction(attackAction);
 
         var gameOver = Hlinq.singleOfTypeOrNull(events, GameOverEvent);
@@ -124,5 +144,37 @@ class GameRulesTest {
         var timeExpiredEvent = Hlinq.singleOfTypeOrNull(result, TimeExpiredEvent);
 
         Assert.isTrue(timeExpiredEvent == null);
+    }
+
+    @Test
+    function performAction_killKing_doesNotGameOverInLMSMode() {
+        Sys.println("=== running performAction_killKing_doesNotGameOverInLMSMode");
+
+        var k:Kernel = makeKernel(true, new LastManStandingGameMode());
+		var actions:IKernel.Actions = k.getAllValidActions();
+		var attackAction:AttackAction = getAttackKingAction(actions);
+        var events = k.performAction(attackAction);
+
+        var gameOver = Hlinq.singleOfTypeOrNull(events, GameOverEvent);
+        Assert.isTrue(gameOver == null);
+    }
+
+    @Test
+    function performAction_killLastFruiton_returnsGameOverLMSMode() {
+        Sys.println("=== running performAction_killLastFruiton_returnsGameOverLMSMode");
+
+        var k:Kernel = makeKernel(true, new LastManStandingGameMode());
+		var actions:IKernel.Actions = k.getAllValidActions();
+		var attackAction:AttackAction = getAttackKingAction(actions);
+        k.performAction(attackAction);
+        k.performAction(EndTurnAction.createNew());
+        k.performAction(EndTurnAction.createNew());
+
+        actions = k.getAllValidActions();
+        attackAction = Hlinq.firstOfTypeOrNull(actions, AttackAction);
+        var events = k.performAction(attackAction);
+
+        var gameOver = Hlinq.singleOfTypeOrNull(events, GameOverEvent);
+        Assert.isTrue(gameOver != null);
     }
 }
