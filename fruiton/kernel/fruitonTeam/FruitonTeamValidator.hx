@@ -9,23 +9,25 @@ class FruitonTeamValidator {
 
     static var REQUIRED_COUNTS(default, never):Array<Int> = [1, 4, 5];
 
+    static var WIDTH_MIDDLE(default, never):Int = Math.floor(GameState.WIDTH / 2);
+
     static var VALID_KING_POSITIONS(default, never):ArrayOfEquitables<Point> = [
-        new Point(4, 0), new Point(4, GameState.WIDTH)
+        new Point(WIDTH_MIDDLE, 0), new Point(WIDTH_MIDDLE, GameState.HEIGHT - 1)
     ];
 
     static var VALID_MAJOR_POSITIONS(default, never):ArrayOfEquitables<Point> = [
-        new Point(2, 0), new Point(2, GameState.WIDTH),
-        new Point(3, 0), new Point(3, GameState.WIDTH),
-        new Point(5, 0), new Point(5, GameState.WIDTH),
-        new Point(6, 0), new Point(6, GameState.WIDTH)
+        new Point(WIDTH_MIDDLE - 2, 0), new Point(WIDTH_MIDDLE - 2, GameState.HEIGHT - 1),
+        new Point(WIDTH_MIDDLE - 1, 0), new Point(WIDTH_MIDDLE - 1, GameState.HEIGHT - 1),
+        new Point(WIDTH_MIDDLE + 1, 0), new Point(WIDTH_MIDDLE + 1, GameState.HEIGHT - 1),
+        new Point(WIDTH_MIDDLE + 2, 0), new Point(WIDTH_MIDDLE + 2, GameState.HEIGHT - 1)
     ];
 
     static var VALID_MINOR_POSITIONS(default, never):ArrayOfEquitables<Point> = [
-        new Point(2, 1), new Point(2, GameState.WIDTH - 1),
-        new Point(3, 1), new Point(3, GameState.WIDTH - 1),
-        new Point(4, 1), new Point(4, GameState.WIDTH - 1),
-        new Point(5, 1), new Point(5, GameState.WIDTH - 1),
-        new Point(6, 1), new Point(6, GameState.WIDTH - 1)
+        new Point(WIDTH_MIDDLE - 2, 1), new Point(WIDTH_MIDDLE - 2, GameState.HEIGHT - 2),
+        new Point(WIDTH_MIDDLE - 1, 1), new Point(WIDTH_MIDDLE - 1, GameState.HEIGHT - 2),
+        new Point(WIDTH_MIDDLE, 1), new Point(WIDTH_MIDDLE, GameState.HEIGHT - 2),
+        new Point(WIDTH_MIDDLE + 1, 1), new Point(WIDTH_MIDDLE + 1, GameState.HEIGHT - 2),
+        new Point(WIDTH_MIDDLE + 2, 1), new Point(WIDTH_MIDDLE + 2, GameState.HEIGHT - 2)
     ];
 
     /**
