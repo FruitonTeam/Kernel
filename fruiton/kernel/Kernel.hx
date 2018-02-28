@@ -69,7 +69,7 @@ class Kernel implements IKernel {
      * Generates all valid actions which can be performed by fruiton at
      * given position in current state of this kernel.
      * @param position - Position where fruiton whose actions you want stands.
-     * @return All valid actions perfromable by fruiton on given position.
+     * @return All valid actions performable by fruiton on given position.
      */
     public function getAllValidActionsFrom(position:Vector2):IKernel.Actions {
         var allActions:IKernel.Actions = currentState.getAllActionsFrom(position);
