@@ -52,6 +52,12 @@ class FruitonTeamValidator {
         return new ValidationResult(valid, complete);
     }
 
+    /**
+     * Determines whether given fruitons have valid positions in one team.
+     * @param fruitons fruitons to validate
+     * @return true if fruitons have valid position for their type and if no fruitons have the same position,
+     * false otherwise
+     */
     public static function haveValidPositions(fruitons:Array<Fruiton>):Bool {
 
         var usedPositions:ArrayOfEquitables<Point> = [];
