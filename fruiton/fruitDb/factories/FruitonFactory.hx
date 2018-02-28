@@ -53,6 +53,12 @@ enum AbilityType {
 
 class FruitonFactory {
 
+    /**
+     * Creates a new furiton instance of given id from given database.
+     * @param id - Id of a fruiton to make
+     * @param db - Database where to fetch the fruiton from
+     * @return New fruiton instance
+     */
     public static function makeFruiton(id:Int, db:FruitonDatabase):Fruiton {
         var entry:FruitonModel = db.getFruiton(id);
 
