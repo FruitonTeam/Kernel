@@ -36,6 +36,10 @@ class Kernel implements IKernel {
         }
     }
 
+    /**
+     * Creates deep copy of this instance of Kernel.
+     * @return Exact deep copy of this kernel.
+     */
     public function clone():Kernel {
         var newKernel:Kernel = new Kernel(null, null, null, null, true, this.infiniteTurnTime);
         newKernel.currentState = this.currentState.clone();
@@ -51,11 +55,22 @@ class Kernel implements IKernel {
         currentState.resetTurn();
     }
 
+    /**
+     * Generates all valid actions which can be performed in current state
+     * of this kernel.
+     * @return All valid actions.
+     */
     public function getAllValidActions():IKernel.Actions {
         var allActions:IKernel.Actions = currentState.getAllActions();
         return pruneInvalidActions(allActions);
     }
 
+    /**
+     * Generates all valid actions which can be performed by fruiton at
+     * given position in current state of this kernel.
+     * @param position - Position where fruiton whose actions you want stands.
+     * @return All valid actions performable by fruiton on given position.
+     */
     public function getAllValidActionsFrom(position:Vector2):IKernel.Actions {
         var allActions:IKernel.Actions = currentState.getAllActionsFrom(position);
         return pruneInvalidActions(allActions);
@@ -87,6 +102,12 @@ class Kernel implements IKernel {
         return validActions;
     }
 
+    /**
+     * Performs given action on currentGameState and if valid changes this
+     * gameState accordingly and sets it as currentGameState.
+     * @param userAction - Action to perform.
+     * @return Events given action generated.
+     */
     public function performAction(userAction:Action):IKernel.Events {
         if (userAction == null) {
             throw new InvalidActionException("Null action");
